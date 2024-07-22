@@ -351,8 +351,6 @@ router.post(
   async function (req, res, next) {
     console.log(req.file, req.body);
     let filename = "images/" + req.file.filename;
-    //req.body.HN = req.body.HN.slice(0, 1)
-    //req.body.HN = req.body.HN.slice(-1, 1)
     let date = moment(Date.now()).format();
     const [row, _] = await pool.query(
       `select max(treatmentId) as treatmentId from treatment join patient on treatment.HN=patient.HN where IDcard = ?`,

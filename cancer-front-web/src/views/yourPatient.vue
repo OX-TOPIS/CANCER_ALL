@@ -50,33 +50,46 @@
                 </div>
             </div>
         </nav>
-        <!--<ul class="nav nav-underline" style="background-color: #1C2939;">
-        <li class="nav-item" style="margin: 20px; padding-left: 20px;">
-          <a class="nav-link" aria-current="page" href="#" style="color: #ffffff; font-size: large;">หน้าหลัก</a>
-        </li>
-        <li class="nav-item" style="margin: 20px;">
-          <a class="nav-link" href="#" style="color: #ffffff;">นัดหมาย</a>
-        </li>
-        <li class="nav-item" style="margin: 20px;">
-          <a class="nav-link active" aria-current="page" href="#" style="color: #ffffff; font-size: large;">ประวัติผู้ป่วย</a>
-        </li>
-        <li class="nav-item" style="margin: 20px;">
-          <a class="nav-link" href="#" style="color: #ffffff; align-items: end;">นัดหมาย</a>
-        </li>
-      </ul>-->
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <div class="col-md-10 offset-md-1">
             <div class="bd-example-snippet bd-code-snippet" style="border: none;">
                 <div class="card" style="margin: 20px;">
                     <div class="card-header" style="background-color: #90eeb7; padding: 20px;">
                         <nav class="navbar">
                             <div class="container-fluid">
-                                <form class="d-flex" role="search">
-                                    <input class="form-control me-2 col-md-4" type="search" placeholder="ค้นหา"
-                                        aria-label="Search" v-model="selected">
-                                    <button class="btn" type="button" style="background-color: #34495E; color: white;"
-                                        @click="selectedPatient">ค้นหา</button>
-                                </form>
-                                <div class="dropdown">
+                                <div class="d-flex mb-2">
+                  <input
+                    class="form-control me-2 d-flex"
+                    type="search"
+                    placeholder="ค้นหา"
+                    aria-label="Search"
+                    v-model="selected"
+                  />
+                  <button
+                    class="btn d-flex"
+                    type="button"
+                    style="background-color: #34495e; color: white"
+                    @click="selectedPatient"
+                  >
+                    ค้นหา
+                  </button>
+                </div>
+                                <div class="dropdown mb-2">
                                     <select class="form-select" v-model="sortInfo" @click="sortPatientInfo">
                                         <option disabled>เรียงลำดับตาม HN</option>
                                         <option value="1">ชื่อ-นามสกุล จาก ก ถึง ฮ</option>
