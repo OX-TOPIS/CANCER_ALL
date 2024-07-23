@@ -81,6 +81,7 @@ router.post("/login", async function (req, res, next) {
 });
 
 // login ผู้ป่วย
+
 router.post("/login2", async function (req, res, next) {
   let userName = req.body.userName;
   let psw = req.body.psw;
