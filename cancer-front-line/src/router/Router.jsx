@@ -13,6 +13,7 @@ import PostponeAppointment from "../pages/Appointment/PostponeAppointment";
 import FillResults from "../pages/BloodResults/FillResults";
 import AddEffects from "../pages/Effects/AddEffects";
 import DisplayBloodResults from "../pages/BloodResults/DisplayBloodResults";
+import DisplayOtherResults from "../pages/BloodResults/DisplayOtherResults";
 
 const router = createBrowserRouter([
     {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
           element: <DisplayBloodResults/>
         },
         {
+          path: "DisplayOtherResults",
+          element: <DisplayOtherResults/>
+        },
+        {
           path: "/Appointment",
           element: <Appointment/>,
         },
@@ -53,11 +58,11 @@ const router = createBrowserRouter([
         },
         {
           path: "/Effects",
-          element: <Effects/>
+          element: <AddEffects/>
         },
         {
           path: "/Effects/AddEffects",
-          element: <AddEffects/>
+          element: <Effects/>
         },
         {
           path: "/PatientManual",
@@ -70,7 +75,8 @@ const router = createBrowserRouter([
         {
           path: "/Register",
           element: <Register/>,
-        }
+        },
+        
       ]
     }
   ]);

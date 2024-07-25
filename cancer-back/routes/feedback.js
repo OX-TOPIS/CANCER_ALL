@@ -3,6 +3,7 @@ const pool = require("../config");
 const app = express();
 const cors = require("cors");
 
+
 app.use(cors());
 
 router = express.Router();

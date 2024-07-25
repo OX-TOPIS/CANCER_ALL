@@ -30,7 +30,7 @@ const AppointmentDetails = () => {
       </div>
 
       <div className='p-7 flex flex-col space-y-2'>
-          <Link to={"/Appointment/PostponeAppointment"}><button className='bt-blue'>เลื่อนนัดหมาย</button></Link>
+          <Link to={"/"}><button className='bt-blue'>กลับไปยังหน้าหลัก</button></Link>
       </div>
 
     </div>

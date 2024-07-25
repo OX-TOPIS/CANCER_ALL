@@ -8,10 +8,6 @@ const Effects = () => {
       
       
         <div className="flex flex-col md:justify-center md:items-center">
-          {/* button */}
-          <Link to={"/Effects/AddEffects"}>
-          <button className='bt-blue'>+ เพิ่มผลค้างเคียง</button>
-          </Link>
           {/* His Effects */}
           <div className="pt-6">
             <h3 className='pb-2'>ประวัติการบันทึกผลข้างเคียง</h3>

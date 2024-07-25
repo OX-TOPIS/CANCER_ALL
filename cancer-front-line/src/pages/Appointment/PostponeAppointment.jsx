@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Button, message, Space, Mentions, Input} from 'antd';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
@@ -159,7 +160,9 @@ const PostponeAppointment = () => {
 
       {/* ปุ่มยืนยันเลื่อนวันนัด */}
         {contextHolder}
+        <Link to={"/Appointment/AppointmentDetails"}>
         <button onClick={success} className='bt-blue'>ยืนยันการเลื่อนการนัดหมาย</button>
+        </Link>
       </div>
       </div>
     </div>
