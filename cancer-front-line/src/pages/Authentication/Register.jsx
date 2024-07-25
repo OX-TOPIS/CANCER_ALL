@@ -1,9 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { UserOutlined, EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import { Input, Button, Typography} from 'antd';
-const { Title } = Typography;
+
 
 const Register = () => {
   const navigate = useNavigate();
@@ -81,15 +79,15 @@ const Register = () => {
       
       {/* ลงทะเบียน */}
       <div className='pt-10 text-center sm:pt-16 lg:pt-5'>
-          <Title level={3} className='sarabun-extralight'>ลงทะเบียน</Title>
+          <h2 level={3} className='sarabun-extralight text-2xl'>ลงทะเบียน</h2>
       </div>
 
       {/* form */}
       <div className="flex items-center justify-center md:justify-center md:items-center">
       <div className='p-12 w-full flex flex-col space-y-5'>
-          <Input size="large" placeholder="เลขประจำตัวประชาชน 13 หลัก" prefix={<UserOutlined />} showCount maxLength={13}  onChange={e => setUserName(e.target.value)}/>
-          <Input.Password size="large" placeholder="รหัสผ่าน" onChange={e => setPsw(e.target.value)} />
-          <Input.Password size="large" placeholder="ยืนยันรหัสผ่าน" iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} onChange={e => setConfirmPsw(e.target.value)}/>
+          <input size="large" placeholder="เลขประจำตัวประชาชน 13 หลัก" onChange={e => setUserName(e.target.value)}/>
+          <input size="large" placeholder="รหัสผ่าน" onChange={e => setPsw(e.target.value)} />
+          <input size="large" placeholder="ยืนยันรหัสผ่าน" onChange={e => setConfirmPsw(e.target.value)}/>
           <button className='bt-blue' onClick={handleReg} >ลงทะเบียน</button>
       </div>
       </div>
