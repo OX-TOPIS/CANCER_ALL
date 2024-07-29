@@ -12,9 +12,9 @@ const FillResults = () => {
 
 
       {/* ปุ่มส่งผลการรักษาอื่นๆ */}
-      <Link to={"/DisplayOtherResults"}>
+      {/* <Link to={"/DisplayOtherResults"}>
         <button className='bg-blue700 border-collapse hover:bg-blue600 duration-300 hover:drop-shadow-lg w-11/12 m-2 p-3 rounded-full  mt-20 text-white'>ปุ่มส่งผลการรักษาอื่นๆ</button>
-      </Link>
+      </Link> */}
     </div>
     
   )

@@ -1,11 +1,13 @@
 const express = require("express");
-const pool = require("../config").default;
+const pool = require("../config");
 const app = express();
 const cors = require("cors");
 
 app.use(cors());
 
 router = express.Router();
+
+// ฝั่งเว็บหมดเลย
 
 router.get(
   "/bloodresult/patient/:HN/:treatmentId",
@@ -184,6 +186,7 @@ router.post(`/sortBloodresult`, async function (req, res, next) {
   }
 });
 
+// ต้องแก้ทั้งในเว็บพี่และ /:brId >>>>>>> :roundBrId
 router.get(`/getBloodresult/:brId`, async function (req, res, next) {
   try {
     const [row, f] = await pool.query(
@@ -195,5 +198,27 @@ router.get(`/getBloodresult/:brId`, async function (req, res, next) {
     console.log(error);
   }
 });
+
+
+// ฝั่งโมบายที่อิงเพิ่มเองงงงงงงงงงง
+// เอาชื่อโรคของแต่ละคน อาจจะมีหลายโรค
+app.get('/cancerType/:idcard', async function (req, res) {
+
+  try {
+    const [row, f] = await pool.query(
+      "select * from cancer join cancer_patient ON cancer.cancerId = cancer_patient.cancerId where IDcard = ?",req.params.idcard
+    );
+    res.json(row);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// ชื่อโรค ex. มะเร็งลำไส้
+// select cancer.cancerType from cancer join cancer_patient ON cancer.cancerId = cancer_patient.cancerId where IDcard = 0000000000003
+
+// formula Name ex. Cis CCRT Cervix
+// select formula.formulaName from formula join treatment ON formula.formulaId = treatment.formulaId where IDcard = 0000000000003
+
 
 exports.router = router;
