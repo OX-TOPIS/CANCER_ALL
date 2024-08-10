@@ -20,7 +20,7 @@ const PostponeAppointment = () => {
       {/* THIS PLACE IS CALENDAR */}
 
       {/* ปุ่มยืนยันเลื่อนวันนัด */}
-        <Link to={"/Appointment/AppointmentDetails"}>
+        <Link to={"/Appointment/AppointmentDetails"} class="flex justify-center items-center">
           <button className='bt-blue'>ยืนยันการเลื่อนการนัดหมาย</button>
         </Link>
       

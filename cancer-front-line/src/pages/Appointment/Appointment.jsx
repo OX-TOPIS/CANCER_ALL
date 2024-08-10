@@ -7,7 +7,7 @@ const Appointment = () => {
       <div className="flex items-center justify-center md:justify-center md:items-center">
       <div className="pt-6">
               <Link to={"/Appointment/PostponeAppointment"} className="box-sd ">
-                <div className="text-center text-blue700 shadow-sm">
+                <div className="text-center text-black shadow-sm">
                   <p className='text-sm'>นัดหมาย</p>
                   <h2 className='text-5xl'>17</h2>
                 </div>

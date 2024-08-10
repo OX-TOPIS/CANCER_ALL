@@ -6,7 +6,7 @@ body {
 }
 
 .bt-blue{
-  @apply p-3 rounded-full w-full text-white bg-blue700 border-collapse hover:bg-blue600 duration-300 hover:drop-shadow-lg
+  @apply p-3 rounded-full w-11/12 text-white bg-blue700 border-collapse hover:bg-blue600 duration-300 hover:drop-shadow-lg
 }
 
 .box-sd{

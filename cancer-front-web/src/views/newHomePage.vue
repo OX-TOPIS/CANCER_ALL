@@ -321,7 +321,7 @@
                           <div class="col-sm-10">
                             <select class="form-select" v-model="doctor">
                               <option value="" disabled>กรุณาเลือกแพทย์ผู้ดูแล</option>
-                              <option v-for="doc in doctors" :key="doc.doctorId">
+                              <option v-for="doc in doctors" :key="doc.firstName">
                                 {{ doc.firstName }} {{ doc.lastName }}
                               </option>
                             </select>
@@ -493,19 +493,19 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
-var io = require("socket.io-client");
-var socket = io("http://localhost:8080");
-import Toastify from "toastify-js";
+// var io = require("socket.io-client");
+// var socket = io("http://localhost:8080");
+// import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
-socket.on("info", (data) => {
-  //console.log(data)
-  Toastify({
-    text: data,
-    duration: 3000,
-    gravity: "bottom",
-    position: "right",
-  }).showToast();
-});
+// socket.on("info", (data) => {
+//   //console.log(data)
+//   Toastify({
+//     text: data,
+//     duration: 3000,
+//     gravity: "bottom",
+//     position: "right",
+//   }).showToast();
+// });
 
 
 export default {
@@ -552,11 +552,11 @@ export default {
       testData: [],
     };
   },
-  created() {
-    this.socket = io.connect("http://localhost:8080");
-  },
+  // created() {
+  //   this.socket = io.connect("http://localhost:8080");
+  // },
   unmounted() {
-    this.socket.disconnect();
+    // this.socket.disconnect();
   },
   mounted() {
     const userId = this.$route.params.userId;
@@ -592,11 +592,11 @@ export default {
     show() {
       this.socket.emit("CH01", "updated status");
     },
-    async showNoti(data) {
-      this.$snotify.success(data);
-      await this.socket.disconnect();
-      console.log(this.socket.connected);
-    },
+    // async showNoti(data) {
+    //   this.$snotify.success(data);
+    //   // await this.socket.disconnect();
+    //   // console.log(this.socket.connected);
+    // },
     deleteFromListCancer(c) {
       let index = this.listCancer.indexOf(c);
       this.listCancer.splice(index, 1);

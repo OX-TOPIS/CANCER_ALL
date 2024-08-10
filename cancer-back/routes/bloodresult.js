@@ -201,12 +201,14 @@ router.get(`/getBloodresult/:brId`, async function (req, res, next) {
 
 
 // ฝั่งโมบายที่อิงเพิ่มเองงงงงงงงงงง
-// เอาชื่อโรคของแต่ละคน อาจจะมีหลายโรค
-app.get('/cancerType/:idcard', async function (req, res) {
+// เอาชื่อโรคของแต่ละคน อาจจะมีหลายโรค             มะเร็งลำไส้ใหญ่
+// ชื่อโรค ex. มะเร็งลำไส้
+// select cancer.cancerType from cancer join cancer_patient ON cancer.cancerId = cancer_patient.cancerId where IDcard = 0000000000003
+router.get('/cancerType/:idcard', async function (req, res) {
 
   try {
     const [row, f] = await pool.query(
-      "select * from cancer join cancer_patient ON cancer.cancerId = cancer_patient.cancerId where IDcard = ?",req.params.idcard
+      "select cancer.cancerType from cancer join cancer_patient ON cancer.cancerId = cancer_patient.cancerId where IDcard = ?",req.params.idcard
     );
     res.json(row);
   } catch (error) {
@@ -214,11 +216,69 @@ app.get('/cancerType/:idcard', async function (req, res) {
   }
 });
 
-// ชื่อโรค ex. มะเร็งลำไส้
-// select cancer.cancerType from cancer join cancer_patient ON cancer.cancerId = cancer_patient.cancerId where IDcard = 0000000000003
+
 
 // formula Name ex. Cis CCRT Cervix
 // select formula.formulaName from formula join treatment ON formula.formulaId = treatment.formulaId where IDcard = 0000000000003
+router.get('/formulas/:idcard', async function (req, res) {
+
+  try {
+    const [row, f] = await pool.query(
+      "select formula.formulaName from formula join treatment ON formula.formulaId = treatment.formulaId where IDcard = ?",req.params.idcard
+    );
+    res.json(row);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
+// GET treatmentId where IDcard = ?
+router.get('/treatmentid/:idcard', async function (req, res) {
+  try {
+    const [row, f] = await pool.query(
+      "SELECT treatmentID FROM treatment WHERE IDcard = ?",req.params.idcard
+    );
+    res.json(row);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// GET doctorId where IDcard = ?
+router.get('/doctorid/:idcard', async function (req, res) {
+  try {
+    const [row, f] = await pool.query(
+      "SELECT doctorId FROM treatment WHERE IDcard = ?",req.params.idcard
+    );
+    res.json(row);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
+
+
+// UPLOAD FILE
+// 
+
+
+
+
+// GET ALL DOCtor ingfah do this
+router.get('/doctorr', async function (req, res) {
+  try {
+    const [rows] = await pool.query(
+      `SELECT firstName, lastName FROM user WHERE type = "doctor"`
+    );
+    res.json(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred while fetching doctors.' });
+  }
+});
+
 
 
 exports.router = router;

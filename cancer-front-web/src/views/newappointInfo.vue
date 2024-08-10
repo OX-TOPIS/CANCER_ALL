@@ -406,6 +406,7 @@
                         rows="3"
                         v-model="suggestion"
                       ></textarea>
+                
                     </div>
                   </div>
                   <div
@@ -479,7 +480,7 @@ export default {
     // this.socket = io.connect("http://localhost:8080");
   },
   unmounted() {
-    this.socket.disconnect();
+    // this.socket.disconnect();
   },
 
   mounted() {

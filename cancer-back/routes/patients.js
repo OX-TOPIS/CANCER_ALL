@@ -164,7 +164,7 @@ router.put("/updatePatient/:HN", async function (req, res, next) {
   );
   const conn = await pool.getConnection();
   await conn.beginTransaction();
-  try {
+  try {8
     const [rows1, f1] = await conn.query(
       "select doctorId from doctor where firstName = ? and lastName = ?",
       [doctor_firstName, doctor_lastName]
@@ -343,63 +343,229 @@ router.get("/exportPatients", async function (req, res, next) {
   }
 });
 
-//ผลเลือด
 
+
+
+
+
+
+
+
+//ผลเลือด ของพี่ ส่งแบบ array ไฟล์แรก UPDATE IN DATABASE
+// router.post(
+//   "/uploadBloodResult",
+//   imgUpload.array("images", 10), // รองรับการอัพโหลดได้สูงสุด 10 ไฟล์
+//   async function (req, res, next) {
+//     if (!req.files || req.files.length === 0) {
+//       return res.status(400).send("No files were uploaded.");
+//     }
+
+//     const files = req.files;
+//     const firstFile = files[0];
+//     const otherFiles = files.slice(1); // ไฟล์ที่ 2 ถึง 10
+
+//     let firstFilename = "images/" + firstFile.filename;
+//     let date = moment(Date.now()).format();
+
+//     try {
+//       const [row, _] = await pool.query(
+//         `SELECT MAX(treatmentId) AS treatmentId FROM treatment JOIN patient ON treatment.HN=patient.HN WHERE treatment.IDcard = ?`,
+//         req.body.IDcard
+//       );
+//       console.log(row[0].treatmentId, "row[0].treatmentId");
+
+//       const [row_1, f_1] = await pool.query(
+//         `SELECT MAX(brId) AS brId FROM bloodresult WHERE treatmentId = ?`,
+//         row[0].treatmentId
+//       );
+//       console.log(row_1, "row_1");
+
+//       const [row1, f1] = await pool.query(
+//         `SELECT * FROM bloodresult WHERE brId = ?`,
+//         row_1[0].brId
+//       );
+
+//       const [row2, f2] = await pool.query(
+//         `SELECT doctorId FROM treatment WHERE treatmentId = ?`,
+//         row[0].treatmentId
+//       );
+
+//       if (row1[0].status === "อนุมัติรับยา") {
+//         res.send("Cannot send");
+//       } else if (row1[0].status !== "อนุมัติรับยา") {
+//         const conn = await pool.getConnection();
+//         await conn.beginTransaction();
+//         try {
+//           // อัพเดตไฟล์แรก
+//           if (firstFile) {
+//             await conn.query(
+//               `UPDATE bloodResult SET picture = ?, date = ?, status = 'รออนุมัติผลเลือด' WHERE treatmentId = ?`,
+//               [firstFilename, date, row[0].treatmentId]
+//             );
+//           }
+
+//           // เพิ่มไฟล์ที่เหลือ
+//           for (const file of otherFiles) {
+//             const filename = "images/" + file.filename;
+//             await conn.query(
+//               `INSERT INTO bloodresult (picture, status, doctorId, treatmentId, date) VALUES (?, 'รออนุมัติผลเลือด', ?, ?, ?)`,
+//               [filename, row2[0].doctorId, row[0].treatmentId, date]
+//             );
+//           }
+//           await conn.commit();
+//           res.send("Upload complete");
+//         } catch (error) {
+//           await conn.rollback();
+//           console.log(error);
+//           res.status(500).send("An error occurred");
+//         } finally {
+//           conn.release();
+//         }
+//       }
+//     } catch (error) {
+//       res.status(500).send("An error occurred");
+//       console.error(error);
+//     }
+//   }
+// );
+
+
+//ผลเลือด ของพี่ ส่งแบบ array ทุกไฟล์ INSERT
 router.post(
   "/uploadBloodResult",
-  imgUpload.single("image"),
+  imgUpload.array("images", 10), // รองรับการอัพโหลดได้สูงสุด 10 ไฟล์
   async function (req, res, next) {
-    console.log(req.file, req.body);
-    let filename = "images/" + req.file.filename;
-    let date = moment(Date.now()).format();
-    const [row, _] = await pool.query(
-      `select max(treatmentId) as treatmentId from treatment join patient on treatment.HN=patient.HN where IDcard = ?`,
-      req.body.IDcard
-    );
-    const [row_1, f_1] = await pool.query(
-      `select max(brId) as brId from bloodresult where treatmentId = ?`,
-      row[0].treatmentId
-    );
-    const [row1, f1] = await pool.query(
-      `select * from bloodresult where brId = ?`,
-      row_1[0].brId
-    );
-    const [row2, f2] = await pool.query(
-      `select doctorId from treatment where treatmentId = ?`,
-      row[0].treatmentId
-    );
-    if (row1[0].status == "อนุมัติรับยา") {
-      res.send("cant send");
-    } else if (row1[0].status != "อนุมัติรับยา") {
-      const conn = await pool.getConnection();
-      await conn.beginTransaction();
-      try {
-        if (
-          row1[0].status == "ยังไม่ส่งผลเลือด" ||
-          row1[0].status == "รออนุมัติผลเลือด"
-        ) {
-          await conn.query(
-            `update bloodResult set picture = ?, date = ?, status = 'รออนุมัติผลเลือด' where treatmentId = ?`,
-            [filename, date, row[0].treatmentId]
-          );
-          conn.commit();
-        } else if (row1[0].status == "ส่งผลเลือดอีกครั้ง") {
-          await conn.query(
-            `insert into bloodresult (picture, status, doctorId, treatmentId, date) values (?, 'รออนุมัติผลเลือด', ?, ?, ?)`,
-            [filename, row2[0].doctorId, row[0].treatmentId, date]
-          );
-          conn.commit();
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).send("No files were uploaded.");
+    }
+
+    const files = req.files;
+    const date = moment(Date.now()).format();
+
+    try {
+      const [row, _] = await pool.query(
+        `SELECT MAX(treatmentId) AS treatmentId FROM treatment JOIN patient ON treatment.HN=patient.HN WHERE treatment.IDcard = ?`,
+        req.body.IDcard
+      );
+      console.log(row[0].treatmentId, "row[0].treatmentId");
+
+      const [row_1, f_1] = await pool.query(
+        `SELECT MAX(brId) AS brId FROM bloodresult WHERE treatmentId = ?`,
+        row[0].treatmentId
+      );
+      console.log(row_1, "row_1");
+
+      const [row1, f1] = await pool.query(
+        `SELECT * FROM bloodresult WHERE brId = ?`,
+        row_1[0].brId
+      );
+
+      const [row2, f2] = await pool.query(
+        `SELECT doctorId FROM treatment WHERE treatmentId = ?`,
+        row[0].treatmentId
+      );
+
+      if (row1[0].status === "อนุมัติรับยา") {
+        res.send("Cannot send");
+      } else if (row1[0].status !== "อนุมัติรับยา") {
+        const conn = await pool.getConnection();
+        await conn.beginTransaction();
+        try {
+          // เพิ่มไฟล์ทั้งหมด (รวมถึงไฟล์แรก)
+          for (const file of files) {
+            const filename = "images/" + file.filename;
+            await conn.query(
+              `INSERT INTO bloodresult (picture, status, doctorId, treatmentId, date) VALUES (?, 'รออนุมัติผลเลือด', ?, ?, ?)`,
+              [filename, row2[0].doctorId, row[0].treatmentId, date]
+            );
+          }
+          await conn.commit();
+          res.send("Upload complete");
+        } catch (error) {
+          await conn.rollback();
+          console.log(error);
+          res.status(500).send("An error occurred");
+        } finally {
+          conn.release();
         }
-        res.send("อัพโหลดเสร็จสิ้น");
-      } catch (error) {
-        conn.rollback();
-        console.log(error);
-      } finally {
-        conn.release();
       }
+    } catch (error) {
+      res.status(500).send("An error occurred");
+      console.error(error);
     }
   }
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /////////////// new //////////////
 function padWithLeadingZeros(num, totalLength) {
