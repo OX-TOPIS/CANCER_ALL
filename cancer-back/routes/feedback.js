@@ -7,6 +7,53 @@ app.use(cors());
 
 router = express.Router();
 
+//ผู้ป่วยบันทึกผลข้างเคียง น้ำเงิน
+router.post("/feedback/:IDcard", async function (req, res, next) {
+  const IDcard = req.params.IDcard;
+  const sideEffect = req.body.sideEffect;
+  const appointId = req.body.appointId;
+  const date = req.body.date;
+
+  console.log("Request Body:", req.body);
+
+  if (!sideEffect || !date) {
+    return res.status(400).send("Invalid data");
+  }
+  //เลือกการนัดหมายครั้งล่าสุด
+  try {
+    const [maxAppointRows] = await pool.query(
+      "SELECT MAX(appointId) AS max_appointId FROM appointment WHERE IDcard = ?",
+      [IDcard]
+    );
+
+    if (maxAppointRows[0].max_appointId == null) {
+      return res.status(404).send("Appointment not found");
+    }
+
+    const conn = await pool.getConnection();
+    await conn.beginTransaction();
+    //บันทึกเข้า
+    try {
+      await conn.query(
+        "INSERT INTO feedback (sendAt, patientSideEffect, appointId) VALUES (?, ?, ?)",
+        [date, sideEffect, maxAppointRows[0].max_appointId]
+      );
+      await conn.commit();
+      res.send("Feedback added successfully");
+    } catch (error) {
+      await conn.rollback();
+      console.error("Transaction Error:", error);
+      res.status(500).send("Internal Server Error");
+    } finally {
+      conn.release();
+    }
+  } catch (error) {
+    console.error("Database Error:", error);
+    res.status(500).send("Database Error");
+  }
+});
+
+
 router.post("/feedback/:HN/:appoint_no", async function (req, res, next) {
   let HN = req.params.HN;
   let appoint_no = req.params.appoint_no;

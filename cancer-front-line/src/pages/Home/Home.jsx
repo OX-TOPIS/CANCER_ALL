@@ -13,7 +13,7 @@ const Home = () => {
         <Link to={"/BloodResults"} className='bt-blue md:p-1'>ส่งผลเลือด</Link>
         <Link to={"/Appointment"} className='bt-blue'>การนัดหมาย</Link>
         <Link to={"/Contacts"} className='bt-blue'>ติดต่อโรงพยาบาล</Link>
-        <Link to={"/Effects"} className='bt-blue'>ผลข้างเคียง</Link>
+        <Link to={"/AddEffects"} className='bt-blue'>ผลข้างเคียง</Link>
         <Link to={"/PatientManual"} className='bt-blue'>คู่มือผู้ป่วย</Link>
         
     </div>

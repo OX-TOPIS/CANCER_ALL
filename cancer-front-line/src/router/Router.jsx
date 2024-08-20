@@ -49,7 +49,7 @@ const router = createBrowserRouter([
           element: <AppointmentDetails/>,
         },
         {
-          path: "/Appointment/PostponeAppointment",
+          path: "/Appointment/PostponeAppointment/:appointId",
           element: <PostponeAppointment/>,
         },
         {
@@ -57,11 +57,11 @@ const router = createBrowserRouter([
           element: <Contacts/>
         },
         {
-          path: "/Effects",
+          path: "/AddEffects",
           element: <AddEffects/>
         },
         {
-          path: "/Effects/AddEffects",
+          path: "/Effects",
           element: <Effects/>
         },
         {

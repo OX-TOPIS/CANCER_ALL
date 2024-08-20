@@ -1,28 +1,59 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { AxiosClient } from '../../apiClient';
 
-const Effects = () => {
+const thaiMonthNames = [
+  'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
+  'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
+];
+
+const formatThaiDate = (dateString) => {
+  const date = new Date(dateString);
+  const year = date.getFullYear() + 543; //ปีพศ
+  const month = thaiMonthNames[date.getMonth()];
+  const day = date.getDate();
+  return `${day} ${month} ${year}`;
+};
+
+//หน้าประวัติผลข้างเคียง
+const Effects =  () => {
+  // /Effects/AddEffects
+  const [history, setHistory] = useState([]);
+  const HN = '000001';
+  const appointId = 31;
+  useEffect(() => {
+    const fetchHistory = async () => {
+        try {
+            const response = await AxiosClient.get(`/selectedFeedback/${appointId}`);
+            setHistory(response.data);
+        } catch (error) {
+            console.error('Error fetching history:', error);
+        }
+    };
+    fetchHistory();
+}, [HN]);
   return (
-    <div className='p-4'>
-      
-      
-        <div className="flex flex-col md:justify-center md:items-center">
-          {/* His Effects */}
-          <div className="pt-6">
-            <h3 className='pb-2'>ประวัติการบันทึกผลข้างเคียง</h3>
-            {/* กล่อง Loop ที่นี่*/}
-            <div className="box-sd">
+<div className='p-4'>
+      <div className="pt-6">
+        <h3 className='pb-2'>ประวัติการบันทึกผลข้างเคียง</h3>
+        {history.length > 0 ? (
+          [...history].reverse().map((record, index) => (
+            <div key={`${record.id}-${index}`} className="mt-4 box-sd">
               <div className="text-center text-blue700 shadow-sm">
                 <p className='text-sm'>บันทึกครั้งที่</p>
-                <h2 className='text-5xl'>6</h2>
+                <h2 className='text-5xl'>{history.length - index}</h2>
               </div>
-              <div className="">
-                <h3 className='text-md'>วันที่ 17 มกราคม 2567</h3>
+              <div>
+                <h3 className='text-md'>
+                  วันที่ {formatThaiDate(record.sendAt)}
+                </h3>
+                {/* <p>{record.patientSideEffect}</p> */}
               </div>
             </div>
-          </div>
-        </div>
-      
+          ))
+        ) : (
+          <p>ไม่พบประวัติการบันทึกผลข้างเคียง</p>
+        )}
+    </div>   
     </div>
   )
 }

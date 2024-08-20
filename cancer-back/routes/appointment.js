@@ -51,8 +51,7 @@ router.get(`/appointment`, async function (req, res, next) {
   }
 });
 
-router.get(
-  `/thisappointment/:HN/:treatmentId`,
+router.get(`/thisappointment/:HN/:treatmentId`,
   async function (req, res, next) {
     const HN = req.params.HN;
     console.log("aaaaa");
@@ -308,18 +307,9 @@ router.post(`/selectedAppointPatient`, async function (req, res, next) {
   }
 });
 
-/*router.get(`/treatmentHistory/:HN/`, async function (req, res, next) {
-    const HN = req.params.HN
-    try {
-        const [row, _] = await pool.query(`select * from appointment join treatment on treatment.HN=appointment.HN join user on user.userId=treatment.doctorId where appointment.HN = ? and treatmentStatus = 'อยู่ระหว่างการรักษา'`, HN)
-        res.json(row)
-    } catch (error) {
-        console.log(error)
-    }
-})
-*/
-router.get(
-  `/AlltreatmentHistory/:HN/:treatmentId`,
+
+
+router.get(`/AlltreatmentHistory/:HN/:treatmentId`,
   async function (req, res, next) {
     const HN = req.params.HN;
     const treatmentId = req.params.treatmentId;
@@ -483,10 +473,11 @@ router.get(`/AllAppointment`, async function (req, res, next) {
   }
 });
 
+// ??????????????? คำขอเลื่อนนัดที่ขึ้นหน้าพยาบาล
 router.get(`/request`, async function (req, res, next) {
   try {
     const [row, _] = await pool.query(
-      `select * from request join appointment on appointment.appointId=request.appointId join patient on patient.HN=appointment.HN join treatment on treatment.treatmentId=appointment.HN where requestStatus='รอดำเนินการเลื่อนนัดหมาย' order by requestId desc`
+      `select * from request join appointment on appointment.appointId=request.appointId join patient on patient.HN=appointment.HN join treatment on treatment.HN=appointment.HN where requestStatus='รอดำเนินการเลื่อนนัดหมาย' order by requestId desc`
     );
     res.json(row);
   } catch (error) {
@@ -584,8 +575,10 @@ router.post(`/postponeAppoint/:requestId`, async function (req, res, next) {
   }
 });
 
-/// mobile
 
+
+
+/// mobile
 router.get(`/PatientAppointment/:HN`, async function (req, res, next) {
   try {
     const [row, f] = await pool.query(
@@ -593,7 +586,9 @@ router.get(`/PatientAppointment/:HN`, async function (req, res, next) {
       req.params.HN
     );
     res.json(row);
-  } catch (error) {}
+  } catch (error) {
+      console.log(error);
+  }
 });
 
 router.get("/PatientFeedback/:HN", async function (req, res, next) {
@@ -695,6 +690,7 @@ function padWithLeadingZeros(num, totalLength) {
   return String(num).padStart(totalLength, "0");
 }
 
+// เลื่อนนัดดอิงใช้อันนี้
 router.post(`/PatientPostpone/:appointId`, async function (req, res, next) {
   const newAppointDate = req.body.newAppointDate;
   const reason = req.body.reason;
@@ -731,5 +727,41 @@ router.post(`/PatientPostpone/:appointId`, async function (req, res, next) {
     conn.release();
   }
 });
+
+
+
+
+
+
+
+
+// ING ADD ดึงทุกการนัดหมายของคนๆนั้น
+router.get(`/PatientAppointment2/:IDcard`, async function (req, res, next) {
+  try {
+    const [row, f] = await pool.query(
+      `select * from appointment join treatment on treatment.treatmentId=appointment.treatmentId where appointment.IDcard = ? order by appointId desc`,
+      req.params.IDcard
+    );
+    res.json(row);
+  } catch (error) {
+      console.log(error);
+  }
+});
+
+// ING ADD ดึงทุกการนัดหมายแต่ละอัน
+router.get(`/PatientAppointment2/:IDcard/:appointId`, async function (req, res, next) {
+  try {
+    const [row, f] = await pool.query(
+      `select * from appointment join treatment on treatment.treatmentId=appointment.treatmentId where appointment.IDcard = ? and appointment.appointId = ?`,
+      [req.params.IDcard, req.params.appointId]
+    );
+    res.json(row);
+  } catch (error) {
+      console.log(error);
+  }
+
+});
+
+
 
 exports.router = router;
