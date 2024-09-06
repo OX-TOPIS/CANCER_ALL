@@ -280,5 +280,32 @@ router.get('/doctorr', async function (req, res) {
 });
 
 
+// GET INFO PATIENT
+router.get('/patientss/:idcard', async function (req, res) {
+  try {
+    const [row, f] = await pool.query(
+      "SELECT * FROM `patient` where IDcard = ?", req.params.idcard
+    );
+    res.json(row);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
+
+// ข้อมูลการส่งผลเลือดทั้งหมด
+router.get('/recordbloodresult/:idcard', async function (req, res) {
+  try {
+    const [row, f] = await pool.query(
+      "SELECT * FROM `bloodresult` JOIN `treatment` ON treatment.treatmentId = bloodresult.treatmentId where IDcard = ? ORDER BY brId DESC", req.params.idcard
+    );
+    res.json(row);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
 
 exports.router = router;

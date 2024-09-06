@@ -485,6 +485,20 @@ router.get(`/request`, async function (req, res, next) {
   }
 });
 
+// ing add คำขอเลื่อนนัดฝั่งหน้าโมบาย
+router.get(`/request2/:appointId`, async function (req, res, next) {
+  try {
+    const [row, _] = await pool.query(
+      `SELECT * FROM request JOIN appointment ON appointment.appointId = request.appointId JOIN patient ON patient.HN = appointment.HN JOIN treatment ON treatment.HN = appointment.HN WHERE appointment.appointId = ?`, req.params.appointId
+    );
+    res.json(row);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
+
 router.put(`/request/:requestId`, async function (req, res, next) {
   const requestId = req.params.requestId;
   const requestStatus = req.body.requestStatus;

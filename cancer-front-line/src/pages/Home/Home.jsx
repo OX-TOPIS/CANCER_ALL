@@ -1,7 +1,22 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Home = () => {
+  const navigate = useNavigate();
+  
+  const logout = () => {
+    try {
+    localStorage.removeItem('userName')
+    document.cookie = 'userName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    alert('ออกจากระบบแล้ว');
+    // ???
+    navigate('/login');
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
   return (
     <div className="flex md:justify-center md:items-center">
     <div className='flex flex-col items-center text-center p-4 w-full space-y-8 md:w-1/3'>
@@ -15,7 +30,7 @@ const Home = () => {
         <Link to={"/Contacts"} className='bt-blue'>ติดต่อโรงพยาบาล</Link>
         <Link to={"/AddEffects"} className='bt-blue'>ผลข้างเคียง</Link>
         <Link to={"/PatientManual"} className='bt-blue'>คู่มือผู้ป่วย</Link>
-        
+        <Link className='bt-blue' onClick={logout}>ออกจากระบบ</Link>
     </div>
     </div>
   )

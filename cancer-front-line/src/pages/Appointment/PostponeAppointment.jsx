@@ -23,6 +23,8 @@ const PostponeAppointment = () => {
     setNewAppointDate(e.target.value);
   };
 
+  
+
   // Format date in db
   function formatDateForValue(date) {
     const year = date.getFullYear();
@@ -104,7 +106,8 @@ const PostponeAppointment = () => {
       .then(response => response.text())
       .then(data => {
         console.log(data);
-        navigate('/Appointment/AppointmentDetails');
+        // navigate('/Appointment/AppointmentDetails');
+        navigate(`/Appointment/AppointmentDetails?appointId=${appointId}`);
       })
       .catch(error => {
         console.error('Error:', error);
@@ -135,7 +138,7 @@ const PostponeAppointment = () => {
           <Radio.Group onChange={onChangenewAppointDate} value={newAppointDate}>
             {newAppointments.length > 0 ? (
               newAppointments.slice(1).map((date, index) => (
-                <Radio key={index} className="pt-2" value={formatDateForValue(date)}>
+                <Radio key={index} className="pt-2 w-11/12" value={formatDateForValue(date)}>
                   {date.toLocaleDateString('th-TH', {
                     year: 'numeric',
                     month: 'long',
@@ -150,7 +153,8 @@ const PostponeAppointment = () => {
               <p>ไม่มีวันนัดหมายใหม่ที่ตรงกัน</p>
             )}
           </Radio.Group>
-          <h1>Appointment ID: {appointId}</h1>
+          {/* <h1>Appointment ID: {appointId}</h1> */}
+          <div className="mt-8"></div>
 
           <div className="space-y-4">
             <div>

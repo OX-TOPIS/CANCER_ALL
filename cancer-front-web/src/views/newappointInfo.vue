@@ -89,6 +89,34 @@
         </div>
       </div>
     </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     <div class="col-md-10 offset-md-1">
       <div class="bd-example-snippet bd-code-snippet" style="border: none">
         <!--<div style="margin: 20px; width: 250px; border-radius: 5px; border: 3px solid #1C2939; background-color: white;">
@@ -138,7 +166,7 @@
                   <b>สถานะ</b> <div>{{ patient.status }}</div>
                 </div>
                 <div class="col-4">
-                  <b>หมายเลชโทรศัพท์</b> <div> {{ patient.phoneNumber }}</div>
+                  <b>หมายเลขโทรศัพท์</b> <div> {{ patient.phoneNumber }}</div>
                 </div>
               </div>
             </div>
