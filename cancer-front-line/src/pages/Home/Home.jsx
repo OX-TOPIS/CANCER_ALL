@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 const Home = () => {
   const navigate = useNavigate();
   
+
   const logout = () => {
     try {
     localStorage.removeItem('userName')
@@ -15,7 +16,6 @@ const Home = () => {
       console.log(error)
     }
   }
-
 
   return (
     <div className="flex md:justify-center md:items-center">

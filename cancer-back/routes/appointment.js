@@ -2,10 +2,23 @@ const express = require("express");
 const pool = require("../config.js");
 const app = express();
 const cors = require("cors");
+const axios = require('axios') //1line
+require("dotenv").config();
 
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  origin: 'https://p6l7k2jx-5173.asse.devtunnels.ms', // Frontend URL
+  methods: 'GET, POST, PUT, DELETE'
+}));
 
 router = express.Router();
+
+//2line
+const headers = {
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${process.env.LINE_CHANNEL_ACCESS_TOKEN}`,
+};
+
 
 
 router.post("/newAppointment", async function (req, res, next) {
@@ -705,11 +718,12 @@ function padWithLeadingZeros(num, totalLength) {
 }
 
 // เลื่อนนัดดอิงใช้อันนี้
-router.post(`/PatientPostpone/:appointId`, async function (req, res, next) {
+router.post(`/PatientPostpone/:appointId/:userIdLine`, async function (req, res, next) {
   const newAppointDate = req.body.newAppointDate;
   const reason = req.body.reason;
   const email = req.body.email;
   const appointId = req.params.appointId;
+  const userIdLine = req.params.userIdLine;
   const requestPhone = req.body.requestPhone;
   let date = newAppointDate.split(" ");
   let split = date[0].split("-");
@@ -732,6 +746,22 @@ router.post(`/PatientPostpone/:appointId`, async function (req, res, next) {
       `insert into request (newAppointDate, reason, requestPhone, requestStatus, appointId, requestStamp, email) values (?, ?, ?, 'รอดำเนินการเลื่อนนัดหมาย', ? , CURRENT_TIMESTAMP, ?)`,
       [appointDate, reason, requestPhone, appointId, email]
     );
+    // LINE
+    const body = {
+      to: userIdLine,
+      messages:[
+          {
+              type: 'text',
+              text: "ขอเลื่อนนัดสำเร็จ รอพยาบาลยืนยันการเลื่อนนัดหมายค่ะ"
+          }
+      ]
+  }
+    const response = await axios.post(
+      `https://api.line.me/v2/bot/message/push`,
+      body,
+    {headers}
+    )
+    console.log("response line", response.data)
     conn.commit();
     res.send("insert success");
   } catch (error) {

@@ -10,17 +10,23 @@ const server = http.createServer(app);
 app.set("port", 8080);
 const port = app.get("port")
 app.get("/", function (req, res) {
-  res.send("hello world");
+  res.send("hello world1212");
 });
 
 const io = new Server(server, {
   cors: {
     origin: "*",
     methods: ["GET", "POST"],
+    // origin: 'http://localhost:5173', // ระบุ frontend ที่สามารถเข้าถึงได้
+    // methods: 'GET, POST, PUT, DELETE'
   },
 });
 
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173', // Frontend URL
+  methods: 'GET, POST, PUT, DELETE'
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

@@ -22,7 +22,7 @@ const router = createBrowserRouter([
       children: [
         {
             path: "/",
-            element: <Home/>
+            element: <Login/>
         },
         {
           path: "/BloodResults",
@@ -76,7 +76,10 @@ const router = createBrowserRouter([
           path: "/Register",
           element: <Register/>,
         },
-        
+        {
+          path: "/menu",
+          element: <Home/>,
+        },
       ]
     }
   ]);
