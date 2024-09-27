@@ -26,11 +26,11 @@ const stroage = multer.diskStorage({
 });
 const imgUpload = multer({ storage: stroage });
 
-// app.use(cors());
-app.use(cors({
-  origin: 'https://p6l7k2jx-5173.asse.devtunnels.ms', // Frontend URL
-  methods: 'GET, POST, PUT, DELETE'
-}));
+app.use(cors());
+// app.use(cors({
+//   origin: 'https://p6l7k2jx-5173.asse.devtunnels.ms', // Frontend URL
+//   methods: 'GET, POST, PUT, DELETE'
+// }));
 
 router = express.Router();
 
@@ -444,7 +444,8 @@ router.post(
     }
 
     const files = req.files;
-    const date = moment(Date.now()).format();
+    // const date = moment(Date.now()).format();
+    const date = moment().utcOffset("+07:00").format('YYYY-MM-DD HH:mm:ss');
 
     try {
       const [row, _] = await pool.query(
@@ -772,7 +773,7 @@ router.get("/patient/:HN/:treatmentId", async function (req, res, next) {
   let cancer = new Array();
   try {
     const [rows, _] = await pool.query(
-      "SELECT * FROM PATIENT join treatment on patient.HN=treatment.HN join bloodresult on treatment.treatmentId=bloodresult.treatmentId left join allergy on patient.HN=allergy.HN WHERE patient.HN=? and treatment.treatmentId= ?",
+      "SELECT patient.*, treatment.*, bloodresult.*, allergy.*, user.UserIdLine FROM patient JOIN treatment ON patient.HN = treatment.HN JOIN bloodresult ON treatment.treatmentId = bloodresult.treatmentId LEFT JOIN allergy ON patient.HN = allergy.HN JOIN user ON patient.IDcard = user.userName WHERE patient.HN = ? AND treatment.treatmentId = ?",
       [HN, treatmentId]
     );
     const [row1, f1] = await pool.query(
@@ -1094,4 +1095,54 @@ router.post("/sortGuideBook", async function (req, res, next) {
   }
 });
 
+//นงเพิ่ม ดึงQRคู่มือแสดงที่ไลน์
+router.get(`/PatientManual/:HN`, async (req, res) => {
+  let HN = req.params.HN; 
+  try {
+    // Query เพื่อดึง formulaId ที่เกี่ยวข้องกับผู้ป่วยจาก HN
+    const [formulaRows] = await pool.query(
+      `SELECT formulaId FROM treatment WHERE HN = ?`,
+      [HN]
+    );
+    // ตรวจสอบว่าผู้ป่วยมีการใช้สูตรยาหรือไม่
+    if (formulaRows.length === 0) {
+      return res.status(404).json({ message: "No treatment found for this patient" });
+    }
+    // ดึงข้อมูล QR code จาก guidebook โดยใช้ formulaId ที่ได้จาก treatment
+    const formulaId = formulaRows[0].formulaId; 
+    
+    const [guidebookRows] = await pool.query(
+      `SELECT guidebookId, QRcode, pdf FROM guidebook WHERE formulaId = ?`,
+      [formulaId]
+    );
+    // ตรวจสอบว่ามีข้อมูลคู่มือหรือไม่
+    if (guidebookRows.length === 0) {
+      return res.status(404).json({ message: "No guidebook found for this formula" });
+    }
+    // ส่งข้อมูล QR code กลับไปที่ Frontend
+    res.json(guidebookRows);
+  } catch (error) {
+    console.error("Error fetching patient manual:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+//นงเพิ่ม ดึง ชื่อสูตรยา แสดงที่ front-line
+router.get(`/getFormulaName/:HN`, async (req, res) => {
+  const HN = req.params.HN;
+  try {
+    // เชื่อมตาราง treatment และ formula ใช้ HN และ formulaId
+    const [formulaNameRows] = await pool.query(
+      `SELECT f.formulaName FROM treatment t JOIN formula f ON t.formulaId = f.formulaId WHERE t.HN = ?`,
+      [HN]
+    );
+    if (formulaNameRows.length === 0) {
+      return res.status(404).json({ message: "No formula found for this HN" });
+    }
+    res.json(formulaNameRows[0]);
+  } catch (error) {
+    console.error("Error fetching formula name:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 exports.router = router;

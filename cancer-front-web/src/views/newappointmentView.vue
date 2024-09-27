@@ -881,7 +881,7 @@ export default {
     },
     cantPostpone(request){
       const requestId = request.requestId
-      axios.post(`http://localhost:8080/cantPostpone/${requestId}`).then((response)=>{
+      axios.post(`http://localhost:8080/cantPostpone/${requestId}/${this.selectedRequest.UserIdLine}`).then((response)=>{
         if (response.data == 'success'){
           Swal.fire({
             title: "สำเร็จ",
@@ -907,7 +907,7 @@ export default {
       };
 
       axios
-        .post(`http://localhost:8080/postponeAppoint/${requestId}`, data)
+        .post(`http://localhost:8080/postponeAppoint/${requestId}/${this.selectedRequest.UserIdLine}`, data)
         .then((response) => {
           if (response.data == 'success'){
             Swal.fire({

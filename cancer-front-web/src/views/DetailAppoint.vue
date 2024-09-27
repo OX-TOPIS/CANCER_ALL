@@ -89,6 +89,27 @@
         </div>
       </div>
     </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="col-md-10 offset-md-1">
       <div class="bd-example-snippet bd-code-snippet" style="border: none">
         <div class="card" style="margin: 20px">
@@ -571,7 +592,7 @@
                                   v-if="selectedFeedback.sideEfflevel != null"
                                 >
                                   <button
-                                    v-if="user.type == 'nurse'"
+                                    v-if="user.type == 'nurse' || user.type == 'doctor'"
                                     type="button"
                                     class="btn btn-warning"
                                     @click="this.edit = true"
@@ -931,7 +952,7 @@ export default {
         treatmentId: this.$route.params.treatmentId,
       };
       axios
-        .post(`http://localhost:8080/appointDate`, data)
+        .post(`http://localhost:8080/appointDate/${this.patient.UserIdLine}`, data)
         .then((response) => {
           this.appointment = response.data;
           for (let i = 0; i < this.appointment.length; i++) {
