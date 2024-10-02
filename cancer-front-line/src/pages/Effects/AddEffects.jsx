@@ -46,8 +46,10 @@ const AddEffects = () => {
           setLoading(false);
         })
         .catch(error => {
-          setError(error);
-          setLoading(false);
+          // setError(error);
+          // setLoading(false);
+          console.log(error)
+
         });
     }
   }, [username]);

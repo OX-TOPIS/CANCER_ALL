@@ -470,18 +470,23 @@ router.post(
         row[0].treatmentId
       );
 
+      // SELECT max(roundBrId) FROM bloodresult;
+      const [row3, f3] = await pool.query(
+        `SELECT max(roundBrId) AS maxRoundBrId FROM bloodresult`
+      );
+
       if (row1[0].status === "อนุมัติรับยา") {
         res.send("Cannot send");
       } else if (row1[0].status !== "อนุมัติรับยา") {
         const conn = await pool.getConnection();
         await conn.beginTransaction();
         try {
-          // เพิ่มไฟล์ทั้งหมด (รวมถึงไฟล์แรก)
+          // เพิ่มไฟล์ทั้งหมด
           for (const file of files) {
             const filename = "images/" + file.filename;
             await conn.query(
-              `INSERT INTO bloodresult (picture, status, doctorId, treatmentId, date) VALUES (?, 'รออนุมัติผลเลือด', ?, ?, ?)`,
-              [filename, row2[0].doctorId, row[0].treatmentId, date]
+              `INSERT INTO bloodresult (picture, status, doctorId, treatmentId, date, roundBrId) VALUES (?, 'รออนุมัติผลเลือด', ?, ?, ?, ?)`,
+              [filename, row2[0].doctorId, row[0].treatmentId, date, row3[0].maxRoundBrId+1]
             );
           }
           await conn.commit();

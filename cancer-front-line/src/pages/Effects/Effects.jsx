@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { AxiosClient } from '../../apiClient';
+import Cookies from 'js-cookie';
 
 const thaiMonthNames = [
   'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
@@ -16,25 +17,65 @@ const formatThaiDate = (dateString) => {
 
 //หน้าประวัติผลข้างเคียง
 const Effects =  () => {
-  // /Effects/AddEffects
+  const [username, setUsername] = useState(null);
   const [history, setHistory] = useState([]);
-  const HN = '123456';
-  const appointId = 41;
+  const [appointId, setAppointId] = useState(null);
+  // const HN = '123456';
+  // const appointId = 41;
+
   useEffect(() => {
-    const fetchHistory = async () => {
+    const user = Cookies.get('userName');
+    if (user) {
+      setUsername(user);
+    }
+  }, []);
+
+  useEffect(() => {
+    // This will log whenever the username changes
+    console.log("username updated:", username);
+  }, [username]);
+
+  useEffect(() => {
+    const fetchAppoint = async () => {
+      console.log("1")
         try {
-            const response = await AxiosClient.get(`/selectedFeedback/${appointId}`);
-            setHistory(response.data);
+            const response = await AxiosClient.get(`/selectedappointId/${username}`);
+            setAppointId(response.data);
         } catch (error) {
             console.error('Error fetching history:', error);
         }
     };
+    if (username !== null) {
+      fetchAppoint();
+      console.log("appointId", appointId)
+    }
+}, [username]);
+
+useEffect(() => {
+  const fetchHistory = async () => {
+    try {
+      const response = await fetch(`http://localhost:8080/selectedFeedback2/${appointId}`);
+      if (response.ok) {
+        const data = await response.json(); // แปลง response เป็น JSON
+        setHistory(data); // ใช้ข้อมูลที่แปลงแล้ว
+      } else {
+        console.error('Failed to fetch /selectedFeedback2/');
+      }
+    } catch (error) {
+      console.error('Error fetching /selectedFeedback2/', error);
+    }
+  };
+  
+  if (appointId !== null && username !== null) {
     fetchHistory();
-}, [HN]);
+  }
+}, [appointId]);
+
   return (
 <div className='p-4'>
       <div className="pt-6">
         <h3 className='pb-2'>ประวัติการบันทึกผลข้างเคียง</h3>
+        <p>appointId: {appointId} username:{username}</p>
         {history.length > 0 ? (
           [...history].reverse().map((record, index) => (
             <div key={`${record.id}-${index}`} className="mt-4 box-sd">

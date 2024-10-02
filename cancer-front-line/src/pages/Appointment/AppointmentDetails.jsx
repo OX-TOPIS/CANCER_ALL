@@ -34,9 +34,9 @@ const AppointmentDetails = () => {
         {/* มาเพิ่มรูป Avatar ปฎิทิน */}
         <div className='flex flex-col items-center justify-center'>
           <h2 className='text-xl'>ขอเลื่อนนัดหมายแล้ว</h2>
-          {postponeDetail.length > 0 && (
+          {/* {postponeDetail.length > 0 && (
             <h3 className='text-sm text-yellow'>{postponeDetail[0].requestStatus}</h3>
-          )}
+          )} */}
         </div>
       </div>
 
