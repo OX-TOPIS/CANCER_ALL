@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Appointment = () => {
   const [username, setUsername] = useState('');
+  const [userId, setUserId] = useState('');
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -12,6 +13,13 @@ const Appointment = () => {
     const user = Cookies.get('userName');
     if (user) {
       setUsername(user);
+    }
+  }, []);
+
+  useEffect(() => {
+    const userId = Cookies.get('userId');
+    if (userId) {
+      setUserId(userId);
     }
   }, []);
 

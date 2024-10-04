@@ -184,7 +184,7 @@ router.post("/login34", async function (req, res, next) {
   let UserIdLine = req.body.UserIdLine;
   try {
     const [rows, _] = await pool.query(
-      `SELECT * FROM user WHERE userName = ? AND type = 'patient'`,
+      `SELECT * FROM user JOIN treatment ON user.userName = treatment.IDCard WHERE user.userName = ? AND user.type = 'patient';`,
       [userName]
     );
     if (rows.length > 0) {
@@ -192,7 +192,7 @@ router.post("/login34", async function (req, res, next) {
         `UPDATE user SET UserIdLine = ? WHERE userName = ?`,
         [UserIdLine, userName]
       );
-      res.status(200).json({ message: "UserIdLine updated successfully" });
+      res.status(200).json(rows[0]);
     } else {
       res.status(404).json({ message: "User not found" });
     }

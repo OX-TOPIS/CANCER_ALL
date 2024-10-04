@@ -117,7 +117,7 @@ const handleCheckboxChange = (effect) => {
         <label>
           <input
               type="checkbox"
-              value="ผมร่วง/ ผมบาง"
+              value="ผมร่วง / ผมบาง"
               onChange={() => handleCheckboxChange('ผมร่วง/ ผมบาง')}
           />ผมร่วง/ ผมบาง</label>
         <label>

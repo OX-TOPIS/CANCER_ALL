@@ -991,6 +991,7 @@ const formattedDate = formatDate(appointDate);
 
 // ING ADD ดึงทุกการนัดหมายของคนๆนั้น
 router.get(`/PatientAppointment2/:IDcard`, async function (req, res, next) {
+  const UserIdLine = req.params.UserIdLine; //LINE
   try {
     const [row, f] = await pool.query(
       `select * from appointment join treatment on treatment.treatmentId=appointment.treatmentId where appointment.IDcard = ? order by appointId desc`,

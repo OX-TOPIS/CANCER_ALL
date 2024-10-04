@@ -18,7 +18,6 @@ const { Title } = Typography;
 
 const Login = () => {
   const navigate = useNavigate();
-
   const [userName, setUserName] = useState("");
   const [profile, setProfile] = useState(null);
   const [userId, setUserId] = useState("");
@@ -62,7 +61,11 @@ const Login = () => {
       const response = await axios.post('http://localhost:8080/login34', userData)
       if (response.status === 200){
         localStorage.setItem('userName', userName);
+        localStorage.setItem('HN', response.data.HN);
+        localStorage.setItem('userId', userId);
         Cookies.set('userName', userName, { expires: 7 });
+        Cookies.set('HN', response.data.HN, { expires: 7 });
+        Cookies.set('userId',userId, { expires: 7 });
         alert("login success");
         navigate('/menu');
       }

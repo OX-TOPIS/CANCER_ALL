@@ -74,17 +74,17 @@ useEffect(() => {
   return (
 <div className='p-4'>
       <div className="pt-6">
-        <h3 className='pb-2'>ประวัติการบันทึกผลข้างเคียง</h3>
-        <p>appointId: {appointId} username:{username}</p>
+        <h3 className='pb-4 text-center'>ประวัติการบันทึกผลข้างเคียง</h3>
+        {/* <p>appointId: {appointId} username:{username}</p> */}
         {history.length > 0 ? (
           [...history].reverse().map((record, index) => (
             <div key={`${record.id}-${index}`} className="mt-4 box-sd">
-              <div className="text-center text-blue700 shadow-sm">
-                <p className='text-sm'>บันทึกครั้งที่</p>
-                <h2 className='text-5xl'>{history.length - index}</h2>
+              <div className="entry-left text-blue700 shadow-sm">
+                <p className='text-sm text-center'>บันทึกครั้งที่</p>
+                <h2 className='text-4xl text-blue700'>{history.length - index}</h2>
               </div>
-              <div>
-                <h3 className='text-md'>
+              <div className='entry-right'>
+                <h3 className='text-md font-bold'>
                   วันที่ {formatThaiDate(record.sendAt)}
                 </h3>
                 <p>{record.patientSideEffect}</p>

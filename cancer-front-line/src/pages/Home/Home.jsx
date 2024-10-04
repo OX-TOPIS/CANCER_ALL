@@ -8,7 +8,9 @@ const Home = () => {
   const logout = () => {
     try {
     localStorage.removeItem('userName')
+    localStorage.removeItem('HN')
     document.cookie = 'userName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    document.cookie = 'HN=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     alert('ออกจากระบบแล้ว');
     // ???
     navigate('/login');
