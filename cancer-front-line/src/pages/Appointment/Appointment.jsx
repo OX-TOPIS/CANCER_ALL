@@ -51,25 +51,25 @@ const Appointment = () => {
   const pastAppointments = appointments.length > 1 ? appointments.slice(1) : [];
 
   return (
-    <div className='p-4'>
+    <div className='p-2'>
       <div className="flex flex-wrap gap-2 items-center justify-center">
         {/* นัดหมายล่าสุด */}
         {latestAppointment && (
           <div className="pt-2">
-            <h2>นัดหมายล่าสุด</h2>
-            <Link to={`/Appointment/PostponeAppointment/${latestAppointment.appointId}`} className="box-sd">
-              <div className="text-center text-black shadow-sm w-18">
-                <p className='text-sm'>นัดหมายที่</p>
+            <h2 className="pb-2">นัดหมายล่าสุด</h2>
+            <Link to={`/Appointment/PostponeAppointment/${latestAppointment.appointId}`} className="box-sd gap-2">
+              <div className="text-center text-black shadow-sm w-20">
+                <p className='text-sm w-20'>นัดหมายที่</p>
                 <h2 className='text-5xl'>{latestAppointment.appoint_no}</h2>
               </div>
-              <h3 className='text-md'>
+              <h3 className='text-md w-35'>
                 {new Date(latestAppointment.appointDate).toLocaleDateString('th-TH', {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric',
                 })}
               </h3>
-              <button className='p-3 rounded-full w-18 text-white bg-red-300 border-collapse hover:bg-blue-600 duration-300 hover:drop-shadow-lg'>
+              <button className='p-3 rounded-full w-16 text-white bg-red-300 border-collapse hover:bg-blue-600 duration-300 hover:drop-shadow-lg'>
                 <h3 className='text-md'>
                   {new Date(latestAppointment.appointDate).toLocaleTimeString('th-TH', {
                     hour: '2-digit',
@@ -87,7 +87,7 @@ const Appointment = () => {
             <h2>นัดหมายที่ผ่านมาแล้ว</h2>
             {pastAppointments.map((appointment) => (
               <div key={appointment.appointId} className="pt-2">
-                <Link to={`/Appointment/PostponeAppointment/${appointment.appointId}`} className="box-sd">
+                <Link to={`/Appointment/PostponeAppointment/${appointment.appointId}`} className="box-sd gap-2">
                   <div className="text-center text-black shadow-sm w-18">
                     <p className='text-sm'>นัดหมายที่</p>
                     <h2 className='text-5xl'>{appointment.appoint_no}</h2>

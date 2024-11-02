@@ -9,6 +9,7 @@ import DetailPatient from '../views/DetailPatient.vue'
 import RegisPatient from '../views/RegisPatient.vue'
 import DetailAppoint from '../views/DetailAppoint.vue'
 import guideBook from '../views/guideBook.vue'
+import DashboardView from '../views/DashboardView.vue'
 
 const routes = [
   {
@@ -63,6 +64,11 @@ const routes = [
     path: '/guideBook/:userId',
     name: 'guideBook',
     component: guideBook
+  },
+  {
+    path: '/dashboardview',
+    name: 'DashboardView',
+    component: DashboardView
   }
 ]
 

@@ -123,10 +123,10 @@ const Login = () => {
         </div>
 
         <div className="lineProfile">
-          <div className="">Hello {profile ? profile.displayName : "Name"}</div>
+          {/* <div className="">Hello {profile ? profile.displayName : "Name"}</div>
           <div id="lineUID">UID: {userId || "Your UID"}</div>
           <div id="lineUID">username: {userName}</div>
-          <button id="logout" onClick={logout}>Log out</button>
+          <button id="logout" onClick={logout}>Log out</button> */}
         </div>
       </div>
     </div>

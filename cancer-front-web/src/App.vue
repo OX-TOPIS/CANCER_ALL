@@ -1,7 +1,16 @@
 <template>
-  <router-view/>
-  <vue-snotify />
+  <div id="app">
+    <router-view />
+    <vue-snotify />
+  </div>
 </template>
+
+<script>
+
+export default {
+  name: 'App',
+}
+</script>
 
 <style>
 #app {
@@ -10,6 +19,4 @@
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
-
 </style>
-

@@ -9,7 +9,7 @@ const Contacts = () => {
       </div>
       
       <div className='p-6 text-center'>
-        <div >
+        <div className='space-y-5'>
           <h3>038-455632-6</h3>
           <h3>ต่อ 19, 173 (เคมีบำบัด)</h3>
           <h3>ต่อ 169, 174 (รังสีรักษา)</h3>
