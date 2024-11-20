@@ -744,6 +744,37 @@ router.put(`/updatePatientInfo`, async function (req, res, next) {
   }
 });
 
+// ING ADD ING EDIT ING COMMENT THIS
+
+// router.get(`/Allpatient`, async function (req, res, next) {
+//   let data = new Array();
+//   let cancer = new Array();
+//   try {
+//     const [rows, fs] = await pool.query(
+//       `select max(brId) as brId, patient.HN from bloodresult join treatment on treatment.treatmentId=bloodresult.treatmentId join patient on treatment.HN=patient.HN group by treatment.treatmentId`
+//     );
+//     for (let i = 0; i < rows.length; i++) {
+//       const [row, _] = await pool.query(
+//         `select * from treatment join patient on patient.HN=treatment.HN join bloodresult on treatment.treatmentId=bloodresult.treatmentId where brId = ?`,
+//         [rows[i].brId]
+//       );
+//       //รวม cancer ทุกคน ทุกอันของแต่ละคน
+//       const [row1, f1] = await pool.query(
+//         `select * from patient join cancer_patient on patient.HN=cancer_patient.HN join cancer on cancer.cancerId=cancer_patient.cancerId join treatment on treatment.HN=patient.HN join bloodresult on treatment.treatmentId=bloodresult.treatmentId where brId = ?`,
+//         rows[i].brId
+//       );
+//       for (j = 0; j < row1.length; j++) {
+//         cancer.push(row1[j]);
+//       }
+//       row[0].cancer = cancer;
+//       data.push(row[0]);
+//     }
+//     res.json(data);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
+
 router.get(`/Allpatient`, async function (req, res, next) {
   let data = new Array();
   let cancer = new Array();
@@ -756,21 +787,35 @@ router.get(`/Allpatient`, async function (req, res, next) {
         `select * from treatment join patient on patient.HN=treatment.HN join bloodresult on treatment.treatmentId=bloodresult.treatmentId where brId = ?`,
         [rows[i].brId]
       );
+      
+      // สร้างตัวแปร cancer ในแต่ละรอบ และกรองให้ตรงกับ HN ของ row[0]
+      let cancerForCurrentPatient = new Array();
+      
       const [row1, f1] = await pool.query(
         `select * from patient join cancer_patient on patient.HN=cancer_patient.HN join cancer on cancer.cancerId=cancer_patient.cancerId join treatment on treatment.HN=patient.HN join bloodresult on treatment.treatmentId=bloodresult.treatmentId where brId = ?`,
         rows[i].brId
       );
-      for (j = 0; j < row1.length; j++) {
-        cancer.push(row1[j]);
+      
+      // กรองข้อมูลใน row1 ที่มี HN ตรงกับ row[0].HN
+      for (let j = 0; j < row1.length; j++) {
+        if (row1[j].HN === row[0].HN) {
+          cancerForCurrentPatient.push(row1[j]);
+        }
       }
-      row[0].cancer = cancer;
+
+      // ใส่ข้อมูล cancer ที่กรองแล้วเข้าไปใน row[0]
+      row[0].cancer = cancerForCurrentPatient;
+
+      // เพิ่มข้อมูล row[0] ลงใน data
       data.push(row[0]);
     }
+
     res.json(data);
   } catch (error) {
     console.log(error);
   }
 });
+
 
 router.get("/patient/:HN/:treatmentId", async function (req, res, next) {
   const HN = req.params.HN;
@@ -778,11 +823,31 @@ router.get("/patient/:HN/:treatmentId", async function (req, res, next) {
   let cancer = new Array();
   try {
     const [rows, _] = await pool.query(
-      "SELECT patient.*, treatment.*, bloodresult.*, allergy.*, user.UserIdLine FROM patient JOIN treatment ON patient.HN = treatment.HN JOIN bloodresult ON treatment.treatmentId = bloodresult.treatmentId LEFT JOIN allergy ON patient.HN = allergy.HN JOIN user ON patient.IDcard = user.userName WHERE patient.HN = ? AND treatment.treatmentId = ?",
+      "SELECT patient.*, treatment.*, bloodresult.*, allergy.*, user.UserIdLine, formula.formulaName FROM patient JOIN treatment ON patient.HN = treatment.HN JOIN bloodresult ON treatment.treatmentId = bloodresult.treatmentId LEFT JOIN allergy ON patient.HN = allergy.HN JOIN user ON patient.IDcard = user.userName JOIN formula ON treatment.formulaId = formula.formulaId WHERE patient.HN = ? AND treatment.treatmentId = ?",
       [HN, treatmentId]
     );
+    // get all cancer of 1 user
+    // const [row1, f1] = await pool.query(
+    //   `select * from patient join cancer_patient on patient.HN=cancer_patient.HN join cancer on cancer.cancerId=cancer_patient.cancerId join treatment on treatment.HN=patient.HN join bloodresult on treatment.treatmentId=bloodresult.treatmentId where treatment.HN = ?`,
+    //   HN
+    // );
     const [row1, f1] = await pool.query(
-      `select * from patient join cancer_patient on patient.HN=cancer_patient.HN join cancer on cancer.cancerId=cancer_patient.cancerId join treatment on treatment.HN=patient.HN join bloodresult on treatment.treatmentId=bloodresult.treatmentId where treatment.HN = ?`,
+      `SELECT patient.HN, patient.prefix, patient.firstName, patient.lastName, patient.birthDate, patient.phoneNumber, 
+        patient.IDcard AS patient_IDcard, patient.gender, patient.doctorId AS patient_doctorId, patient.allergy, 
+        MAX(cancer_patient.cancerId) AS cancer_patient_cancerId, MAX(cancer_patient.cancerState) AS cancerState, 
+        MAX(cancer.cancerId) AS cancer_cancerId, cancer.cancerType AS cancerType, 
+        MAX(treatment.treatmentId) AS treatmentId, MAX(treatment.formulaId) AS formulaId, 
+        MAX(treatment.treatmentStatus) AS treatmentStatus, 
+        MAX(bloodresult.brId) AS brId, MAX(bloodresult.date) AS date, 
+        MAX(bloodresult.suggestion) AS suggestion, MAX(bloodresult.status) AS status
+        FROM patient 
+        JOIN cancer_patient ON patient.HN = cancer_patient.HN 
+        JOIN cancer ON cancer.cancerId = cancer_patient.cancerId 
+        JOIN treatment ON treatment.HN = patient.HN 
+        JOIN bloodresult ON treatment.treatmentId = bloodresult.treatmentId 
+        WHERE treatment.HN = ? 
+        GROUP BY cancer.cancerType;
+        `,
       HN
     );
     for (j = 0; j < row1.length; j++) {
@@ -794,6 +859,62 @@ router.get("/patient/:HN/:treatmentId", async function (req, res, next) {
     console.log(error);
   }
 });
+// ING ADD ING EDIT 
+// router.get("/patient/:HN/:treatmentId", async function (req, res, next) {
+//   const HN = req.params.HN;
+//   const treatmentId = req.params.treatmentId;
+
+//   try {
+//     // ดึงข้อมูลหลักของ patient, treatment, bloodresult, allergy, และ user
+//     const [rows, _] = await pool.query(
+//       `SELECT patient.*, treatment.*, bloodresult.*, allergy.*, user.UserIdLine
+//        FROM patient
+//        JOIN treatment ON patient.HN = treatment.HN
+//        JOIN bloodresult ON treatment.treatmentId = bloodresult.treatmentId
+//        LEFT JOIN allergy ON patient.HN = allergy.HN
+//        JOIN user ON patient.IDcard = user.userName
+//        WHERE patient.HN = ? AND treatment.treatmentId = ?`,
+//       [HN, treatmentId]
+//     );
+
+//     if (rows.length === 0) {
+//       return res.status(404).json({ error: "Patient not found" });
+//     }
+
+//     // สร้างตัวแปร cancer เฉพาะสำหรับ HN ปัจจุบัน
+//     let cancerForCurrentPatient = [];
+
+//     // ดึงข้อมูล cancer ทั้งหมดที่เกี่ยวข้องกับผู้ป่วย
+//     const [row1, f1] = await pool.query(
+//       `SELECT *
+//        FROM patient
+//        JOIN cancer_patient ON patient.HN = cancer_patient.HN
+//        JOIN cancer ON cancer.cancerId = cancer_patient.cancerId
+//        JOIN treatment ON treatment.HN = patient.HN
+//        JOIN bloodresult ON treatment.treatmentId = bloodresult.treatmentId
+//        WHERE treatment.HN = ?`,
+//       [HN]
+//     );
+
+//     // กรองข้อมูล cancer ที่มี HN ตรงกับ rows[0].HN
+//     for (let j = 0; j < row1.length; j++) {
+//       if (row1[j].HN === rows[0].HN) {
+//         cancerForCurrentPatient.push(row1[j]);
+//       }
+//     }
+
+//     // ใส่ข้อมูล cancer ที่กรองแล้วเข้าไปใน rows[0]
+//     rows[0].cancer = cancerForCurrentPatient;
+
+//     res.json(rows);
+//   } catch (error) {
+//     console.error("Error fetching patient data:", error);
+//     res.status(500).json({ error: "Internal Server Error" });
+//   }
+// });
+
+
+
 
 router.get(`/detailPatient/:HN`, async function (req, res, next) {
   const HN = req.params.HN;
@@ -1152,4 +1273,27 @@ router.get(`/getFormulaName/:HN`, async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+
+// ING ADD
+router.get(`/check-hn/:newhn`, async function (req, res, next) {
+  const newhn = req.params.newhn; // ดึงค่าจาก route parameter
+  try {
+    const [rows] = await pool.query(
+      `SELECT COUNT(*) AS count FROM patient WHERE HN = ?`,
+      [newhn]
+    );
+
+    // ตรวจสอบผลลัพธ์
+    const exists = rows[0].count > 0;
+
+    // ส่งผลลัพธ์กลับไปในรูปแบบ JSON
+    res.json({ exists });
+  } catch (error) {
+    console.error("Error checking HN:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
 exports.router = router;

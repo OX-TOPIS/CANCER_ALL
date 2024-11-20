@@ -69,6 +69,7 @@ router.get("/getComment/:brId", async function (req, res, next) {
 router.get("/doctor/:HN", async function (req, res, next) {
   const HN = req.params.HN;
   try {
+    // ได้ treatmentId
     const [row1, f1] = await pool.query(
       `select max(treatmentId) as treatmentId from treatment where HN = ?`,
       HN

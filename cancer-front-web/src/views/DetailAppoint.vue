@@ -162,6 +162,8 @@
                   <div v-for="i in patient.cancer" :key="i.cancerId">
                     {{ i.cancerType }} ระยะที่ {{ i.cancerState }}
                   </div>
+                  
+
                 </div>
                 <div class="col-4">
                   <b>แพทย์ผู้ดูแล </b> <div>{{ doctor.firstName }} {{ doctor.lastName }}</div>

@@ -158,7 +158,7 @@
               <div class="row g-0">
                 <div class="col-4">
                   <b>ชนิดมะเร็ง</b>
-                  <div v-for="i in patient.cancer" :key="i.cancerId">
+                  <div v-for="i in patient2.cancer" :key="i.cancerType">
                     {{ i.cancerType }} ระยะที่ {{  i.cancerState }}
                   </div>
                 </div>
@@ -490,6 +490,7 @@ export default {
   data() {
     return {
       patient: [],
+      patient2: [],
       doctor: [],
       bloodresult: [],
       selectedBloodresult: [],
@@ -549,6 +550,16 @@ export default {
       .get(`http://localhost:8080/doctor/${HN}`)
       .then((response) => {
         this.doctor = response.data[0];
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    axios
+      .get(`http://localhost:8080/patient/${HN}/${treatmentId}`)
+      .then((response) => {
+        this.patient2 = response.data[0];
+        let page = moment().format("YYYY") - this.patient2.birthDate.split("-")[0];
+        this.patient2["age"] = page;
       })
       .catch((error) => {
         console.log(error);

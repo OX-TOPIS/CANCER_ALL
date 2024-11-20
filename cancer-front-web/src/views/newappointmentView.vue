@@ -463,14 +463,14 @@
                         <div class="col-md-12">
                           <div class="row">
                             <p class="col-md-2">
-                              {{ appoint.thaiAppointDate }} {{ appoint.thaiTime }} |
+                              {{ appoint.thaiAppointDate }} {{ appoint.thaiTime }}
                             </p>
-                            <p class="col-md-2">HN {{ appoint.HN }} |</p>
+                            <p class="col-md-2">HN {{ appoint.HN }}</p>
                             <p class="col-md-2">
-                              {{ appoint.firstName }} {{ appoint.lastName }} |
+                              {{ appoint.firstName }} {{ appoint.lastName }}
                             </p>
-                            <p class="col-md-2">{{ appoint.cancerType }} |</p>
-                            <p class="col-md-2">สูตรยา {{ appoint.formulaName }} |</p>
+                            <p class="col-md-2">{{ appoint.cancerType }}</p>
+                            <p class="col-md-2">สูตรยา {{ appoint.formulaName }}</p>
                             <button
                               type="button"
                               class="btn"
@@ -511,14 +511,14 @@
                         <div class="col-md-12">
                           <div class="row">
                             <p class="col-md-2">
-                              {{ appoint.thaiAppointDate }} {{ appoint.thaiTime }} |
+                              {{ appoint.thaiAppointDate }} {{ appoint.thaiTime }}
                             </p>
-                            <p class="col-md-2">HN {{ appoint.HN }} |</p>
+                            <p class="col-md-2">HN {{ appoint.HN }}</p>
                             <p class="col-md-2">
-                              {{ appoint.firstName }} {{ appoint.lastName }} |
+                              {{ appoint.firstName }} {{ appoint.lastName }}
                             </p>
-                            <p class="col-md-2">{{ appoint.cancerType }} |</p>
-                            <p class="col-md-2">สูตรยา {{ appoint.formulaName }} |</p>
+                            <p class="col-md-2"></p>
+                            <p class="col-md-2">สูตรยา {{ appoint.formulaName }}</p>
                             <button
                               type="button"
                               class="btn"

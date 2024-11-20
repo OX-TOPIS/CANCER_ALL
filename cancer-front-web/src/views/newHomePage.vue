@@ -425,9 +425,7 @@
                 <tr v-for="p in displayedPosts" :key="p.HN">
                   <td>{{ p.HN }}</td>
                   <td>{{ p.firstName }} {{ p.lastName }}</td>
-                  <td> <div v-for="i in p.cancer" :key="i.HN"> {{ i.cancerType }} ระยะที่ {{ i.cancerState }}
-
-                  </div>
+                  <td> <div v-for="i in p.cancer" :key="i.HN"> {{ i.cancerType }} ระยะที่ {{ i.cancerState }} </div>
                 </td>
 
                   <td>

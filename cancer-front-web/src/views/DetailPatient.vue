@@ -138,6 +138,7 @@
                   <div v-for="i in patient.cancer" :key="i.HN">
                     {{ i.cancerType }} ระยะที่ {{ i.cancerState }}
                   </div>
+                  
                 </div>
                 <div class="col-4">
                   <b>สถานะ</b>
