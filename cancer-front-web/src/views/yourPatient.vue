@@ -90,12 +90,11 @@
                   </button>
                 </div>
                                 <div class="dropdown mb-2">
-                                    <select class="form-select" v-model="sortInfo" @click="sortPatientInfo">
+                                    <select class="form-select" v-model="sortInfo" @change="sortPosts($event)">
                                         <option disabled>เรียงลำดับตาม HN</option>
-                                        <option value="1">ชื่อ-นามสกุล จาก ก ถึง ฮ</option>
-                                        <option value="2">ชื่อ-นามสกุล จาก ฮ ถึง ก</option>
-                                        <option value="3">เรียงตามลำดับ HN น้อยไปมาก</option>
-                                        <option value="4">เรียงตามลำดับ HN มากไปน้อย</option>
+                                        <option value="1">เรียงตามลำดับ  HN</option>
+                                        <option value="2">ชื่อ-นามสกุล จาก ก ถึง ฮ</option>
+                                        <option value="3">ชื่อ-นามสกุล จาก ฮ ถึง ก</option>
                                     </select>
                                 </div>
                             </div>
@@ -224,6 +223,27 @@ export default {
 
     },
     methods: {
+        sortPosts(event) {
+            const sortType = event.target.value;
+
+            // จัดเรียงข้อมูลใน this.posts ตามประเภทที่เลือก
+            switch (sortType) {
+                case "1": // การนัดหมายล่าสุด
+                this.posts.sort((a, b) => a.HN.localeCompare(b.HN));
+                break;
+
+                case "2": // ชื่อ-นามสกุล จาก ก ถึง ฮ
+                this.posts.sort((a, b) => a.firstName.localeCompare(b.firstName, 'th'));
+                break;
+
+                case "3": // ชื่อ-นามสกุล จาก ฮ ถึง ก
+                this.posts.sort((a, b) => b.firstName.localeCompare(a.firstName, 'th'));
+                break;
+                
+                default:
+                console.log("Invalid sort type");
+            }
+        },
         sortPatientInfo() {
             if (this.sortInfo != 'เรียงลำดับตาม HN') {
                 const data = {

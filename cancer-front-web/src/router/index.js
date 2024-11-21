@@ -10,7 +10,7 @@ import RegisPatient from '../views/RegisPatient.vue'
 import DetailAppoint from '../views/DetailAppoint.vue'
 import guideBook from '../views/guideBook.vue'
 import DashboardView from '../views/DashboardView.vue'
-
+import CalendarAppointment from '../views/CalendarAppointment.vue'
 const routes = [
   {
     path: '/appointmentView/:userId',
@@ -69,6 +69,11 @@ const routes = [
     path: '/dashboardview',
     name: 'DashboardView',
     component: DashboardView
+  },
+  {
+    path: '/calendarappointment',
+    name: 'CalendarAppointment',
+    component: CalendarAppointment
   }
 ]
 

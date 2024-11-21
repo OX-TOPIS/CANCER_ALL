@@ -507,14 +507,23 @@
 
 
 
-    <h1>CALENDAR EIEI KWAI</h1>
-    <a class="nav-link" href="http://localhost:8081/calendarappointment" >CALENDAR</a>
-
+    <div>CALENDAR EIEI KWAI</div>
+      <v-row class="fill-height">
+        <v-col>
+          <v-sheet height="600">
+            <v-calendar
+              ref="calendar"
+              v-model="today"
+              :events="events"
+              color="primary"
+              type="month"
+            ></v-calendar>
+          </v-sheet>
+        </v-col>
+      </v-row>
 
   </div>
 </template>
-
-
 
 <script>
 import axios from "axios";

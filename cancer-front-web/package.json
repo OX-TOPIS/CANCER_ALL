@@ -23,7 +23,8 @@
     "vue-chartjs": "^5.3.1",
     "vue-router": "^4.2.5",
     "vue-thailand-address": "^3.4.2",
-    "vue3-snotify": "^0.0.6"
+    "vue3-snotify": "^0.0.6",
+    "vuetify": "^3.7.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
