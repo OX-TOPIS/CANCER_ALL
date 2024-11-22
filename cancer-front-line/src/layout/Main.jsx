@@ -21,11 +21,11 @@ const Main = () => {
 
   return (
     <div>
-        <nav className='text-center p-4 shadow-sm shadow-black-100 bg-white grid grid-cols-3'>
+        {/* <nav className='text-center p-4 shadow-sm shadow-black-100 bg-white grid grid-cols-3'> */}
           
-          <h4 className='col-start-2'>Bloody</h4>
+          {/* <h4 className='col-start-2'>Bloody</h4> */}
           {/* <Link className='text-right' onClick={logout}>ออกจากระบบ</Link> */}
-        </nav>
+        {/* </nav> */}
         {/* form react router dom at in rounter.jsx*/}
         <Outlet/>
     </div>

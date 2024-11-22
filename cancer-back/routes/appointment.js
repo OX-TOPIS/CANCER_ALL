@@ -392,6 +392,30 @@ router.post(`/appointDate/:userIdLine`, async function (req, res, next) {
   const HN = req.body.HN;
   const treatmentId = req.body.treatmentId;
   const userIdLine = req.params.userIdLine; //LINE
+
+  const [doctorcheck] = await pool.query(
+    `SELECT doctorId 
+     FROM treatment 
+     WHERE HN = ? AND treatmentId = ?`,
+    [HN, treatmentId]
+  );
+
+  const doctorId = doctorcheck[0]?.doctorId;
+
+  const [countofdoctorappoint, cd1] = await pool.query(
+    `SELECT COUNT(*) AS count 
+     FROM appointment
+     JOIN treatment ON treatment.treatmentId = appointment.treatmentId
+     WHERE appointment.AppointDate = ? 
+     AND treatment.doctorId = ?`,
+    [date, doctorId]
+  );
+
+  // ถ้าจำนวนการนัดหมาย >= 5, ห้ามนัดหมายในวันนั้น
+  if (countofdoctorappoint[0].count >= 5) {
+    return res.json({ message: "ไม่สามารถนัดหมายกรุณาเลือกวันนัดหมายใหม่" });
+  }
+
   let appoint_no = 0;
   const [row, _] = await pool.query(
     `select max(appoint_no) as appoint_no from appointment join treatment on treatment.treatmentId=appointment.treatmentId where appointment.HN = ?`,
@@ -418,7 +442,8 @@ router.post(`/appointDate/:userIdLine`, async function (req, res, next) {
       `select * from appointment join treatment on treatment.treatmentId=appointment.treatmentId where appointment.HN = ?`,
       HN
     );
-    res.json(rows);
+    // res.json(rows);
+    res.json({ message: "เพิ่มนัดหมายสำเร็จ" });
     // DATE FORMAT
     function formatDate(dateString) {
       // สร้าง object วันที่จาก string
@@ -468,6 +493,9 @@ router.post(`/appointDate/:userIdLine`, async function (req, res, next) {
     conn.release();
   }
 });
+
+
+
 
 router.get(`/checkAppoint`, async function (req, res, next) {
   try {
@@ -1016,6 +1044,28 @@ router.get(`/PatientAppointment2/:IDcard/:appointId`, async function (req, res, 
       console.log(error);
   }
 
+});
+
+// ING ADD NEW 22/11/2567
+router.post('/checkdatecanpostpone', async (req, res) => {
+  // รับค่าจาก body ของ request
+  const { datecheck, doctorId } = req.body;
+  try {
+      const [countofdoctorappoint, dd] = await pool.query(
+          `SELECT COUNT(*) AS count 
+           FROM appointment
+           JOIN treatment ON treatment.treatmentId = appointment.treatmentId
+           WHERE appointment.AppointDate = ? 
+           AND treatment.doctorId = ?`,
+          [datecheck, doctorId]
+      );
+      const appointmentCount = countofdoctorappoint[0].count || 0;
+      res.json({ count: appointmentCount });
+  } catch (error) {
+      console.error('Error:', error);
+      console.log("2")
+      res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 

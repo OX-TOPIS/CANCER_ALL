@@ -942,36 +942,63 @@ export default {
       return result;
     },
     addAppoint() {
-      const data = {
-        date:
-          moment(this.date).format("YYYY-MM-DD") +
-          " " +
-          this.time.hours +
-          ":" +
-          this.time.minutes +
-          ":00",
-        HN: this.$route.params.HN,
-        treatmentId: this.$route.params.treatmentId,
-      };
-      axios
-        .post(`http://localhost:8080/appointDate/${this.patient.UserIdLine}`, data)
-        .then((response) => {
-          this.appointment = response.data;
-          for (let i = 0; i < this.appointment.length; i++) {
-            this.appointment[i].thaiAppointDate = this.convertToThaiDate(
-              this.appointment[i].appointDate
-            );
-          }
-          Swal.fire({
-            title: "",
-            text: "เพิ่มนัดหมายสำเร็จ",
-            icon: "success",
-          });
-        })
-        .catch((error) => {
-          console.log(error);
+  // ปิด Swal ถ้ามีการแสดงผลก่อนหน้านี้
+    Swal.close();
+    
+    // ตรวจสอบว่ามีการกำหนดข้อมูลที่จำเป็นครบถ้วนหรือไม่
+    if (!this.date || !this.time || !this.time.hours || !this.time.minutes) {
+      Swal.fire({
+        title: "",
+        text: "ข้อมูลไม่ครบถ้วน กรุณาตรวจสอบ",
+        icon: "warning",
+      });
+      return;
+    }
+
+    const data = {
+      date:
+        moment(this.date).format("YYYY-MM-DD") +
+        " " +
+        this.time.hours +
+        ":" +
+        this.time.minutes +
+        ":00",
+      HN: this.$route.params.HN,
+      treatmentId: this.$route.params.treatmentId,
+    };
+
+    // ใช้สถานะเพื่อไม่ให้มีการเรียกใช้งานซ้ำ
+    if (this.isProcessing) {
+      return; // หากกำลังทำงานอยู่จะไม่ทำอะไร
+    }
+    
+    this.isProcessing = true; // กำหนดสถานะกำลังทำงาน
+
+    // ส่งคำขอ axios
+    axios
+      .post(`http://localhost:8080/appointDate/${this.patient.UserIdLine}`, data)
+      .then((response) => {
+        this.appointment = response.data;
+        for (let i = 0; i < this.appointment.length; i++) {
+          this.appointment[i].thaiAppointDate = this.convertToThaiDate(
+            this.appointment[i].appointDate
+          );
+        }
+        
+        // แสดง Swal เมื่อเพิ่มนัดหมายสำเร็จ
+        Swal.fire({
+          title: "",
+          text: response.data.message,
+          icon: response.data.message === 'เพิ่มนัดหมายสำเร็จ' ? 'success' : (response.data.message === 'ไม่สามารถนัดหมายกรุณาเลือกวันนัดหมายใหม่' ? 'warning' : 'info'),
         });
-    },
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        this.isProcessing = false; // รีเซ็ตสถานะหลังจากการทำงานเสร็จ
+      });
+      },
     logOut() {
       this.$router.replace("/");
     },
