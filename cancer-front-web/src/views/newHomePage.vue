@@ -82,7 +82,7 @@
                 class="nav-item"
                 style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
               >
-                <a class="nav-link" href="http://localhost:8081/dashboardview" style="color: #ffffff">แดชบอร์ด</a>
+                <a class="nav-link" href="http://localhost:8081/dashboardview" target="_blank" style="color: #ffffff">แดชบอร์ด</a>
               </li>
 
 

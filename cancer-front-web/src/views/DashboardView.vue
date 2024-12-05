@@ -13,18 +13,31 @@
                 :data="chartData2"
             />
         </div>
+        <div class="line-chart-container">
+            <Line :data="lineChartData" :options="lineChartOptions" />
+        </div>
     </div>
 </template>
 
 <script>
-import { Bar } from 'vue-chartjs'
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+import { Bar, Line } from 'vue-chartjs'
+import {
+    Chart as ChartJS,
+    Title,
+    Tooltip,
+    Legend,
+    BarElement,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement
+} from 'chart.js'
 
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement)
 
 export default {
     name: 'BarChart',
-    components: { Bar },
+    components: { Bar, Line },
     data() {
         return {
             chartData1: {
@@ -80,6 +93,30 @@ export default {
                         text: 'กราฟแท่งแสดงจำนวนผู้ป่วยแยกตามกลุ่มอายุ'
                     }
                 }
+            },
+            lineChartData: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [
+                    {
+                        label: 'จำนวนผู้ป่วย',
+                        backgroundColor: 'rgba(75,192,192,0.2)',
+                        borderColor: 'rgba(75,192,192,1)',
+                        data: [65, 59, 80, 81, 56, 55, 40],
+                        fill: true
+                    }
+                ]
+            },
+            lineChartOptions: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: 'กราฟเส้นแสดงจำนวนผู้ป่วยรายเดือน'
+                    }
+                }
             }
         }
     }
@@ -96,6 +133,13 @@ canvas {
     display: flex;
     gap: 20px;
     justify-content: center;
+}
+
+.line-chart-container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 h2 {
