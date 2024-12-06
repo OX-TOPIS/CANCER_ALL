@@ -1068,6 +1068,26 @@ router.post('/checkdatecanpostpone', async (req, res) => {
   }
 });
 
-
+router.get('/getAppointment', async (req, res) => {
+  try {
+      const [row, f] = await pool.query(
+          `SELECT a.appointId, 
+          a.appointDate, 
+          doctor.firstName AS doctorFirstName, 
+          doctor.lastName AS doctorLastName, 
+          patient.firstName AS patientFirstName,
+          patient.lastName AS patientLastName
+          FROM appointment AS a
+          JOIN treatment AS t ON a.treatmentId = t.treatmentId
+          JOIN user AS doctor ON t.doctorId = doctor.userId
+          JOIN user AS patient ON a.IDcard = patient.userName`,
+      );
+      res.json(row);
+  } catch (error) {
+      console.error('Error:', error);
+      console.log("2")
+      res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 exports.router = router;

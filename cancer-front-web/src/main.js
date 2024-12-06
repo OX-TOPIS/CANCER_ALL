@@ -15,7 +15,7 @@ const vuetify = createVuetify({
     components: {
       VSelect,
       VSheet,
-      VCalendar
+      VCalendar,
     },
   })
 app.use(snotify);
