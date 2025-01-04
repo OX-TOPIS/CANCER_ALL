@@ -507,8 +507,10 @@
 
 
 
-    <h1>CALENDAR EIEI KWAI</h1>
-    <a class="nav-link" href="http://localhost:8081/calendarappointment" >CALENDAR</a>
+
+    <a class="nav-link" href="http://localhost:8081/calendarappointment" >
+      <h1>CALENDAR</h1>
+    </a>
 
 
   </div>

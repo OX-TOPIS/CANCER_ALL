@@ -98,13 +98,13 @@ export default {
                 }
             },
             lineChartData: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                labels: ['เดือนที่ 1', 'เดือนที่ 2', 'เดือนที่ 3', 'เดือนที่ 4', 'เดือนที่ 5', 'เดือนที่ 6', 'เดือนที่ 7'],
                 datasets: [
                     {
-                        label: 'จำนวนผู้ป่วย',
+                        label: 'ระดับความรุนแรงเฉลี่ยของผู้ป่วยทั้งหมด',
                         backgroundColor: 'rgba(75,192,192,0.2)',
                         borderColor: 'rgba(75,192,192,1)',
-                        data: [65, 59, 80, 81, 56, 55, 40],
+                        data: [1, 4, 5, 3, 2, 2, 1],
                         fill: true
                     }
                 ]
@@ -117,23 +117,23 @@ export default {
                     },
                     title: {
                         display: true,
-                        text: 'กราฟเส้นแสดงจำนวนผู้ป่วยรายเดือน'
+                        text: 'กราฟเส้นแสดงระดับความรุนแรงเฉลี่ยของผู้ป่วยทั้งหมด ของมะเร็งแต่ละชนิด'
                     }
                 }
             },
             radardata: {
                 labels: [
-                    'Eating',
-                    'Drinking',
-                    'Sleeping',
-                    'Designing',
-                    'Coding',
-                    'Cycling',
-                    'Running'
+                    'ผมร่วง',
+                    'ใจสั่น',
+                    'ครั่นเนื้อครั่นตัว',
+                    'เหนื่อยง่าย',
+                    'วิงเวียนศีรษะ',
+                    'อาเจียน',
+                    'ผิวหนังสีเข้ม'
                 ],
                 datasets: [
                     {
-                    label: 'My First dataset',
+                    label: 'มะเร็งปอด',
                     backgroundColor: 'rgba(179,181,198,0.2)',
                     borderColor: 'rgba(179,181,198,1)',
                     pointBackgroundColor: 'rgba(179,181,198,1)',
@@ -143,7 +143,7 @@ export default {
                     data: [65, 59, 90, 81, 56, 55, 40]
                     },
                     {
-                    label: 'My Second dataset',
+                    label: 'มะเร็งกระเพาะอาหาร',
                     backgroundColor: 'rgba(255,99,132,0.2)',
                     borderColor: 'rgba(255,99,132,1)',
                     pointBackgroundColor: 'rgba(255,99,132,1)',
@@ -153,7 +153,7 @@ export default {
                     data: [28, 48, 40, 19, 96, 27, 100]
                     },
                     {
-                    label: 'My Second datase2',
+                    label: 'มะเร็งลำไส้',
                     backgroundColor: 'rgba(255,99,132,0.2)',
                     borderColor: 'rgba(255,99,132,1)',
                     pointBackgroundColor: 'rgba(255,99,132,1)',

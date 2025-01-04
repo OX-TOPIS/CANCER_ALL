@@ -539,25 +539,25 @@ export default {
       ],
       user: [],
       datachartweight: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        labels: ['เดือนที่ 1', 'เดือนที่ 2', 'เดือนที่ 3', 'เดือนที่ 4', 'เดือนที่ 5', 'เดือนที่ 6', 'เดือนที่ 7'],
                 datasets: [
                     {
-                        label: 'จำนวนผู้ป่วย',
+                        label: 'ระดับความรุนแรง',
                         backgroundColor: 'rgba(75,192,192,0.2)',
                         borderColor: 'rgba(75,192,192,1)',
-                        data: [65, 59, 80, 81, 56, 55, 40],
+                        data: [1, 4, 4, 3, 3, 2, 1],
                         fill: true
                     }
                 ]
       },
       datacharteffect: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        labels: ['สัปดาห์ที่ 1', 'สัปดาห์ที่ 2', 'สัปดาห์ที่ 3', 'สัปดาห์ที่ 4', 'สัปดาห์ที่ 5', 'สัปดาห์ที่ 6', 'สัปดาห์ที่ 7', 'สัปดาห์ที่ 8', 'สัปดาห์ที่ 9', 'สัปดาห์ที่ 10'],
                 datasets: [
                     {
-                        label: 'จำนวนผู้ป่วย',
+                        label: 'น้ำหนัก',
                         backgroundColor: 'rgba(75,192,192,0.2)',
                         borderColor: 'rgba(75,192,192,1)',
-                        data: [65, 59, 80, 81, 56, 55, 40],
+                        data: [65, 59, 80, 81, 56, 55, 40, 40, 30, 55, 40],
                         fill: true
                     }
                 ]
@@ -570,7 +570,7 @@ export default {
                     },
                     title: {
                         display: true,
-                        text: 'กราฟเส้นแสดงจำนวนผู้ป่วยรายเดือน'
+                        text: 'กราฟเส้นแสดงระดับความรุนแรงของผลข้างเคียง'
                     }
                 }
       },
@@ -582,7 +582,7 @@ export default {
                     },
                     title: {
                         display: true,
-                        text: 'กราฟเส้นแสดงจำนวนผู้ป่วยรายเดือน'
+                        text: 'กราฟเส้นแสดงแนวโน้มน้ำหนักของผู้ป่วย'
                     }
                 }
       },

@@ -1090,4 +1090,24 @@ router.get('/getAppointment', async (req, res) => {
   }
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 exports.router = router;
