@@ -94,7 +94,25 @@
         <div class="card" style="margin: 20px">
           <div class="card-body" style="text-align: left; padding: 30px">
             <div>
-              <h5><b>ระบุข้อมูลส่วนบุคคล</b></h5>
+              <h5 style="width: 200px;"><b>ระบุข้อมูลส่วนบุคคล</b></h5>
+              <div class="d-flex justify-content-end" style="margin-left: 50px; height: 50px;">
+                
+                <!--ปุ่มนำเข้า -->
+                <div style="margin-right: 10px;">
+                  <label for="file-upload" class="btn btn-success">
+                     เลือกไฟล์ข้อมูลผู้ป่วย
+                  </label>
+                  <input id="file-upload" type="file" class="d-none" @change="handleFileChange" multiple />
+                  <!-- แสดงจำนวนไฟล์ที่เลือก -->
+                  <div class="text-center">
+                    <p v-if="fileCount > 0">คุณเลือก {{ fileCount }} ไฟล์</p>
+                  </div>
+                </div>
+                <!--END ปุ่มนำเข้า -->
+                <button class="btn btn-success text-white" type="button" style="margin-right: 10px;" @click="submitFile">นำเข้าข้อมูลผู้ป่วย</button>
+                <button class="btn btn-success text-white" type="button" @click="exportCSV">ส่งออกข้อมูลผู้ป่วย</button>
+              </div>
+              
               <hr />
               <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 <strong>บันทึกข้อความ: </strong> กรุณากรอกข้อมูลตามความเป็นจริง
@@ -1241,8 +1259,8 @@
               </div>
             </div>
             <!--ปุ่มลงทะเบียน-->
-            <div class="d-grid gap-2 col-6 mx-auto" style="margin-top: 30px">
-              <button class="btn btn-success" type="button" @click="registerPatient()">
+            <div class="d-grid gap-2 col-6 mx-auto " style="margin-top: 30px">
+              <button class="btn btn-success text-white" type="button" @click="registerPatient()">
                 ลงทะเบียน
               </button>
             </div>
@@ -1357,6 +1375,8 @@ export default {
   data() {
     return {
       cancerType: "",
+      fileCount: 0,
+      file: null,
       cancerState: "",
       formula: "",
       formulas: [],
@@ -1710,6 +1730,36 @@ export default {
       });
   },
   methods: {
+    handleFileChange(event) {
+      // เมื่อมีการเลือกไฟล์ใหม่
+      this.fileCount = event.target.files.length;
+      this.file = event.target.files[0];
+    },
+    async submitFile() {
+      if (!this.file) {
+        alert("Please select a file first!");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", this.file);
+
+      try {
+        const response = await axios.post("http://localhost:8080/import-csv", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        alert(response.data.message);
+        this.fileCount = 0;
+      } catch (error) {
+        console.error(error);
+        alert("Error uploading file");
+      }
+    },
+    exportCSV() {
+      window.location.href = "http://localhost:8080/export/csv";
+    },
     logOut() {
       this.$router.replace("/");
     },

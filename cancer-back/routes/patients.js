@@ -4,6 +4,8 @@ const app = express();
 const cors = require("cors");
 const moment = require("moment");
 const path = require("path");
+const { Parser } = require("json2csv");
+const csv = require("csv-parser");
 
 const fileUpload = require("express-fileupload");
 const uploadOpts = {
@@ -1295,5 +1297,187 @@ router.get(`/check-hn/:newhn`, async function (req, res, next) {
   }
 });
 
+// DASHBOARD แดชบอร์ด
+
+// กราฟ2
+router.get('/age-groups', async (req, res) => {
+  try {
+      // Query ข้อมูลจากตาราง patient
+      const [rows] = await pool.query(`
+          SELECT 
+              gender,
+              FLOOR(DATEDIFF(CURDATE(), birthDate) / 365) AS age
+          FROM patient;
+      `);
+
+      // จัดกลุ่มข้อมูลตามช่วงอายุและเพศ
+      const ageGroups = {
+          '0-18Male': 0,
+          '0-18Female': 0,
+          '19-35Male': 0,
+          '19-35Female': 0,
+          '36-50Male': 0,
+          '36-50Female': 0,
+          '51-65Male': 0,
+          '51-65Female': 0,
+          '65+Male': 0,
+          '65+Female': 0
+      };
+
+      rows.forEach(row => {
+          const { gender, age } = row;
+          if (age <= 18) {
+              gender === 'Male'
+                  ? ageGroups['0-18Male']++
+                  : ageGroups['0-18Female']++;
+          } else if (age <= 35) {
+              gender === 'Male'
+                  ? ageGroups['19-35Male']++
+                  : ageGroups['19-35Female']++;
+          } else if (age <= 50) {
+              gender === 'Male'
+                  ? ageGroups['36-50Male']++
+                  : ageGroups['36-50Female']++;
+          } else if (age <= 65) {
+              gender === 'Male'
+                  ? ageGroups['51-65Male']++
+                  : ageGroups['51-65Female']++;
+          } else {
+              gender === 'Male'
+                  ? ageGroups['65+Male']++
+                  : ageGroups['65+Female']++;
+          }
+      });
+      res.json(ageGroups);
+      
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error' });
+  }
+});
+
+
+// กราฟ 1
+// router.get('/cancer-summary', async (req, res) => {
+//   try {
+//       const [rows] = await pool.query(`
+//           SELECT c.cancerType, g.gender, COUNT(p.IDcard) AS total FROM (SELECT 'ชาย' AS gender UNION SELECT 'หญิง') g CROSS JOIN cancer c LEFT JOIN cancer_patient cp ON c.cancerId = cp.cancerId LEFT JOIN patient p ON cp.IDcard = p.IDcard AND p.gender = g.gender GROUP BY c.cancerType, g.gender ORDER BY c.cancerType, g.gender;
+//       `);
+
+//       res.json(rows);
+
+//   } catch (error) {
+//       console.error(error);
+//       res.status(500).json({ error: 'Error' });
+//   }
+// });
+router.get('/cancer-summary', async (req, res) => {
+  try {
+
+      const [rows] = await pool.query(`
+          SELECT 
+              c.cancerType,
+              g.gender,
+              COUNT(p.IDcard) AS total
+          FROM 
+              (SELECT 'ชาย' AS gender UNION SELECT 'หญิง') g
+          CROSS JOIN 
+              cancer c
+          LEFT JOIN 
+              cancer_patient cp ON c.cancerId = cp.cancerId
+          LEFT JOIN 
+              patient p ON cp.IDcard = p.IDcard AND p.gender = g.gender
+          GROUP BY 
+              c.cancerType, g.gender
+          ORDER BY 
+              c.cancerType, g.gender;
+      `);
+
+      // แปลงข้อมูลเป็น JSON ในรูปแบบที่ต้องการ
+      const result = {};
+      rows.forEach(row => {
+          const key = `${row.cancerType} ${row.gender}`;
+          result[key] = row.total;
+      });
+
+      res.json(result);
+
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error' });
+  }
+});
+
+// EXPORT ข้อมูล
+router.get("/export/csv", async (req, res) => {
+  try {
+    const [rows] = await pool.query("SELECT * FROM patient");
+
+    if (rows.length === 0) {
+      return res.status(404).json({ message: "No data found" });
+    }
+
+    const fields = Object.keys(rows[0]);
+    const json2csv = new Parser({ fields });
+    const csv = json2csv.parse(rows);
+
+    res.header("Content-Type", "text/csv");
+    res.attachment("data_patient.csv");
+    res.send(csv);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// IMPORT DATA
+router.post("/import-csv", upload.single("file"), async (req, res) => {
+  const filePath = req.file.path;
+
+  try {
+    const data = [];
+    fs.createReadStream(filePath)
+      .pipe(csv())
+      .on("data", (row) => {
+        data.push(row);
+      })
+      .on("end", async () => {
+        // นำข้อมูลเข้าสู่ฐานข้อมูล
+        const query = `
+          INSERT INTO patient (HN, prefix, firstName, lastName, birthDate, phoneNumber, IDcard, gender, doctorId, allergy)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `;
+        const conn = await pool.getConnection();
+        try {
+          await Promise.all(
+            data.map((row) =>
+              conn.query(query, [
+                row.HN,
+                row.prefix,
+                row.firstName,
+                row.lastName,
+                row.birthDate,
+                row.phoneNumber,
+                row.IDcard,
+                row.gender,
+                row.doctorId,
+                row.allergy,
+              ])
+            )
+          );
+          res.status(200).json({ message: "Data imported successfully!" });
+        } catch (error) {
+          console.error("Error inserting data:", error);
+          res.status(500).json({ error: "Failed to insert data" });
+        } finally {
+          conn.release();
+        }
+        fs.unlinkSync(filePath); // ลบไฟล์หลังจากใช้งานเสร็จ
+      });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to process file" });
+  }
+});
 
 exports.router = router;
