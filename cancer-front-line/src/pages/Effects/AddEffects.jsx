@@ -1,12 +1,10 @@
 //หน้าเพิ่มผลข้างเคียง
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AutoComplete, Input, Checkbox, Button } from 'antd';
 import { AxiosClient } from '../../apiClient';
-import Cookies from 'js-cookie';
-import { Link } from 'react-router-dom';
 
-//funcเปลี่ยนformat date ไม่แน่ใจว่าต้องเอาไปไว้ไหนแปะไว้ตรงนี้ก่อน
+//func เปลี่ยน format date 
 function formatDateToCustomFormat(date) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -24,35 +22,6 @@ const AddEffects = () => {
   const [selectedEffects, setSelectedEffects] = useState([]);
   const [customEffect, setCustomEffect] = useState('');
   const navigateHistory = useNavigate(); //navigateไปหน้าประวัติ
-  const [username, setUsername] = useState('');
-  useEffect(() => {
-    const user = Cookies.get('userName');
-    if (user) {
-      setUsername(user);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (username) {
-      fetch(`http://localhost:8080/PatientAppointment2/${username}`)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(data => {
-          setAppointments(data);
-          setLoading(false);
-        })
-        .catch(error => {
-          // setError(error);
-          // setLoading(false);
-          console.log(error)
-
-        });
-    }
-  }, [username]);
 
   const onChange = (e) => {
     const value = e.target.value;
@@ -75,21 +44,21 @@ const handleCheckboxChange = (effect) => {
     event.preventDefault();
     const patientSideEffect = [...selectedEffects, customEffect].filter(Boolean).join(', ');
     const sendAt = formatDateToCustomFormat(new Date()); //Format date"YYYY-MM-DD HH:MM:SS"
-    // const hn = '1234567891011'; // ตัวอย่างค่า HN
+    const hn = '123456'; 
 
     // เช็คค่า
-    // console.log('HN:', hn);
-    // console.log('Patient Side Effect:', patientSideEffect);
-    // console.log('Send At:', sendAt);
+    console.log('HN:', hn);
+    console.log('Patient Side Effect:', patientSideEffect);
+    console.log('Send At:', sendAt);
 
     try {
-      const response = await AxiosClient.post(`/feedback/${username}`, {
+      const response = await AxiosClient.post(`/feedback/${hn}`, {
           sideEffect: patientSideEffect,
           date: sendAt,
       });
       alert('บันทึกผลข้างเคียงสำเร็จ');
       console.log('Effect added:', response.data);
-      navigateHistory('/effects');
+      navigateHistory('/Effects');
   } catch (error) {
     alert('บันทึกผลข้างเคียงไม่สำเร็จ');
       console.error('Error adding effect:', error);

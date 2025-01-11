@@ -2,18 +2,16 @@ const express = require("express");
 const pool = require("../config");
 const app = express();
 const cors = require("cors");
+const { router } = require("./patients");
 
-// app.use(cors());
-app.use(cors({
-  origin: 'https://p6l7k2jx-5173.asse.devtunnels.ms', // Frontend URL
-  methods: 'GET, POST, PUT, DELETE'
-}));
+app.use(cors());
 
-router = express.Router();
+  let sideEfrouter = express.Router();
 
-//ผู้ป่วยบันทึกผลข้างเคียง น้ำเงิน
-router.post("/feedback/:IDcard", async function (req, res, next) {
-  const IDcard = req.params.IDcard;
+// Line app
+//ผู้ป่วยบันทึกผลข้างเคียง
+router.post("/feedback/:HN", async function (req, res, next) {
+  const HN = req.params.HN;
   const sideEffect = req.body.sideEffect;
   const appointId = req.body.appointId;
   const date = req.body.date;
@@ -26,8 +24,8 @@ router.post("/feedback/:IDcard", async function (req, res, next) {
   //เลือกการนัดหมายครั้งล่าสุด
   try {
     const [maxAppointRows] = await pool.query(
-      "SELECT MAX(appointId) AS max_appointId FROM appointment WHERE IDcard = ?",
-      [IDcard]
+      "SELECT MAX(appointId) AS max_appointId FROM appointment WHERE HN = ?",
+      [HN]
     );
 
     if (maxAppointRows[0].max_appointId == null) {
@@ -57,44 +55,101 @@ router.post("/feedback/:IDcard", async function (req, res, next) {
   }
 });
 
-
-router.post("/feedback/:HN/:appoint_no", async function (req, res, next) {
-  let HN = req.params.HN;
-  let appoint_no = req.params.appoint_no;
-  let sideEffect = req.body.sideEffect;
-  let date = req.body.date;
-  console.log(req.body.date, req.body.sideEffect);
-  const [rows, _] = await pool.query(
-    "select appointId from appointment where appoint_no = ? and HN = ?",
-    [appoint_no, HN]
-  );
-  const conn = await pool.getConnection();
-  await conn.beginTransaction();
+//ดูประวัติผลข้างเคียง
+router.get("/selectedFeedback/:appointId", async function (req, res, next) {
+  let appointId = req.params.appointId;
   try {
-    const [row, _] = await conn.query(
-      "insert into feedback (date, side_effect, HN, appointId) values (?, ?, ?, ?)",
-      [date, sideEffect, HN, rows[0].appointId]
+    const [row, _] = await pool.query(
+      "select * from feedback where appointId = ?",
+      appointId
     );
-    conn.commit();
-    res.send("บันทึกเสร็จสิ้น");
+    if (row.length != 0) {
+      res.json(row);
+    } else {
+      res.send("not found");
+    }
   } catch (error) {
-    conn.rollback();
     console.log(error);
-  } finally {
-    conn.release();
   }
 });
 
-router.get("/feedback/:HN", async function (req, res, next) {
-  let HN = req.params.HN;
+// เรียกดู allSideEffects
+router.get('/allsideeffects/:side_effect_id', async(req, res) => {
+  const side_effect_id = req.params.side_effect_id;
   try {
-    const [row, _] = await pool.query(
-      "select * from feedback where HN = ?",
-      HN
+    const [row] = await pool.query(
+      "SELECT side_effect_name FROM allsideeffects where side_effect_id = ?",
+      [side_effect_id]
     );
-    res.json(row);
+  res.json(row);
   } catch (error) {
     console.log(error);
+  }
+});
+
+//นงเพิ่ม ฟังก์ชันเพิ่มผลข้างเคียงลงตาราง allsideeffects
+const addSideEffectIfNotExists = async (sideEffectName) => {
+  const [rows] = await pool.query(
+      'SELECT side_effect_id FROM allsideeffects WHERE side_effect_name = ?',
+      [sideEffectName]
+  );
+  if (rows.length > 0) {
+      return rows[0].side_effect_id;
+  } else {
+      const [result] = await pool.query(
+          'INSERT INTO allsideeffects (side_effect_name) VALUES (?)',
+          [sideEffectName]
+      );
+      return result.insertId;
+  }
+};
+
+//นงเพิ่ม ดึง patientSideEffect แยกผลข้างเคียง
+router.get('/process-sideeffects/:feedbackId', async (req, res) => {
+  const feedbackId = req.params.feedbackId;
+  try {
+      const [feedbackRows] = await pool.query(
+          `SELECT f.patientSideEffect, a.HN
+           FROM feedback f
+           JOIN appointment a ON f.appointId = a.appointId
+           WHERE f.feedbackId = ?`,
+          [feedbackId]
+      );
+      if (feedbackRows.length === 0) {
+          return res.status(404).json({ message: 'Feedback not found' });
+      }
+      const patientSideEffect = feedbackRows[0].patientSideEffect;
+      const HN = feedbackRows[0].HN;
+      if (!patientSideEffect) {
+          return res.status(400).json({ message: 'No side effects to process' });
+      }
+      const sideEffectsArray = patientSideEffect.split(',').map(effect => effect.trim()); // แยกผลข้างเคียงที่คั่นด้วยเครื่องหมาย ,
+      const sideEffectIds = [];
+      for (let effect of sideEffectsArray) {
+          const sideEffectId = await addSideEffectIfNotExists(effect);
+          sideEffectIds.push(sideEffectId);
+      }
+      for (let sideEffectId of sideEffectIds) {
+          const [existingRows] = await pool.query(
+              'SELECT * FROM patientsideeffects WHERE HN = ? AND side_effect_id = ?',
+              [HN, sideEffectId]
+          );
+          if (existingRows.length === 0) {
+              await pool.query(
+                  'INSERT INTO patientsideeffects (HN, side_effect_id, feedbackId, has_side_effect) VALUES (?, ?, ?, ?)',
+                  [HN, sideEffectId, feedbackId, 1] // เพิ่มผลข้างเคียงค่า 1=มีผลข้างเคียง
+              );
+          } else {
+              await pool.query(
+                  'UPDATE patientsideeffects SET has_side_effect = 1 WHERE HN = ? AND side_effect_id = ?',
+                  [HN, sideEffectId]
+              );
+          }
+      }
+      res.json({ message: 'Side effects processed successfully', sideEffectIds });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'An error occurred', error });
   }
 });
 
@@ -133,7 +188,7 @@ router.get("/selectedFeedback2/:appointId", async function (req, res, next) {
   }
 });
 
-//////// new ///////////
+//////// ของพี่ ///////////
 //add feedback
 router.post(`/newFeedback`, async function (req, res, next) {
   const sideEffect = req.body.sideEffect;
@@ -154,8 +209,6 @@ router.post(`/newFeedback`, async function (req, res, next) {
     conn.release();
   }
 });
-
-
 
 //add note
 router.post(`/noteFeedback`, async function (req, res, next) {

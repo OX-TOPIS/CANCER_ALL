@@ -458,7 +458,7 @@
 
     <h1>กราฟ</h1>
     <div class="line-chart-container">
-      <Line :data="datachartweight" :options="optionchartweight" />
+      <!-- <Line :data="datachartweight" :options="optionchartweight" /> -->
       <Line :data="datacharteffect" :options="optioncharteffect" />
     </div>
   </div>
@@ -557,7 +557,7 @@ export default {
                         label: 'น้ำหนัก',
                         backgroundColor: 'rgba(75,192,192,0.2)',
                         borderColor: 'rgba(75,192,192,1)',
-                        data: [65, 59, 80, 81, 56, 55, 40, 40, 30, 55, 40],
+                        data: [65, 59, 59, 59, 56, 55, 48, 47, 45, 40, 40],
                         fill: true
                     }
                 ]
