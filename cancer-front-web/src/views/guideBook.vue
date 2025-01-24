@@ -3,7 +3,7 @@
     <nav style="background-color: #1c2939">
       <div class="container">
         <div class="row">
-          <div class="col-9">
+          <div class="col-12">
             <ul class="nav nav-underline">
               <li
                 v-if="user.type == 'nurse'"
@@ -20,7 +20,7 @@
                 @click="goTonewHome()"
                 style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
               >
-                <a class="nav-link" href="#" style="color: #ffffff">ผลเลือด</a>
+                <a class="nav-link" href="#" style="color: #ffffff">การอนุมัติผลเลือด</a>
               </li>
               <li
                 class="nav-item"
@@ -56,10 +56,22 @@
                   >คู่มือผู้ป่วย</a
                 >
               </li>
-            </ul>
-          </div>
-          <div class="col-3">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <li
+                class="nav-item"
+                @click="goToExportimport()"
+                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+              >
+                <a class="nav-link" href="#" style="color: #ffffff">นำเข้าส่งออกข้อมูล</a>
+              </li>
+              <li
+                class="nav-item"
+                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+              >
+                <a class="nav-link" href="http://localhost:8081/dashboardview" target="_blank" style="color: #ffffff">ข้อมูลสถิติผู้ป่วย</a>
+              </li>
+
+
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
               <button
                 @click="logOut()"
                 class="btn btn-light me-md-2"
@@ -86,7 +98,9 @@
                 ออกจากระบบ
               </button>
             </div>
+            </ul>
           </div>
+          
         </div>
       </div>
     </nav>
@@ -494,6 +508,9 @@ export default {
     },
     goToguideBook() {
       this.$router.push(`/guideBook/${this.$route.params.userId}`);
+    },
+    goToExportimport() {
+            this.$router.push(`/ExportImport/${this.$route.params.userId}`);
     },
   },
   computed: {

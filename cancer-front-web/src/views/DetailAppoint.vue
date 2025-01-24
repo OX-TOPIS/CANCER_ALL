@@ -23,7 +23,7 @@
                   aria-current="page"
                   href="#"
                   style="color: #ffffff; font-size: large"
-                  >ผลเลือด</a
+                  >การอนุมัติผลเลือด</a
                 >
               </li>
               <li

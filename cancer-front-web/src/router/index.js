@@ -11,6 +11,7 @@ import DetailAppoint from '../views/DetailAppoint.vue'
 import guideBook from '../views/guideBook.vue'
 import DashboardView from '../views/DashboardView.vue'
 import CalendarAppointment from '../views/CalendarAppointment.vue'
+import ExportImport from '@/views/ExportImport.vue'
 const routes = [
   {
     path: '/appointmentView/:userId',
@@ -74,6 +75,11 @@ const routes = [
     path: '/calendarappointment',
     name: 'CalendarAppointment',
     component: CalendarAppointment
+  },
+  {
+    path: '/ExportImport/:userId/',
+    name: 'ExportImport',
+    component: ExportImport
   }
 ]
 

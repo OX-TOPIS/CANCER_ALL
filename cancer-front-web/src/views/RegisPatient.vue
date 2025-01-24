@@ -3,7 +3,7 @@
     <nav style="background-color: #1c2939">
       <div class="container">
         <div class="row">
-          <div class="col-9">
+          <div class="col-12">
             <ul class="nav nav-underline">
               <li
                 v-if="user.type == 'nurse'"
@@ -24,7 +24,7 @@
                 @click="goTonewHome()"
                 style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
               >
-                <a class="nav-link" href="#" style="color: #ffffff">ผลเลือด</a>
+                <a class="nav-link" href="#" style="color: #ffffff">การอนุมัติผลเลือด</a>
               </li>
               <li
                 class="nav-item"
@@ -55,10 +55,22 @@
               >
                 <a class="nav-link" href="#" style="color: #ffffff">คู่มือผู้ป่วย</a>
               </li>
-            </ul>
-          </div>
-          <div class="col-3">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <li
+                class="nav-item"
+                @click="goToExportimport()"
+                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+              >
+                <a class="nav-link" href="#" style="color: #ffffff">นำเข้าส่งออกข้อมูล</a>
+              </li>
+              <li
+                class="nav-item"
+                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+              >
+                <a class="nav-link" href="http://localhost:8081/dashboardview" target="_blank" style="color: #ffffff">ข้อมูลสถิติผู้ป่วย</a>
+              </li>
+
+
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
               <button
                 @click="logOut()"
                 class="btn btn-light me-md-2"
@@ -85,7 +97,12 @@
                 ออกจากระบบ
               </button>
             </div>
+
+
+
+            </ul>
           </div>
+          
         </div>
       </div>
     </nav>
@@ -95,23 +112,23 @@
           <div class="card-body" style="text-align: left; padding: 30px">
             <div>
               <h5 style="width: 200px;"><b>ระบุข้อมูลส่วนบุคคล</b></h5>
-              <div class="d-flex justify-content-end" style="margin-left: 50px; height: 50px;">
+              <!-- <div class="d-flex justify-content-end" style="margin-left: 50px; height: 50px;">
                 
-                <!--ปุ่มนำเข้า -->
+                
                 <div style="margin-right: 10px;">
                   <label for="file-upload" class="btn btn-success">
                      เลือกไฟล์ข้อมูลผู้ป่วย
                   </label>
                   <input id="file-upload" type="file" class="d-none" @change="handleFileChange" multiple />
-                  <!-- แสดงจำนวนไฟล์ที่เลือก -->
+                  
                   <div class="text-center">
                     <p v-if="fileCount > 0">คุณเลือก {{ fileCount }} ไฟล์</p>
                   </div>
                 </div>
-                <!--END ปุ่มนำเข้า -->
+                
                 <button class="btn btn-success text-white" type="button" style="margin-right: 10px;" @click="submitFile">นำเข้าข้อมูลผู้ป่วย</button>
                 <button class="btn btn-success text-white" type="button" @click="exportCSV">ส่งออกข้อมูลผู้ป่วย</button>
-              </div>
+              </div> -->
               
               <hr />
               <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -869,7 +886,7 @@
                   >
                     <div class="row justify-content-md-center">
                       <div class="col-8">
-                        <label>บันทึกประวัติการแพ้</label>
+                        <label>บันทึกประวัติการแพ้ยาและอาหาร</label>
                       </div>
                       <div class="col-4">
                         <button
@@ -964,7 +981,7 @@
                             id="exampleModalLabel"
                             style="color: #1c2939"
                           >
-                            <b>ประวัติการแพ้</b>
+                            <b>ประวัติการแพ้ยาและอาหาร</b>
                           </h1>
                           <button
                             type="button"
@@ -1781,6 +1798,9 @@ export default {
     },
     goTonewAppoint() {
       this.$router.push(`/appointmentView/${this.$route.params.userId}`);
+    },
+    goToExportimport() {
+      this.$router.push(`/ExportImport/${this.$route.params.userId}`);
     },
     addToAllergy() {
       if (this.allerType && this.allerDetail != "") {

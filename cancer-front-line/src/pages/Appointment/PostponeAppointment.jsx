@@ -294,6 +294,7 @@ const PostponeAppointment = () => {
         </div>
         <div className="">
           <h2 className="text-lg">นัดหมายใหม่</h2>
+          {/* NEW! */}
           <ul>
             {appointmentCounts
               .filter((appointment) => appointment.count < 5)
@@ -303,8 +304,10 @@ const PostponeAppointment = () => {
                   Date: {appointment.datecheck} - Count: {appointment.count}
                 </li>
               ))}
+              
           </ul>
 
+          {/* OLD */}
           <Radio.Group onChange={onChangenewAppointDate} value={newAppointDate}>
             {newAppointments.length > 0 ? (
               newAppointments.slice(1).map((date, index) => (
@@ -323,7 +326,11 @@ const PostponeAppointment = () => {
               <p>ไม่มีวันนัดหมายใหม่ที่ตรงกัน</p>
             )}
           </Radio.Group>
-          {/* <h1>Appointment ID: {appointId}</h1> */}
+          {console.log("newAppointments", newAppointments)}
+          {console.log("appointmentCounts", appointmentCounts)}
+
+
+
           <div className="mt-8"></div>
 
           <div className="space-y-4">

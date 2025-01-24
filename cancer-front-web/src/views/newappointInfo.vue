@@ -23,7 +23,7 @@
                   aria-current="page"
                   href="#"
                   style="color: #ffffff; font-size: large"
-                  >ผลเลือด</a
+                  >การอนุมัติผลเลือด</a
                 >
               </li>
               <li
@@ -184,15 +184,20 @@
                 </div>
               </div>
             </div>
+
+
+
+
+
             <div class="col-md-5 card" style="margin-bottom: 50px">
               <div class="card-header" style="background-color: #90eeb7">
-                <b>ผลเลือด</b>
+                <b>ผลเลือดกก</b>
               </div>
               <div class="card-body">
                 <table class="table">
                   <thead>
                     <tr class="table">
-                      <th scope="col">ผลเลือด</th>
+                      <th scope="col">ผลเลือดก</th>
                       <th scope="col"></th>
                     </tr>
                   </thead>
@@ -225,6 +230,9 @@
                 </table>
               </div>
             </div>
+
+
+
             <div
               class="modal fade"
               id="exampleModal4"

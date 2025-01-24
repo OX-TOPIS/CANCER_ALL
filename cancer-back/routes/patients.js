@@ -1409,18 +1409,107 @@ router.get('/cancer-summary', async (req, res) => {
 });
 
 // EXPORT ข้อมูล
+// router.get("/export/csv", async (req, res) => {
+//   try {
+//     // รับ fields ที่ส่งมาจาก query parameters
+//     const { fields } = req.query;
+
+//     if (!fields || fields.length === 0) {
+//       return res.status(400).json({ message: "กรุณาระบุ fields ที่ต้องการส่งออก" });
+//     }
+
+//     // แปลง fields จาก query string ให้เป็น array (รองรับหลาย fields)
+//     const selectedFields = Array.isArray(fields) ? fields : [fields];
+
+//     // ตรวจสอบว่า fields ที่เลือกตรงกับ column ใน database
+//     const validFields = ["HN", "firstName", "lastName"]; // ระบุคอลัมน์ที่อนุญาต
+//     const filteredFields = selectedFields.filter(field => validFields.includes(field));
+
+//     if (filteredFields.length === 0) {
+//       return res.status(400).json({ message: "fields ที่เลือกไม่ถูกต้อง" });
+//     }
+
+//     // สร้าง SQL สำหรับเลือกเฉพาะ fields ที่ต้องการ
+//     const query = `SELECT ${filteredFields.join(", ")} FROM patient`;
+
+//     // ดึงข้อมูลจาก database
+//     const [rows] = await pool.query(query);
+
+//     if (rows.length === 0) {
+//       return res.status(404).json({ message: "No data found" });
+//     }
+
+//     // สร้าง CSV โดยใช้ json2csv
+//     const json2csv = new Parser({ fields: filteredFields });
+//     const csv = json2csv.parse(rows);
+
+//     // ส่งไฟล์ CSV กลับไปยัง Frontend
+//     res.header("Content-Type", "text/csv");
+//     res.attachment("data_patient.csv");
+//     res.send(csv);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: error.message });
+//   }
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+// EXPORT NEW!
 router.get("/export/csv", async (req, res) => {
   try {
-    const [rows] = await pool.query("SELECT * FROM patient");
+    // รับ fields ที่ส่งมาจาก query parameters
+    const { fields } = req.query;
 
+    if (!fields || fields.length === 0) {
+      return res.status(400).json({ message: "กรุณาระบุ fields ที่ต้องการส่งออก" });
+    }
+
+    // แปลง fields จาก query string ให้เป็น array (รองรับหลาย fields)
+    const selectedFields = Array.isArray(fields) ? fields : [fields];
+
+    // ตรวจสอบว่า fields ที่เลือกตรงกับ column ใน database
+    const validFields = ["treatment.HN AS HN", "firstName", "lastName"]; // ระบุคอลัมน์ที่อนุญาต
+    const filteredFields = selectedFields.filter(field => validFields.includes(field));
+
+    if (filteredFields.length === 0) {
+      return res.status(400).json({ message: "fields ที่เลือกไม่ถูกต้อง" });
+    }
+
+    // สร้าง SQL สำหรับเลือกเฉพาะ fields ที่ต้องการ
+    const query = `SELECT ${filteredFields.join(", ")} FROM  User
+      LEFT JOIN cancer_patient ON User.userName = cancer_patient.IDcard
+      LEFT JOIN cancer ON cancer.cancerId = cancer_patient.cancerId
+      LEFT JOIN diseases ON User.userName = diseases.IDcard
+      LEFT JOIN treatment ON User.userName = treatment.IDcard
+      LEFT JOIN history ON User.userName = history.IDcard
+      WHERE User.type = 'patient'
+      GROUP BY treatment.HN;
+    `;
+
+    // console.log("query", query)
+    // ดึงข้อมูลจาก database
+    const [rows] = await pool.query(query);
+    console.log("rows:", rows);
+    
     if (rows.length === 0) {
       return res.status(404).json({ message: "No data found" });
     }
 
-    const fields = Object.keys(rows[0]);
-    const json2csv = new Parser({ fields });
+    // สร้าง CSV โดยใช้ json2csv
+    const json2csv = new Parser({ fields: filteredFields });
     const csv = json2csv.parse(rows);
 
+    // ส่งไฟล์ CSV กลับไปยัง Frontend
     res.header("Content-Type", "text/csv");
     res.attachment("data_patient.csv");
     res.send(csv);
@@ -1429,6 +1518,28 @@ router.get("/export/csv", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // IMPORT DATA
 router.post("/import-csv", upload.single("file"), async (req, res) => {

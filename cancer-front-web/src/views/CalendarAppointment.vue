@@ -55,7 +55,9 @@ export default {
             `,
           };
         },
+        datesSet: this.onDatesSet
       },
+      currentViewType: "listWeek",
     };
   },
   mounted() {
@@ -130,6 +132,22 @@ export default {
 
       // Convert grouped object to an array of date groups
       return Object.values(groupedByDate);
+    },
+    onDatesSet(info) {
+      const viewType = info.view.type; // Current view type
+      this.currentViewType = viewType;
+
+      // Hide or show the specified element
+      const targetElement = document.querySelector(
+        "tr.fc-scrollgrid-section.fc-scrollgrid-section-body.fc-scrollgrid-section-liquid"
+      );
+      if (targetElement) {
+        if (viewType === "timeGridWeek" || viewType === "timeGridDay") {
+          targetElement.style.display = "none"; // Hide the element
+        } else {
+          targetElement.style.display = ""; // Reset to default (show)
+        }
+      }
     },
   },
 };
