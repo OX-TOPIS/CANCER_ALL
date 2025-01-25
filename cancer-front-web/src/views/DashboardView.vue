@@ -5,6 +5,9 @@
 
       <!-- Filter -->
       <div class="d-flex">
+
+
+
         <!-- GENDER -->
         <div>
           <label for="">เพศของผู้ป่วย</label>
@@ -65,6 +68,127 @@
           </div>
         </div>
       </div>
+      <!-- RANGE AGE -->
+      <div>
+        <label for="">ช่วงอายุ</label>
+        <div class="dropdown">
+          <button
+            class="btn btn-primary dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            style="background-color: #0A6B3A; color: white;"
+          >
+            ช่วงอายุ
+          </button>
+          <ul class="dropdown-menu">
+            <li v-for="rangeage in rangeages" :key="rangeage.value" >
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  :value="rangeage.value"
+                  v-model="showRangeage"
+                />
+                {{ rangeage.label }}
+              </label>
+            </li>
+          </ul>
+          <div class="mt-3">
+            <strong>ช่วงอายุที่เลือก:</strong> {{ selectedRangeages }}
+          </div>
+        </div>
+      </div>
+      <!-- CANCER STATE -->
+      <div>
+        <label for=""> ระยะของมะเร็ง</label>
+        <div class="dropdown">
+          <button
+            class="btn btn-primary dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            style="background-color: #0A6B3A; color: white;"
+          >
+            ระยะของมะเร็ง
+          </button>
+          <ul class="dropdown-menu">
+            <li v-for="cancerstate in cancerstates" :key="cancerstate.value" >
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  :value="cancerstate.value"
+                  v-model="showCancerstate"
+                />
+                {{ cancerstate.label }}
+              </label>
+            </li>
+          </ul>
+          <div class="mt-3">
+            <strong>ช่วงอายุที่เลือก:</strong> {{ selectedCancerstates }}
+          </div>
+        </div>
+      </div>
+      <!-- FEEDBACK -->
+      <div>
+        <label for=""> ผลข้างเคียง</label>
+        <div class="dropdown">
+          <button
+            class="btn btn-primary dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            style="background-color: #0A6B3A; color: white;"
+          >
+          ผลข้างเคียง
+          </button>
+          <ul class="dropdown-menu">
+            <li v-for="feedback in feedbacks" :key="feedback.value" >
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  :value="feedback.value"
+                  v-model="showFeedback"
+                />
+                {{ feedback.label }}
+              </label>
+            </li>
+          </ul>
+          <div class="mt-3">
+            <strong>ผลข้างเคียง:</strong> {{ selectedFeedbacks }}
+          </div>
+        </div>
+      </div>
+      <!-- DISEASE -->
+      <div>
+        <label for="">โรคประจำตัว</label>
+        <div class="dropdown">
+          <button
+            class="btn btn-primary dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            style="background-color: #0A6B3A; color: white;"
+          >
+          โรคประจำตัว
+          </button>
+          <ul class="dropdown-menu">
+            <li v-for="disease in diseases" :key="disease.value" >
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  :value="disease.value"
+                  v-model="showDisease"
+                />
+                {{ disease.label }}
+              </label>
+            </li>
+          </ul>
+          <div class="mt-3">
+            <strong>โรคประจำตัว:</strong> {{ selectedDiseases }}
+          </div>
+        </div>
+      </div>
+
       </div>
       <!--END Filter -->
 
@@ -141,6 +265,26 @@
         { label: "มะเร็งรังไข่", value: "มะเร็งรังไข่" },
         ],
         showCancer: ["มะเร็งปอด", "มะเร็งกระเพาะอาหาร"],
+        rangeages: [
+          { label: "อายุ 1-10", value: "อายุ 1-10" },
+          { label: "อายุ 2-20", value: "อายุ 2-20" },
+        ],
+        showRangeage: [],
+        cancerstates: [
+          { label: "cancerstate 1", value: "cancerstate 1" },
+          { label: "cancerstate 2", value: "cancerstate 2" },
+        ],
+        showCancerstate: [],
+        feedbacks: [
+          { label: "feedbacks 1", value: "feedbacks 1" },
+          { label: "feedbacks 2", value: "feedbacks 2" },
+        ],
+        showFeedback: [],
+        diseases: [
+          { label: "diseases 1", value: "diseases 1" },
+          { label: "diseases 2", value: "diseases 2" },
+        ],
+        showDisease: [],
         // END เพิ่มมาตอนทำ Filter
 
         ageGroups: {}, // เก็บข้อมูลอายุผู้ป่วย
@@ -452,52 +596,6 @@
 
         console.log(this.cancerSummary); // ตรวจสอบข้อมูลใน console
         
-        // สร้างข้อมูลใหม่ให้กับ chartData
-        // this.chartData1 = {
-        //   labels: this.selectedCancers,
-        //   datasets: [
-        //     {
-        //       label: "ผู้ป่วยชาย",
-        //       backgroundColor: "rgba(75, 192, 192, 0.6)",
-        //       data: [
-        //         this.cancerSummary["มะเร็งปอด ชาย"] || 0,
-        //         this.cancerSummary["มะเร็งกระเพาะอาหาร ชาย"] || 0,
-        //         this.cancerSummary["มะเร็งลำไส้ใหญ่ ชาย"] || 0,
-        //         this.cancerSummary["มะเร็งตับ ชาย"] || 0,
-        //         this.cancerSummary["มะเร็งตับอ่อน ชาย"] || 0,
-        //         this.cancerSummary["มะเร็งต่อมไทรอยด์ ชาย"] || 0,
-        //         this.cancerSummary["มะเร็งไต ชาย"] || 0,
-        //         this.cancerSummary["มะเร็งกระเพาะปัสสาวะ ชาย"] || 0,
-        //         this.cancerSummary["มะเร็งอัณฑะ ชาย"] || 0,
-        //         this.cancerSummary["มะเร็งต่อมลูกหมาก ชาย"] || 0,
-        //         this.cancerSummary["มะเร็งถุงน้ำดี ชาย"] || 0,
-        //         this.cancerSummary["มะเร็งมดลูก ชาย"] || 0,
-        //         this.cancerSummary["มะเร็งเต้านม ชาย"] || 0,
-        //         this.cancerSummary["มะเร็งรังไข่ ชาย"] || 0,
-        //       ],
-        //     },
-        //     {
-        //       label: "ผู้ป่วยหญิง",
-        //       backgroundColor: "rgba(153, 102, 255, 0.6)",
-        //       data: [
-        //       this.cancerSummary["มะเร็งปอด หญิง"] || 0,
-        //         this.cancerSummary["มะเร็งกระเพาะอาหาร หญิง"] || 0,
-        //         this.cancerSummary["มะเร็งลำไส้ใหญ่ หญิง"] || 0,
-        //         this.cancerSummary["มะเร็งตับ หญิง"] || 0,
-        //         this.cancerSummary["มะเร็งตับอ่อน หญิง"] || 0,
-        //         this.cancerSummary["มะเร็งต่อมไทรอยด์ หญิง"] || 0,
-        //         this.cancerSummary["มะเร็งไต หญิง"] || 0,
-        //         this.cancerSummary["มะเร็งกระเพาะปัสสาวะ หญิง"] || 0,
-        //         this.cancerSummary["มะเร็งอัณฑะ หญิง"] || 0,
-        //         this.cancerSummary["มะเร็งต่อมลูกหมาก หญิง"] || 0,
-        //         this.cancerSummary["มะเร็งถุงน้ำดี หญิง"] || 0,
-        //         this.cancerSummary["มะเร็งมดลูก หญิง"] || 0,
-        //         this.cancerSummary["มะเร็งเต้านม หญิง"] || 0,
-        //         this.cancerSummary["มะเร็งรังไข่ หญิง"] || 0,
-        //       ],
-        //     },
-        //   ],
-        // };
       } catch (error) {
         console.error("Error fetching cancerSummary", error);
       }
@@ -518,6 +616,26 @@
         return this.cancers
           .filter((cancer) => this.showCancer.includes(cancer.value))
           .map((cancer) => cancer.value);
+      },
+      selectedRangeages() {
+        return this.rangeages
+          .filter((rangeage) => this.showRangeage.includes(rangeage.value))
+          .map((rangeage) => rangeage.value);
+      },
+      selectedCancerstates() {
+        return this.cancerstates
+          .filter((cancerstate) => this.showCancerstate.includes(cancerstate.value))
+          .map((cancerstate) => cancerstate.value);
+      },
+      selectedFeedbacks() {
+        return this.feedbacks
+          .filter((feedback) => this.showFeedback.includes(feedback.value))
+          .map((feedback) => feedback.value);
+      },
+      selectedDiseases() {
+        return this.diseases
+          .filter((disease) => this.showDisease.includes(disease.value))
+          .map((disease) => disease.value);
       },
       chartData1() {
       // สร้างข้อมูลกราฟใหม่ตาม selectedCancers
