@@ -1,6 +1,77 @@
 <template>
     <div>
-      <h2>Dashboard</h2>
+      <!-- หัวข้อ -->
+      <h2>ข้อมูลสถิติของผู้ป่วยโรงพยาบาลมะเร็งชลบุรี</h2>
+
+      <!-- Filter -->
+      <div class="d-flex">
+        <!-- GENDER -->
+        <div>
+          <label for="">เพศของผู้ป่วย</label>
+          <div class="dropdown">
+            <button
+              class="btn btn-primary dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              style="background-color: #0A6B3A; color: white;"
+            >
+              เพศของผู้ป่วย
+            </button>
+            <ul class="dropdown-menu">
+              <li v-for="gender in genders" :key="gender.value">
+                <label class="dropdown-item">
+                  <input
+                    type="checkbox"
+                    :value="gender.value"
+                    v-model="showGender"
+                  />
+                  {{ gender.label }}
+                </label>
+              </li>
+            </ul>
+            <div class="mt-3">
+              <strong>เพศที่เลือก:</strong> {{ selectedGenders }}
+            </div>
+          </div>
+        </div>
+        <!-- CANCER TYPE -->
+        <div>
+        <label for="">ประเภทมะเร็ง</label>
+        <div class="dropdown">
+          <button
+            class="btn btn-primary dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            style="background-color: #0A6B3A; color: white;"
+          >
+            ประเภทมะเร็ง
+          </button>
+          <ul class="dropdown-menu">
+            <li v-for="cancer in cancers" :key="cancer.value" >
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  :value="cancer.value"
+                  v-model="showCancer"
+                />
+                {{ cancer.label }}
+              </label>
+            </li>
+          </ul>
+          <div class="mt-3">
+            <strong>ประเภทมะเร็งที่เลือก:</strong> {{ selectedCancers }}
+          </div>
+        </div>
+      </div>
+      </div>
+      <!--END Filter -->
+
+
+
+
+      <!-- กราฟ -->
       <div class="con-chart">
         <Bar id="my-chart-id-1" :options="chartOptions1" :data="chartData1" />
         <Bar id="my-chart-id-2" :options="chartOptions2" :data="chartData2" />
@@ -47,6 +118,31 @@
     components: { Bar, Line, Radar },
     data() {
       return {
+        // เพิ่มมาตอนทำ Filter
+        genders: [
+          { label: "เพศชาย", value: "male" },
+          { label: "เพศหญิง", value: "female" },
+        ],
+        showGender: [],
+        cancers: [
+        { label: "มะเร็งปอด", value: "มะเร็งปอด" },
+        { label: "มะเร็งกระเพาะอาหาร", value: "มะเร็งกระเพาะอาหาร" },
+        { label: "มะเร็งลำไส้ใหญ่", value: "มะเร็งลำไส้ใหญ่" },
+        { label: "มะเร็งตับ", value: "มะเร็งตับ" },
+        { label: "มะเร็งตับอ่อน", value: "มะเร็งตับอ่อน" },
+        { label: "มะเร็งต่อมไทรอยด์", value: "มะเร็งต่อมไทรอยด์" },
+        { label: "มะเร็งไต", value: "มะเร็งไต" },
+        { label: "มะเร็งกระเพาะปัสสาวะ", value: "มะเร็งกระเพาะปัสสาวะ" },
+        { label: "มะเร็งอัณฑะ", value: "มะเร็งอัณฑะ" },
+        { label: "มะเร็งต่อมลูกหมาก", value: "มะเร็งต่อมลูกหมาก" },
+        { label: "มะเร็งถุงน้ำดี", value: "มะเร็งถุงน้ำดี" },
+        { label: "มะเร็งมดลูก", value: "มะเร็งมดลูก" },
+        { label: "มะเร็งเต้านม", value: "มะเร็งเต้านม" },
+        { label: "มะเร็งรังไข่", value: "มะเร็งรังไข่" },
+        ],
+        showCancer: ["มะเร็งปอด", "มะเร็งกระเพาะอาหาร"],
+        // END เพิ่มมาตอนทำ Filter
+
         ageGroups: {}, // เก็บข้อมูลอายุผู้ป่วย
         cancerSummary: {}, // เก็บข้อมูลอายุผู้ป่วย
         chartData1: {
@@ -146,7 +242,7 @@
             },
             title: {
               display: true,
-              text: "กราฟเส้นแสดงระดับความรุนแรงเฉลี่ยของผู้ป่วยทั้งหมด ของมะเร็งแต่ละชนิด",
+              text: "กราฟเส้นแสดงระดับความรุนแรงเฉลี่ยของผู้ป่วยทั้งหมดของมะเร็งแต่ละชนิด",
             },
           },
         },
@@ -356,67 +452,52 @@
 
         console.log(this.cancerSummary); // ตรวจสอบข้อมูลใน console
         
-        // สร้างข้อมูลใหม่ให้กับ chartData2
-        this.chartData1 = {
-          labels: [
-            "มะเร็งปอด",
-            "มะเร็งกระเพาะอาหาร",
-            "มะเร็งลำไส้ใหญ่",
-            "มะเร็งตับ",
-            "มะเร็งตับอ่อน",
-            "มะเร็งต่อมไทรอยด์",
-            "มะเร็งไต",
-            "มะเร็งกระเพาะปัสสาวะ",
-            "มะเร็งอัณฑะ",
-            "มะเร็งต่อมลูกหมาก",
-            "มะเร็งถุงน้ำดี",
-            "มะเร็งมดลูก",
-            "มะเร็งเต้านม",
-            "มะเร็งรังไข่",
-          ],
-          datasets: [
-            {
-              label: "ผู้ป่วยชาย",
-              backgroundColor: "rgba(75, 192, 192, 0.6)",
-              data: [
-                this.cancerSummary["มะเร็งปอด ชาย"] || 0,
-                this.cancerSummary["มะเร็งกระเพาะอาหาร ชาย"] || 0,
-                this.cancerSummary["มะเร็งลำไส้ใหญ่ ชาย"] || 0,
-                this.cancerSummary["มะเร็งตับ ชาย"] || 0,
-                this.cancerSummary["มะเร็งตับอ่อน ชาย"] || 0,
-                this.cancerSummary["มะเร็งต่อมไทรอยด์ ชาย"] || 0,
-                this.cancerSummary["มะเร็งไต ชาย"] || 0,
-                this.cancerSummary["มะเร็งกระเพาะปัสสาวะ ชาย"] || 0,
-                this.cancerSummary["มะเร็งอัณฑะ ชาย"] || 0,
-                this.cancerSummary["มะเร็งต่อมลูกหมาก ชาย"] || 0,
-                this.cancerSummary["มะเร็งถุงน้ำดี ชาย"] || 0,
-                this.cancerSummary["มะเร็งมดลูก ชาย"] || 0,
-                this.cancerSummary["มะเร็งเต้านม ชาย"] || 0,
-                this.cancerSummary["มะเร็งรังไข่ ชาย"] || 0,
-              ],
-            },
-            {
-              label: "ผู้ป่วยหญิง",
-              backgroundColor: "rgba(153, 102, 255, 0.6)",
-              data: [
-              this.cancerSummary["มะเร็งปอด หญิง"] || 0,
-                this.cancerSummary["มะเร็งกระเพาะอาหาร หญิง"] || 0,
-                this.cancerSummary["มะเร็งลำไส้ใหญ่ หญิง"] || 0,
-                this.cancerSummary["มะเร็งตับ หญิง"] || 0,
-                this.cancerSummary["มะเร็งตับอ่อน หญิง"] || 0,
-                this.cancerSummary["มะเร็งต่อมไทรอยด์ หญิง"] || 0,
-                this.cancerSummary["มะเร็งไต หญิง"] || 0,
-                this.cancerSummary["มะเร็งกระเพาะปัสสาวะ หญิง"] || 0,
-                this.cancerSummary["มะเร็งอัณฑะ หญิง"] || 0,
-                this.cancerSummary["มะเร็งต่อมลูกหมาก หญิง"] || 0,
-                this.cancerSummary["มะเร็งถุงน้ำดี หญิง"] || 0,
-                this.cancerSummary["มะเร็งมดลูก หญิง"] || 0,
-                this.cancerSummary["มะเร็งเต้านม หญิง"] || 0,
-                this.cancerSummary["มะเร็งรังไข่ หญิง"] || 0,
-              ],
-            },
-          ],
-        };
+        // สร้างข้อมูลใหม่ให้กับ chartData
+        // this.chartData1 = {
+        //   labels: this.selectedCancers,
+        //   datasets: [
+        //     {
+        //       label: "ผู้ป่วยชาย",
+        //       backgroundColor: "rgba(75, 192, 192, 0.6)",
+        //       data: [
+        //         this.cancerSummary["มะเร็งปอด ชาย"] || 0,
+        //         this.cancerSummary["มะเร็งกระเพาะอาหาร ชาย"] || 0,
+        //         this.cancerSummary["มะเร็งลำไส้ใหญ่ ชาย"] || 0,
+        //         this.cancerSummary["มะเร็งตับ ชาย"] || 0,
+        //         this.cancerSummary["มะเร็งตับอ่อน ชาย"] || 0,
+        //         this.cancerSummary["มะเร็งต่อมไทรอยด์ ชาย"] || 0,
+        //         this.cancerSummary["มะเร็งไต ชาย"] || 0,
+        //         this.cancerSummary["มะเร็งกระเพาะปัสสาวะ ชาย"] || 0,
+        //         this.cancerSummary["มะเร็งอัณฑะ ชาย"] || 0,
+        //         this.cancerSummary["มะเร็งต่อมลูกหมาก ชาย"] || 0,
+        //         this.cancerSummary["มะเร็งถุงน้ำดี ชาย"] || 0,
+        //         this.cancerSummary["มะเร็งมดลูก ชาย"] || 0,
+        //         this.cancerSummary["มะเร็งเต้านม ชาย"] || 0,
+        //         this.cancerSummary["มะเร็งรังไข่ ชาย"] || 0,
+        //       ],
+        //     },
+        //     {
+        //       label: "ผู้ป่วยหญิง",
+        //       backgroundColor: "rgba(153, 102, 255, 0.6)",
+        //       data: [
+        //       this.cancerSummary["มะเร็งปอด หญิง"] || 0,
+        //         this.cancerSummary["มะเร็งกระเพาะอาหาร หญิง"] || 0,
+        //         this.cancerSummary["มะเร็งลำไส้ใหญ่ หญิง"] || 0,
+        //         this.cancerSummary["มะเร็งตับ หญิง"] || 0,
+        //         this.cancerSummary["มะเร็งตับอ่อน หญิง"] || 0,
+        //         this.cancerSummary["มะเร็งต่อมไทรอยด์ หญิง"] || 0,
+        //         this.cancerSummary["มะเร็งไต หญิง"] || 0,
+        //         this.cancerSummary["มะเร็งกระเพาะปัสสาวะ หญิง"] || 0,
+        //         this.cancerSummary["มะเร็งอัณฑะ หญิง"] || 0,
+        //         this.cancerSummary["มะเร็งต่อมลูกหมาก หญิง"] || 0,
+        //         this.cancerSummary["มะเร็งถุงน้ำดี หญิง"] || 0,
+        //         this.cancerSummary["มะเร็งมดลูก หญิง"] || 0,
+        //         this.cancerSummary["มะเร็งเต้านม หญิง"] || 0,
+        //         this.cancerSummary["มะเร็งรังไข่ หญิง"] || 0,
+        //       ],
+        //     },
+        //   ],
+        // };
       } catch (error) {
         console.error("Error fetching cancerSummary", error);
       }
@@ -425,6 +506,41 @@
     created() {
       this.fetchAgeGroups(); // เรียกใช้ฟังก์ชันเมื่อ component ถูกสร้าง
       this.fetchCancerData(); //chart1
+    },
+    computed: {
+      // แปลงค่าที่เลือก (showGender) กลับมาเป็นชื่อภาษาไทย
+      selectedGenders() {
+        return this.genders
+          .filter((gender) => this.showGender.includes(gender.value))
+          .map((gender) => gender.value);
+      },
+      selectedCancers() {
+        return this.cancers
+          .filter((cancer) => this.showCancer.includes(cancer.value))
+          .map((cancer) => cancer.value);
+      },
+      chartData1() {
+      // สร้างข้อมูลกราฟใหม่ตาม selectedCancers
+      return {
+        labels: this.selectedCancers,
+        datasets: [
+          {
+            label: "ผู้ป่วยชาย",
+            backgroundColor: "rgba(75, 192, 192, 0.6)",
+            data: this.selectedCancers.map(
+              (label) => this.cancerSummary[`${label} ชาย`] || 0
+            ),
+          },
+          {
+            label: "ผู้ป่วยหญิง",
+            backgroundColor: "rgba(153, 102, 255, 0.6)",
+            data: this.selectedCancers.map(
+              (label) => this.cancerSummary[`${label} หญิง`] || 0
+            ),
+          },
+        ],
+      };
+    },
     },
   };
   </script>

@@ -39,7 +39,7 @@ export default {
           const doctorName = eventInfo.event.extendedProps.doctorName;
           const date = eventInfo.event.extendedProps.date;
           const patients = eventInfo.event.extendedProps.patients;
-          
+
           // แสดงรายชื่อผู้ป่วยในรูปแบบรายการ
           const patientList = patients
             ? patients.map(patient => `<li>${patient.firstName} ${patient.lastName}</li>`).join('')

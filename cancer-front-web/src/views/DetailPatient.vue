@@ -3,91 +3,49 @@
     <nav style="background-color: #1c2939">
       <div class="container">
         <div class="row">
-          <div class="col-9">
-            <ul class="nav nav-underline">
-              <li
-                v-if="user.type == 'nurse'"
+          <div class="col-12">
+                        <ul class="nav nav-underline">
+                            <li class="nav-item" @click="goToRegis()" v-if="user.type == 'nurse'"
+                                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px;">
+                                <a class="nav-link" href="#" style="color: #ffffff;">ลงทะเบียนผู้ป่วย</a>
+                            </li>
+                            <li class="nav-item" @click="goTonewHome()"
+                                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px;">
+                                <a class="nav-link" href="#" style="color: #ffffff;">การอนุมัติผลเลือด</a>
+                            </li>
+                            <li class="nav-item" @click="goTonewAppoint()"
+                                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px;">
+                                <a class="nav-link" href="#" style="color: #ffffff;">นัดหมาย</a>
+                            </li>
+                            <li class="nav-item" @click="goToPatient()"
+                                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px;">
+                                <a class="nav-link active" aria-current="page" href="#"
+                                    style="color: #ffffff; font-size: large;">ประวัติการรักษา</a>
+                            </li>
+                            <li class="nav-item" @click="goToMedFor()"
+                                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px;">
+                                <a class="nav-link" href="#" style="color: #ffffff;">สูตรยาเคมีบำบัด</a>
+                            </li>
+                            <li class="nav-item" @click="goToguideBook()"
+                            style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px;">
+                            <a class="nav-link" href="#" style="color: #ffffff;">คู่มือผู้ป่วย</a>
+                            </li>
+                            <li
                 class="nav-item"
-                @click="goToRegis()"
-                style="
-                  margin-top: 10px;
-                  margin-bottom: 10px;
-                  padding-right: 20px;
-                "
+                @click="goToExportimport()"
+                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
               >
-                <a class="nav-link" href="#" style="color: #ffffff"
-                  >ลงทะเบียนผู้ป่วย</a
-                >
+                <a class="nav-link" href="#" style="color: #ffffff">นำเข้าส่งออกข้อมูล</a>
               </li>
               <li
                 class="nav-item"
-                @click="goTonewHome()"
-                style="
-                  margin-top: 10px;
-                  margin-bottom: 10px;
-                  padding-right: 20px;
-                "
+                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
               >
-                <a class="nav-link" href="#" style="color: #ffffff">การอนุมัติผลเลือด</a>
+                <a class="nav-link" href="http://localhost:8081/dashboardview" target="_blank" style="color: #ffffff">ข้อมูลสถิติผู้ป่วย</a>
               </li>
-              <li
-                class="nav-item"
-                @click="goTonewAppoint()"
-                style="
-                  margin-top: 10px;
-                  margin-bottom: 10px;
-                  padding-right: 20px;
-                "
-              >
-                <a class="nav-link" href="#" style="color: #ffffff">นัดหมาย</a>
-              </li>
-              <li
-                class="nav-item"
-                @click="goToPatient()"
-                style="
-                  margin-top: 10px;
-                  margin-bottom: 10px;
-                  padding-right: 20px;
-                "
-              >
-                <a
-                  class="nav-link active"
-                  aria-current="page"
-                  href="#"
-                  style="color: #ffffff; font-size: large"
-                  >ประวัติการรักษา</a
-                >
-              </li>
-              <li
-                class="nav-item"
-                @click="goToMedFor()"
-                style="
-                  margin-top: 10px;
-                  margin-bottom: 10px;
-                  padding-right: 20px;
-                "
-              >
-                <a class="nav-link" href="#" style="color: #ffffff"
-                  >สูตรยาเคมีบำบัด</a
-                >
-              </li>
-              <li
-                class="nav-item"
-                @click="goToguideBook()"
-                style="
-                  margin-top: 10px;
-                  margin-bottom: 10px;
-                  padding-right: 20px;
-                "
-              >
-                <a class="nav-link" href="#" style="color: #ffffff"
-                  >คู่มือผู้ป่วย</a
-                >
-              </li>
-            </ul>
-          </div>
-          <div class="col-3">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
               <button
                 @click="logOut()"
                 class="btn btn-light me-md-2"
@@ -114,7 +72,8 @@
                 ออกจากระบบ
               </button>
             </div>
-          </div>
+                        </ul>
+                    </div>
         </div>
       </div>
     </nav>
@@ -749,10 +708,10 @@
 
 
     <h3>กราฟแสดงข้อมูลผู้ป่วย</h3>
-    <h4>{{ patient.prefix }}{{ patient.firstName }} {{ patient.lastName }}</h4>
+    <h4>{{ patient.prefix }}{{ patient.firstName }} {{ patient.lastName }} {{ patient.IDcard }}</h4>
     <div class="line-chart-container">
-      <!-- <Line :data="datachartweight" :options="optioncharteffect" /> -->
-      <Line :data="datacharteffect" :options="optionchartweight" />
+      <!-- <Line :data="datacharteffect" :options="optioncharteffect" /> -->
+      <Line :data="datachartweight" :options="optionchartweight" />
       
       
     </div>
@@ -811,6 +770,7 @@ export default {
   },
   data() {
     return {
+      weights: [],
       chartOptions1: {
           responsive: true,
           plugins: {
@@ -888,7 +848,7 @@ export default {
               pointBorderColor: "#fff",
               pointHoverBackgroundColor: "#fff",
               pointHoverBorderColor: "rgba(179,181,198,1)",
-              data: [0,0,1,0,1,0,1],
+              data: [0,0,1,1,1,0,0],
             },
             {
               label: "บันทึกผลข้างเคียงครั้งที่2",
@@ -908,6 +868,7 @@ export default {
         },
       patient: [],
       formula: "",
+      weightsLength: 0,
       doctor: "",
       bloodresult: [],
       selectedBloodresult: [],
@@ -964,10 +925,10 @@ export default {
         labels: ['สัปดาห์ที่ 1', 'สัปดาห์ที่ 2', 'สัปดาห์ที่ 3', 'สัปดาห์ที่ 4', 'สัปดาห์ที่ 5', 'สัปดาห์ที่ 6', 'สัปดาห์ที่ 7', 'สัปดาห์ที่ 8', 'สัปดาห์ที่ 9', 'สัปดาห์ที่ 10'],
                 datasets: [
                     {
-                        label: 'น้ำหนัก',
+                        label: 'ผลข้างเคียง1',
                         backgroundColor: 'rgba(255,255,255,0.1)',
                         borderColor: 'rgba(75,192,192,1)',
-                        data: [1,1,1,0,1,1,1,0,1,0],
+                        data: [1,0,0,0,1,1,1,0,0,0],
                         fill: true
                     },
                 ]
@@ -1144,7 +1105,39 @@ export default {
       .catch((error) => {
         console.log(error);
       });
-  },
+      axios
+        .get(`http://localhost:8080/getWeight/1234567891011`)
+        .then((response) => {
+          const weightsArray = [];
+          response.data.rows.forEach((row) => {
+            weightsArray.push(row.numWeight);
+          });
+          this.weights = weightsArray;
+          this.weightsLength = weightsArray.length;
+          const labelsArray = [];
+          for (let i = 1; i <= this.weightsLength; i++) {
+            labelsArray.push(`ครั้งที่ ${i}`);
+          }
+          this.datachartweight = {
+            labels: labelsArray,
+            datasets: [
+              {
+                label: 'ระดับน้ำหนัก',
+                backgroundColor: 'rgba(75,192,192,0.2)',
+                borderColor: 'rgba(75,192,192,1)',
+                data: this.weights,
+                fill: true,
+              },
+            ],
+          };
+          console.log("this.datachartweight", this.datachartweight);
+        })
+        .catch((error) => {
+          console.log(error);
+      });
+
+  
+    },
   methods: {
     openIMG(blood) {
       this.img = "http://localhost:8080/" + blood.picture;

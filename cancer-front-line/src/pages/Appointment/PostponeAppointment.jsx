@@ -267,14 +267,31 @@ const PostponeAppointment = () => {
         console.error('Error:', error);
       });
   };
+
+
+  const formatDate = (dateString) => {
+    const months = [
+      "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+      "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+    ];
+  
+    const date = new Date(dateString);
+    const day = date.getDate(); // วันที่
+    const month = months[date.getMonth()]; // ชื่อเดือนภาษาไทย
+    const year = date.getFullYear() + 543; // แปลงปีเป็นพุทธศักราช
+    const hours = date.getHours().toString().padStart(2, '0'); // ชั่วโมง (เพิ่ม 0 นำหน้าหากน้อยกว่า 10)
+    const minutes = date.getMinutes().toString().padStart(2, '0'); // นาที (เพิ่ม 0 นำหน้าหากน้อยกว่า 10)
+  
+    return `${day} ${month} ${year} ${hours}:${minutes} น.`;
+  };
   
   // console.log(appointmentCounts)
   return (
     <div>
       <div className="p-4 space-y-12">
         <div className="">
-          <h2 className="text-lg">นัดหมายเดิม{appointments[0].appointDate} {appointments[0].doctorId} {appointments[0].HN}</h2>
-          {datecheck} {doctorId} {test}
+          <h2 className="text-lg">นัดหมายเดิม</h2>
+          {/* {datecheck} {doctorId} {test} {appointments[0].appointDate} {appointments[0].doctorId} {appointments[0].HN} */}
           {/* {appointmentCount}  */}
           {/* <h1>User ID Line: {userIdLine}</h1>
           <h1>UserName: {username}</h1> */}
@@ -295,39 +312,26 @@ const PostponeAppointment = () => {
         <div className="">
           <h2 className="text-lg">นัดหมายใหม่</h2>
           {/* NEW! */}
-          <ul>
+          <Radio.Group onChange={onChangenewAppointDate} value={newAppointDate}>
             {appointmentCounts
               .filter((appointment) => appointment.count < 5)
-              // .slice(1)
               .map((appointment) => (
-                <li key={appointment.datecheck}>
-                  Date: {appointment.datecheck} - Count: {appointment.count}
-                </li>
-              ))}
-              
-          </ul>
-
-          {/* OLD */}
-          <Radio.Group onChange={onChangenewAppointDate} value={newAppointDate}>
-            {newAppointments.length > 0 ? (
-              newAppointments.slice(1).map((date, index) => (
-                <Radio key={index} className="pt-2 w-11/12" value={formatDateForValue(date)}>
-                  {date.toLocaleDateString('th-TH', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })} {date.toLocaleTimeString('th-TH', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })} น.
+                <Radio
+                  key={appointment.datecheck}
+                  value={appointment.datecheck}
+                  style={{ fontSize: "16px" }} // เพิ่มขนาดตัวอักษร
+                >
+                  {formatDate(appointment.datecheck)}
                 </Radio>
-              ))
-            ) : (
-              <p>ไม่มีวันนัดหมายใหม่ที่ตรงกัน</p>
-            )}
+              ))}
           </Radio.Group>
-          {console.log("newAppointments", newAppointments)}
+
+
+          
+          {/* {console.log("newAppointments", newAppointments)}
           {console.log("appointmentCounts", appointmentCounts)}
+          {console.log("newAppointDate", newAppointDate)} */}
+          {/*  Count: {appointment.count} นัดหมอคนนี้ไปแล้วกี่คน ตอนนี้ตั้งไว้ว่าต้องไม่เกิน 5 คน ถ้าจะปรับให้นัดได้มากกว่า 5 คน แก้ตรง filter ตรง Radio.Group*/}
 
 
 

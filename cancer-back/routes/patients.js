@@ -1438,7 +1438,7 @@ router.get('/cancer-summary', async (req, res) => {
 //     if (rows.length === 0) {
 //       return res.status(404).json({ message: "No data found" });
 //     }
-
+//     console.log("rows:", rows);
 //     // สร้าง CSV โดยใช้ json2csv
 //     const json2csv = new Parser({ fields: filteredFields });
 //     const csv = json2csv.parse(rows);
@@ -1447,6 +1447,8 @@ router.get('/cancer-summary', async (req, res) => {
 //     res.header("Content-Type", "text/csv");
 //     res.attachment("data_patient.csv");
 //     res.send(csv);
+//     console.log("csv:", csv);
+//     console.log("json2csv:", json2csv);
 //   } catch (error) {
 //     console.error(error);
 //     res.status(500).json({ error: error.message });
@@ -1467,26 +1469,30 @@ router.get('/cancer-summary', async (req, res) => {
 // EXPORT NEW!
 router.get("/export/csv", async (req, res) => {
   try {
-    // รับ fields ที่ส่งมาจาก query parameters
     const { fields } = req.query;
 
     if (!fields || fields.length === 0) {
       return res.status(400).json({ message: "กรุณาระบุ fields ที่ต้องการส่งออก" });
     }
 
-    // แปลง fields จาก query string ให้เป็น array (รองรับหลาย fields)
     const selectedFields = Array.isArray(fields) ? fields : [fields];
 
-    // ตรวจสอบว่า fields ที่เลือกตรงกับ column ใน database
-    const validFields = ["treatment.HN AS HN", "firstName", "lastName"]; // ระบุคอลัมน์ที่อนุญาต
-    const filteredFields = selectedFields.filter(field => validFields.includes(field));
+    const processedFields = selectedFields.map(field => {
+      if (field === "cancerType") {
+        return "GROUP_CONCAT(DISTINCT cancer.cancerType SEPARATOR '/') AS cancerType";
+      }
+      if (field === "disease") {
+        return "GROUP_CONCAT(DISTINCT diseases.disease SEPARATOR '/') AS disease";
+      }
+      return field;
+    });
 
-    if (filteredFields.length === 0) {
+
+    if (selectedFields.length === 0) {
       return res.status(400).json({ message: "fields ที่เลือกไม่ถูกต้อง" });
     }
 
-    // สร้าง SQL สำหรับเลือกเฉพาะ fields ที่ต้องการ
-    const query = `SELECT ${filteredFields.join(", ")} FROM  User
+    const query = `SELECT ${processedFields.join(", ")} FROM  User
       LEFT JOIN cancer_patient ON User.userName = cancer_patient.IDcard
       LEFT JOIN cancer ON cancer.cancerId = cancer_patient.cancerId
       LEFT JOIN diseases ON User.userName = diseases.IDcard
@@ -1496,23 +1502,31 @@ router.get("/export/csv", async (req, res) => {
       GROUP BY treatment.HN;
     `;
 
-    // console.log("query", query)
-    // ดึงข้อมูลจาก database
     const [rows] = await pool.query(query);
     console.log("rows:", rows);
-    
+    console.log("query:", query);
     if (rows.length === 0) {
       return res.status(404).json({ message: "No data found" });
     }
 
-    // สร้าง CSV โดยใช้ json2csv
-    const json2csv = new Parser({ fields: filteredFields });
-    const csv = json2csv.parse(rows);
+    const fieldsAfterAs = selectedFields.map(field => {
+      // ใช้ regex เพื่อดึงคำหลัง "AS"
+      const match = field.match(/AS\s+(\w+)/i);
+      return match ? match[1] : field; // ถ้าพบ "AS" คืนค่าคำหลัง AS, ไม่พบคืนค่า field เดิม
+    });
 
+
+    const json2csv = new Parser({ fields: fieldsAfterAs });
+    const csv = json2csv.parse(rows);
+    console.log("selectedFields", selectedFields)
     // ส่งไฟล์ CSV กลับไปยัง Frontend
     res.header("Content-Type", "text/csv");
     res.attachment("data_patient.csv");
     res.send(csv);
+    console.log("csv:", csv);
+    console.log("json2csv:", json2csv);
+    console.log("fieldsAfterAs", fieldsAfterAs)
+    console.log("fields", fields)
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
@@ -1588,6 +1602,26 @@ router.post("/import-csv", upload.single("file"), async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to process file" });
+  }
+});
+
+
+
+
+// DASHBOARD NEW! กราฟน้ำหนัก
+router.get(`/getWeight/:IDcard`, async function (req, res, next) {
+  const { IDcard } = req.params;
+  try {
+    const [rows] = await pool.query(
+      `SELECT numWeight FROM weight WHERE IDcard = ?`,
+      [IDcard]
+    );
+
+    // ส่งผลลัพธ์กลับไปในรูปแบบ JSON
+    res.json({ rows });
+  } catch (error) {
+    console.error("Error checking HN:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 

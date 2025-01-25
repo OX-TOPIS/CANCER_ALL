@@ -36,7 +36,7 @@
                             </li>
                             <li class="nav-item" @click="goToExportimport()"
                                 style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px">
-                                <a class="nav-link" href="#" style="color: #ffffff">นำเข้าส่งออกข้อมูล</a>
+                                <a class="nav-link active" href="#" style="color: #ffffff; font-size: large">นำเข้าส่งออกข้อมูล</a>
                             </li>
                             
               <li
@@ -492,20 +492,45 @@ export default {
             const { value: formValues } = await Swal.fire({
                 title: 'เลือกข้อมูลที่ต้องการส่งออก',
                 html: `
-                <div style="text-align: left;">
+                <div style="text-align: left; margin-left: 50px;">
                     <label><input type="checkbox" id="HN" /> HN ผู้ป่วย</label><br>
-                    <label><input type="checkbox" id="firstName" /> ชื่อสกุลผู้ป่วย</label><br>
-                    
+                    <label><input type="checkbox" id="FullName" /> ชื่อสกุลผู้ป่วย</label><br>
+                    <label><input type="checkbox" id="IDcard" /> เลขบัตรประจำตัวประชาชน</label><br>
+                    <label><input type="checkbox" id="Cancer" /> มะเร็งของผู้ป่วย</label><br>
+                    <label><input type="checkbox" id="CancerState" /> ระยะมะเร็ง</label><br>
+                    <label><input type="checkbox" id="Disease" /> โรคประจำตัว</label><br>
+                    <label><input type="checkbox" id="History" /> ประวัติของผู้ป่วย</label><br>
                 </div>
                 `,
                 showCancelButton: true,
                 confirmButtonText: 'ยืนยัน',
                 cancelButtonText: 'ยกเลิก',
+                customClass: {
+                    confirmButton: 'my-confirm-button-class',
+                },
                 preConfirm: () => {
                 const selectedOptions = [];
                 if (document.getElementById('HN').checked) selectedOptions.push('treatment.HN AS HN');
-                if (document.getElementById('firstName').checked) selectedOptions.push('firstName');
-                if (document.getElementById('firstName').checked) selectedOptions.push('lastName');
+                if (document.getElementById('FullName').checked) selectedOptions.push('User.firstName AS firstName');
+                if (document.getElementById('FullName').checked) selectedOptions.push('User.lastName AS lastName');
+                if (document.getElementById('IDcard').checked) selectedOptions.push('User.userName AS IDcard');
+                if (document.getElementById('Cancer').checked) selectedOptions.push('cancerType');
+                if (document.getElementById('CancerState').checked) selectedOptions.push('cancer_patient.cancerState AS cancerState');
+                if (document.getElementById('Disease').checked) selectedOptions.push('disease');
+                if (document.getElementById('History').checked) selectedOptions.push('history.fatherName AS fatherName');
+                if (document.getElementById('History').checked) selectedOptions.push('history.motherName AS motherName');
+                if (document.getElementById('History').checked) selectedOptions.push('history.contactPerson AS contactPerson');
+                if (document.getElementById('History').checked) selectedOptions.push('history.spouseName AS spouseName');
+                if (document.getElementById('History').checked) selectedOptions.push('history.relatedAs AS relatedAs');
+                if (document.getElementById('History').checked) selectedOptions.push('history.IDcardAddress AS IDcardAddress');
+                if (document.getElementById('History').checked) selectedOptions.push('history.currentAddress AS currentAddress');
+                if (document.getElementById('History').checked) selectedOptions.push('history.contactAddress AS contactAddress');
+                if (document.getElementById('History').checked) selectedOptions.push('history.nationality AS nationality');
+                if (document.getElementById('History').checked) selectedOptions.push('history.occupation AS occupation');
+                if (document.getElementById('History').checked) selectedOptions.push('history.education AS education');
+                if (document.getElementById('History').checked) selectedOptions.push('history.marriageStatus AS marriageStatus');
+                if (document.getElementById('History').checked) selectedOptions.push('history.bloodGroup AS bloodGroup');
+                if (document.getElementById('History').checked) selectedOptions.push('history.religious AS religious');
                 if (selectedOptions.length === 0) {
                     Swal.showValidationMessage('กรุณาเลือกอย่างน้อย 1 ตัวเลือก');
                 }
@@ -1217,5 +1242,6 @@ export default {
 .g1 {
     margin-right: 20px;
 }
+
+
 </style>
-/
