@@ -201,7 +201,8 @@
         <Bar id="my-chart-id-2" :options="chartOptions2" :data="chartData2" />
       </div>
       <div class="line-chart-container">
-        <Line :data="lineChartData" :options="lineChartOptions" />
+        <!-- <Line :data="lineChartData" :options="lineChartOptions" /> -->
+        <Radar :data="radarData2" :options="radarOptions2" />
         <Radar :data="radarData" :options="radarOptions" />
       </div>
     </div>
@@ -244,10 +245,10 @@
       return {
         // เพิ่มมาตอนทำ Filter
         genders: [
-          { label: "เพศชาย", value: "male" },
-          { label: "เพศหญิง", value: "female" },
+          { label: "เพศชาย", value: "เพศชาย" },
+          { label: "เพศหญิง", value: "เพศหญิง" },
         ],
-        showGender: [],
+        showGender: ["เพศหญิง", "เพศชาย"],
         cancers: [
         { label: "มะเร็งปอด", value: "มะเร็งปอด" },
         { label: "มะเร็งกระเพาะอาหาร", value: "มะเร็งกระเพาะอาหาร" },
@@ -266,8 +267,11 @@
         ],
         showCancer: ["มะเร็งปอด", "มะเร็งกระเพาะอาหาร"],
         rangeages: [
-          { label: "อายุ 1-10", value: "อายุ 1-10" },
-          { label: "อายุ 2-20", value: "อายุ 2-20" },
+          { label: "อายุ 0-18", value: "อายุ 0-18" },
+          { label: "อายุ 19-35", value: "อายุ 19-35" },
+          { label: "อายุ 36-50", value: "อายุ 36-50" },
+          { label: "อายุ 51-65", value: "อายุ 51-65" },
+          { label: "อายุ 65+", value: "อายุ 65+" },
         ],
         showRangeage: [],
         cancerstates: [
@@ -276,10 +280,15 @@
         ],
         showCancerstate: [],
         feedbacks: [
-          { label: "feedbacks 1", value: "feedbacks 1" },
-          { label: "feedbacks 2", value: "feedbacks 2" },
+          { label: "กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ", value: "กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ" },
+          { label: "เยื่อบุปากอักเสบ", value: "เยื่อบุปากอักเสบ" },
+          { label: "ผมร่วง/ ผมบาง", value: "ผมร่วง/ ผมบาง" },
+          { label: "อ่อนเพลีย / ครั่นเนื้อครั่นตัว", value: "อ่อนเพลีย / ครั่นเนื้อครั่นตัว" },
+          { label: "ผิวหนังสีเข้มขึ้น", value: "ผิวหนังสีเข้มขึ้น" },
+          { label: "ใจสั่น / หอบเหนื่อยง่าย", value: "ใจสั่น / หอบเหนื่อยง่าย" },
+          { label: "กระเพาะปัสสาวะอักเสบ", value: "กระเพาะปัสสาวะอักเสบ" },
         ],
-        showFeedback: [],
+        showFeedback: ["กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ", "เยื่อบุปากอักเสบ", "ผมร่วง/ ผมบาง"],
         diseases: [
           { label: "diseases 1", value: "diseases 1" },
           { label: "diseases 2", value: "diseases 2" },
@@ -289,51 +298,52 @@
 
         ageGroups: {}, // เก็บข้อมูลอายุผู้ป่วย
         cancerSummary: {}, // เก็บข้อมูลอายุผู้ป่วย
-        chartData1: {
-          labels: [
-            "มะเร็งปอด",
-            "มะเร็งกระเพาะอาหาร",
-            "มะเร็งลำไส้ใหญ่",
-            "มะเร็งตับ",
-            "มะเร็งตับอ่อน",
-            "มะเร็งต่อมไทรอยด์",
-            "มะเร็งไต",
-            "มะเร็งกระเพาะปัสสาวะ",
-            "มะเร็งอัณฑะ",
-            "มะเร็งต่อมลูกหมาก",
-            "มะเร็งถุงน้ำดี",
-            "มะเร็งมดลูก",
-            "มะเร็งเต้านม",
-            "มะเร็งรังไข่",
-          ],
-          datasets: [
-            {
-              label: "ผู้ป่วยชาย",
-              backgroundColor: "rgba(54, 162, 235, 0.6)",
-              data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            },
-            {
-              label: "ผู้ป่วยหญิง",
-              backgroundColor: "rgba(255, 99, 132, 0.6)",
-              data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            },
-          ],
-        },
-        chartData2: {
-          labels: ["0-18", "19-35", "36-50", "51-65", "65+"],
-          datasets: [
-            {
-              label: "ผู้ป่วยชาย",
-              backgroundColor: "rgba(75, 192, 192, 0.6)",
-              data: [0, 0, 0, 0, 0], // Default values, will be updated after fetching data
-            },
-            {
-              label: "ผู้ป่วยหญิง",
-              backgroundColor: "rgba(153, 102, 255, 0.6)",
-              data: [0, 0, 0, 0, 0], // Default values, will be updated after fetching data
-            },
-          ],
-        },
+        feedbackSummary: {}, // เก็บข้อมูลผลข้างเคียงไว้ทำกราฟ
+        // chartData1: {
+        //   labels: [
+        //     "มะเร็งปอด",
+        //     "มะเร็งกระเพาะอาหาร",
+        //     "มะเร็งลำไส้ใหญ่",
+        //     "มะเร็งตับ",
+        //     "มะเร็งตับอ่อน",
+        //     "มะเร็งต่อมไทรอยด์",
+        //     "มะเร็งไต",
+        //     "มะเร็งกระเพาะปัสสาวะ",
+        //     "มะเร็งอัณฑะ",
+        //     "มะเร็งต่อมลูกหมาก",
+        //     "มะเร็งถุงน้ำดี",
+        //     "มะเร็งมดลูก",
+        //     "มะเร็งเต้านม",
+        //     "มะเร็งรังไข่",
+        //   ],
+        //   datasets: [
+        //     {
+        //       label: "ผู้ป่วยชาย",
+        //       backgroundColor: "rgba(54, 162, 235, 0.6)",
+        //       data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        //     },
+        //     {
+        //       label: "ผู้ป่วยหญิง",
+        //       backgroundColor: "rgba(255, 99, 132, 0.6)",
+        //       data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        //     },
+        //   ],
+        // },
+        // chartData2: {
+        //   labels: ["0-18", "19-35", "36-50", "51-65", "65+"],
+        //   datasets: [
+        //     {
+        //       label: "ผู้ป่วยชาย",
+        //       backgroundColor: "rgba(75, 192, 192, 0.6)",
+        //       data: [0, 0, 0, 0, 0], // Default values, will be updated after fetching data
+        //     },
+        //     {
+        //       label: "ผู้ป่วยหญิง",
+        //       backgroundColor: "rgba(153, 102, 255, 0.6)",
+        //       data: [0, 0, 0, 0, 0], // Default values, will be updated after fetching data
+        //     },
+        //   ],
+        // },
         chartOptions1: {
           responsive: true,
           plugins: {
@@ -390,160 +400,164 @@
             },
           },
         },
-        radarData: {
-          labels: [
-            "ผมร่วง",
-            "ใจสั่น",
-            "ครั่นเนื้อครั่นตัว",
-            "เหนื่อยง่าย",
-            "วิงเวียนศีรษะ",
-            "อาเจียน",
-            "ผิวหนังสีเข้ม",
-          ],
-          datasets: [
-            {
-              label: "มะเร็งปอด",
-              backgroundColor: "rgba(179,181,198,0.2)",
-              borderColor: "rgba(179,181,198,1)",
-              pointBackgroundColor: "rgba(179,181,198,1)",
-              pointBorderColor: "#fff",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(179,181,198,1)",
-              data: [65, 59, 90, 81, 56, 55, 40],
-            },
-            {
-              label: "มะเร็งกระเพาะอาหาร",
-              backgroundColor: "rgba(255,99,132,0.2)",
-              borderColor: "rgba(255,99,132,1)",
-              pointBackgroundColor: "rgba(255,99,132,1)",
-              pointBorderColor: "#fff",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(255,99,132,1)",
-              data: [28, 48, 40, 19, 96, 27, 100],
-            },
-            {
-              label: "มะเร็งลำไส้ใหญ่",
-              backgroundColor: "rgba(255,206,86,0.2)",
-              borderColor: "rgba(255,206,86,1)",
-              pointBackgroundColor: "rgba(255,206,86,1)",
-              pointBorderColor: "#fff",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(255,99,132,1)",
-              data: [28, 48, 40, 19, 96, 27, 100],
-            },
-            {
-              label: "มะเร็งตับ",
-              backgroundColor: "rgba(75,192,192,0.2)",
-              borderColor: "rgba(75,192,192,1)",
-              pointBackgroundColor: "rgba(75,192,192,1)",
-              pointBorderColor: "#fff",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(255,99,132,1)",
-              data: [28, 48, 40, 19, 96, 27, 100],
-            },
-            {
-              label: "มะเร็งตับอ่อน",
-              backgroundColor: "rgba(153,102,255,0.2)",
-              borderColor: "rgba(153,102,255,1)",
-              pointBackgroundColor: "rgba(153,102,255,1)",
-              pointBorderColor: "#fff",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(255,99,132,1)",
-              data: [28, 48, 40, 19, 96, 27, 100],
-            },
-            {
-              label: "มะเร็งต่อมไทรอยด์",
-              backgroundColor: "rgba(255,159,64,0.2)",
-              borderColor: "rgba(255,159,64,1)",
-              pointBackgroundColor: "rgba(255,159,64,1)",
-              pointBorderColor: "#fff",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(255,99,132,1)",
-              data: [28, 48, 40, 19, 96, 27, 100],
-            },
-            {
-              label: "มะเร็งไต",
-              backgroundColor: "rgba(255,255,102,0.2)",
-              borderColor: "rgba(255,255,102,1)",
-              pointBackgroundColor: "rgba(255,255,102,1)",
-              pointBorderColor: "#fff",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(255,99,132,1)",
-              data: [28, 48, 40, 19, 96, 27, 100],
-            },
-            {
-              label: "มะเร็งกระเพาะปัสสาวะ",
-              backgroundColor: "rgba(102,255,102,0.2)",
-              borderColor: "rgba(102,255,102,1)",
-              pointBackgroundColor: "rgba(102,255,102,1)",
-              pointBorderColor: "#fff",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(255,99,132,1)",
-              data: [28, 48, 40, 19, 96, 27, 100],
-            },
-            {
-              label: "มะเร็งอัณฑะ",
-              backgroundColor: "rgba(102,204,255,0.2)",
-              borderColor: "rgba(102,204,255,1)",
-              pointBackgroundColor: "rgba(102,204,255,1)",
-              pointBorderColor: "#fff",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(255,99,132,1)",
-              data: [28, 48, 40, 19, 96, 27, 100],
-            },
-            {
-              label: "มะเร็งต่อมลูกหมาก",
-              backgroundColor: "rgba(255,102,255,0.2)",
-              borderColor: "rgba(255,102,255,1)",
-              pointBackgroundColor: "rgba(255,102,255,1)",
-              pointBorderColor: "#fff",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(255,99,132,1)",
-              data: [28, 48, 40, 19, 96, 27, 100],
-            },
-            {
-              label: "มะเร็งถุงน้ำดี",
-              backgroundColor: "rgba(255,102,178,0.2)",
-              borderColor: "rgba(255,102,178,1)",
-              pointBackgroundColor: "rgba(255,102,178,1)",
-              pointBorderColor: "#fff",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(255,99,132,1)",
-              data: [28, 48, 40, 19, 96, 27, 100],
-            },
-            {
-              label: "มะเร็งมดลูก",
-              backgroundColor: "rgba(178,102,255,0.2)",
-              borderColor: "rgba(178,102,255,1)",
-              pointBackgroundColor: "rgba(178,102,255,1)",
-              pointBorderColor: "#fff",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(255,99,132,1)",
-              data: [28, 48, 40, 19, 96, 27, 100],
-            },
-            {
-              label: "มะเร็งเต้านม",
-              backgroundColor: "rgba(102,178,255,0.2)",
-              borderColor: "rgba(102,178,255,1)",
-              pointBackgroundColor: "rgba(102,178,255,1)",
-              pointBorderColor: "#fff",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(255,99,132,1)",
-              data: [28, 48, 40, 19, 96, 27, 100],
-            },
-            {
-              label: "มะเร็งรังไข่",
-              backgroundColor: "rgba(102,255,178,0.2)",
-              borderColor: "rgba(102,255,178,1)",
-              pointBackgroundColor: "rgba(102,255,178,1)",
-              pointBorderColor: "#fff",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(255,99,132,1)",
-              data: [28, 48, 40, 19, 96, 27, 100],
-            },
-          ],
-        },
+        // radarData: {
+        //   labels: [
+        //     "กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ",
+        //     "เยื่อบุปากอักเสบ",
+        //     "ผมร่วง/ ผมบาง",
+        //     "อ่อนเพลีย / ครั่นเนื้อครั่นตัว",
+        //     "ผิวหนังสีเข้มขึ้น",
+        //     "ใจสั่น / หอบเหนื่อยง่าย",
+        //     "กระเพาะปัสสาวะอักเสบ",
+        //   ],
+        //   datasets: [
+        //     {
+        //       label: "มะเร็งปอด",
+        //       backgroundColor: "rgba(179,181,198,0.2)",
+        //       borderColor: "rgba(179,181,198,1)",
+        //       pointBackgroundColor: "rgba(179,181,198,1)",
+        //       pointBorderColor: "#fff",
+        //       pointHoverBackgroundColor: "#fff",
+        //       pointHoverBorderColor: "rgba(179,181,198,1)",
+        //       data: [65, 59, 90, 81, 56, 55, 40],
+        //     },
+        //     {
+        //       label: "มะเร็งกระเพาะอาหาร",
+        //       backgroundColor: "rgba(255,99,132,0.2)",
+        //       borderColor: "rgba(255,99,132,1)",
+        //       pointBackgroundColor: "rgba(255,99,132,1)",
+        //       pointBorderColor: "#fff",
+        //       pointHoverBackgroundColor: "#fff",
+        //       pointHoverBorderColor: "rgba(255,99,132,1)",
+        //       data: [28, 48, 40, 19, 96, 27, 100],
+        //     },
+        //     {
+        //       label: "มะเร็งลำไส้ใหญ่",
+        //       backgroundColor: "rgba(255,206,86,0.2)",
+        //       borderColor: "rgba(255,206,86,1)",
+        //       pointBackgroundColor: "rgba(255,206,86,1)",
+        //       pointBorderColor: "#fff",
+        //       pointHoverBackgroundColor: "#fff",
+        //       pointHoverBorderColor: "rgba(255,99,132,1)",
+        //       data: [28, 48, 40, 19, 96, 27, 100],
+        //     },
+        //     {
+        //       label: "มะเร็งตับ",
+        //       backgroundColor: "rgba(75,192,192,0.2)",
+        //       borderColor: "rgba(75,192,192,1)",
+        //       pointBackgroundColor: "rgba(75,192,192,1)",
+        //       pointBorderColor: "#fff",
+        //       pointHoverBackgroundColor: "#fff",
+        //       pointHoverBorderColor: "rgba(255,99,132,1)",
+        //       data: [28, 48, 40, 19, 96, 27, 100],
+        //     },
+        //     {
+        //       label: "มะเร็งตับอ่อน",
+        //       backgroundColor: "rgba(153,102,255,0.2)",
+        //       borderColor: "rgba(153,102,255,1)",
+        //       pointBackgroundColor: "rgba(153,102,255,1)",
+        //       pointBorderColor: "#fff",
+        //       pointHoverBackgroundColor: "#fff",
+        //       pointHoverBorderColor: "rgba(255,99,132,1)",
+        //       data: [28, 48, 40, 19, 96, 27, 100],
+        //     },
+        //     {
+        //       label: "มะเร็งต่อมไทรอยด์",
+        //       backgroundColor: "rgba(255,159,64,0.2)",
+        //       borderColor: "rgba(255,159,64,1)",
+        //       pointBackgroundColor: "rgba(255,159,64,1)",
+        //       pointBorderColor: "#fff",
+        //       pointHoverBackgroundColor: "#fff",
+        //       pointHoverBorderColor: "rgba(255,99,132,1)",
+        //       data: [28, 48, 40, 19, 96, 27, 100],
+        //     },
+        //     {
+        //       label: "มะเร็งไต",
+        //       backgroundColor: "rgba(255,255,102,0.2)",
+        //       borderColor: "rgba(255,255,102,1)",
+        //       pointBackgroundColor: "rgba(255,255,102,1)",
+        //       pointBorderColor: "#fff",
+        //       pointHoverBackgroundColor: "#fff",
+        //       pointHoverBorderColor: "rgba(255,99,132,1)",
+        //       data: [28, 48, 40, 19, 96, 27, 100],
+        //     },
+        //     {
+        //       label: "มะเร็งกระเพาะปัสสาวะ",
+        //       backgroundColor: "rgba(102,255,102,0.2)",
+        //       borderColor: "rgba(102,255,102,1)",
+        //       pointBackgroundColor: "rgba(102,255,102,1)",
+        //       pointBorderColor: "#fff",
+        //       pointHoverBackgroundColor: "#fff",
+        //       pointHoverBorderColor: "rgba(255,99,132,1)",
+        //       data: [28, 48, 40, 19, 96, 27, 100],
+        //     },
+        //     {
+        //       label: "มะเร็งอัณฑะ",
+        //       backgroundColor: "rgba(102,204,255,0.2)",
+        //       borderColor: "rgba(102,204,255,1)",
+        //       pointBackgroundColor: "rgba(102,204,255,1)",
+        //       pointBorderColor: "#fff",
+        //       pointHoverBackgroundColor: "#fff",
+        //       pointHoverBorderColor: "rgba(255,99,132,1)",
+        //       data: [28, 48, 40, 19, 96, 27, 100],
+        //     },
+        //     {
+        //       label: "มะเร็งต่อมลูกหมาก",
+        //       backgroundColor: "rgba(255,102,255,0.2)",
+        //       borderColor: "rgba(255,102,255,1)",
+        //       pointBackgroundColor: "rgba(255,102,255,1)",
+        //       pointBorderColor: "#fff",
+        //       pointHoverBackgroundColor: "#fff",
+        //       pointHoverBorderColor: "rgba(255,99,132,1)",
+        //       data: [28, 48, 40, 19, 96, 27, 100],
+        //     },
+        //     {
+        //       label: "มะเร็งถุงน้ำดี",
+        //       backgroundColor: "rgba(255,102,178,0.2)",
+        //       borderColor: "rgba(255,102,178,1)",
+        //       pointBackgroundColor: "rgba(255,102,178,1)",
+        //       pointBorderColor: "#fff",
+        //       pointHoverBackgroundColor: "#fff",
+        //       pointHoverBorderColor: "rgba(255,99,132,1)",
+        //       data: [28, 48, 40, 19, 96, 27, 100],
+        //     },
+        //     {
+        //       label: "มะเร็งมดลูก",
+        //       backgroundColor: "rgba(178,102,255,0.2)",
+        //       borderColor: "rgba(178,102,255,1)",
+        //       pointBackgroundColor: "rgba(178,102,255,1)",
+        //       pointBorderColor: "#fff",
+        //       pointHoverBackgroundColor: "#fff",
+        //       pointHoverBorderColor: "rgba(255,99,132,1)",
+        //       data: [28, 48, 40, 19, 96, 27, 100],
+        //     },
+        //     {
+        //       label: "มะเร็งเต้านม",
+        //       backgroundColor: "rgba(102,178,255,0.2)",
+        //       borderColor: "rgba(102,178,255,1)",
+        //       pointBackgroundColor: "rgba(102,178,255,1)",
+        //       pointBorderColor: "#fff",
+        //       pointHoverBackgroundColor: "#fff",
+        //       pointHoverBorderColor: "rgba(255,99,132,1)",
+        //       data: [28, 48, 40, 19, 96, 27, 100],
+        //     },
+        //     {
+        //       label: "มะเร็งรังไข่",
+        //       backgroundColor: "rgba(102,255,178,0.2)",
+        //       borderColor: "rgba(102,255,178,1)",
+        //       pointBackgroundColor: "rgba(102,255,178,1)",
+        //       pointBorderColor: "#fff",
+        //       pointHoverBackgroundColor: "#fff",
+        //       pointHoverBorderColor: "rgba(255,99,132,1)",
+        //       data: [28, 48, 40, 19, 96, 27, 100],
+        //     },
+        //   ],
+        // },
         radarOptions: {
+          responsive: true,
+          maintainAspectRatio: false,
+        },
+        radarOptions2: {
           responsive: true,
           maintainAspectRatio: false,
         },
@@ -554,56 +568,39 @@
         try {
         const response = await axios.get("http://localhost:8080/age-groups");
         this.ageGroups = response.data;
-
-        console.log(this.ageGroups); // ตรวจสอบข้อมูลใน console
-        
-        // สร้างข้อมูลใหม่ให้กับ chartData2
-        this.chartData2 = {
-          labels: ["0-18", "19-35", "36-50", "51-65", "65+"],
-          datasets: [
-            {
-              label: "ผู้ป่วยชาย",
-              backgroundColor: "rgba(75, 192, 192, 0.6)",
-              data: [
-                this.ageGroups["0-18Male"] || 0,
-                this.ageGroups["19-35Male"] || 0,
-                this.ageGroups["36-50Male"] || 0,
-                this.ageGroups["51-65Male"] || 0,
-                this.ageGroups["65+Male"] || 0,
-              ],
-            },
-            {
-              label: "ผู้ป่วยหญิง",
-              backgroundColor: "rgba(153, 102, 255, 0.6)",
-              data: [
-                this.ageGroups["0-18Female"] || 0,
-                this.ageGroups["19-35Female"] || 0,
-                this.ageGroups["36-50Female"] || 0,
-                this.ageGroups["51-65Female"] || 0,
-                this.ageGroups["65+Female"] || 0,
-              ],
-            },
-          ],
-        };
+        console.log(this.ageGroups);
       } catch (error) {
         console.error("Error fetching age groups:", error);
       }
-    },
-    async fetchCancerData() {
-        try {
-        const response = await axios.get("http://localhost:8080/cancer-summary");
-        this.cancerSummary = response.data;
+      },
+      async fetchCancerData() {
+          try {
+          const response = await axios.get("http://localhost:8080/cancer-summary");
+          this.cancerSummary = response.data;
 
-        console.log(this.cancerSummary); // ตรวจสอบข้อมูลใน console
-        
-      } catch (error) {
-        console.error("Error fetching cancerSummary", error);
-      }
-    },
+          console.log(this.cancerSummary); // ตรวจสอบข้อมูลใน console
+          
+        } catch (error) {
+          console.error("Error fetching cancerSummary", error);
+        }
+      },
+      async fetchFeedbackData() {
+          try {
+          const response = await axios.get("http://localhost:8080/feedback-summary");
+          this.feedbackSummary = response.data;
+
+          console.log("feedback summary", this.feedbackSummary);
+          console.log("this.feedbackSummary[0][0]", this.feedbackSummary["มะเร็งต่อมไทรอยด์"]["ผมร่วง/ ผมบาง"])
+          
+        } catch (error) {
+          console.error("Error fetching feedbackSummary", error);
+        }
+      },
     },
     created() {
       this.fetchAgeGroups(); // เรียกใช้ฟังก์ชันเมื่อ component ถูกสร้าง
       this.fetchCancerData(); //chart1
+      this.fetchFeedbackData();
     },
     computed: {
       // แปลงค่าที่เลือก (showGender) กลับมาเป็นชื่อภาษาไทย
@@ -638,27 +635,434 @@
           .map((disease) => disease.value);
       },
       chartData1() {
-      // สร้างข้อมูลกราฟใหม่ตาม selectedCancers
-      return {
-        labels: this.selectedCancers,
-        datasets: [
-          {
+        const datasets = [];
+        if (this.selectedGenders.includes("เพศชาย")) {
+          datasets.push({
             label: "ผู้ป่วยชาย",
             backgroundColor: "rgba(75, 192, 192, 0.6)",
             data: this.selectedCancers.map(
               (label) => this.cancerSummary[`${label} ชาย`] || 0
             ),
-          },
-          {
+          });
+        }
+
+        if (this.selectedGenders.includes("เพศหญิง")) {
+          datasets.push({
             label: "ผู้ป่วยหญิง",
             backgroundColor: "rgba(153, 102, 255, 0.6)",
             data: this.selectedCancers.map(
               (label) => this.cancerSummary[`${label} หญิง`] || 0
             ),
-          },
-        ],
-      };
-    },
+          });
+        }
+        return {
+          labels: this.selectedCancers,
+          datasets: datasets,
+        };
+      },
+      chartData2() {
+        const datasets = [];
+          // แปลง selected rangeages ให้เป็น key ของข้อมูลอายุ
+          const selectedAgeKeys = this.selectedRangeages.map((range) => {
+            switch (range) {
+              case "อายุ 0-18":
+                return "0-18";
+              case "อายุ 19-35":
+                return "19-35";
+              case "อายุ 36-50":
+                return "36-50";
+              case "อายุ 51-65":
+                return "51-65";
+              case "อายุ 65+":
+                return "65+";
+              default:
+                return null;
+            }
+          }).filter(Boolean);
+
+          if (this.selectedGenders.includes("เพศชาย")) {
+            datasets.push({
+              label: "ผู้ป่วยชาย",
+              backgroundColor: "rgba(75, 192, 192, 0.6)",
+              data: selectedAgeKeys.map((key) => this.ageGroups[`${key}Male`] || 0),
+            });
+          }
+
+          if (this.selectedGenders.includes("เพศหญิง")) {
+            datasets.push({
+              label: "ผู้ป่วยหญิง",
+              backgroundColor: "rgba(153, 102, 255, 0.6)",
+              data: selectedAgeKeys.map((key) => this.ageGroups[`${key}Female`] || 0),
+            });
+          }
+        return {
+          labels: this.selectedRangeages,
+          datasets: datasets
+        };
+      },
+      // radarData() {
+      //   return {
+      //     labels: this.selectedFeedbacks,
+      //     datasets: [
+      //       {
+      //         label: "มะเร็งปอด",
+      //         backgroundColor: "rgba(179,181,198,0.2)",
+      //         borderColor: "rgba(179,181,198,1)",
+      //         pointBackgroundColor: "rgba(179,181,198,1)",
+      //         pointBorderColor: "#fff",
+      //         pointHoverBackgroundColor: "#fff",
+      //         pointHoverBorderColor: "rgba(179,181,198,1)",
+      //         data: [
+      //           this.feedbackSummary["มะเร็งปอด"]?.["กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งปอด"]?.["เยื่อบุปากอักเสบ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งปอด"]?.["ผมร่วง/ ผมบาง"] ?? 0,
+      //           this.feedbackSummary["มะเร็งปอด"]?.["อ่อนเพลีย / ครั่นเนื้อครั่นตัว"] ?? 0,
+      //           this.feedbackSummary["มะเร็งปอด"]?.["ผิวหนังสีเข้มขึ้น"] ?? 0,
+      //           this.feedbackSummary["มะเร็งปอด"]?.["ใจสั่น / หอบเหนื่อยง่าย"] ?? 0,
+      //           this.feedbackSummary["มะเร็งปอด"]?.["กระเพาะปัสสาวะอักเสบ"] ?? 0,
+      //         ],
+      //       },
+      //       {
+      //         label: "มะเร็งกระเพาะอาหาร",
+      //         backgroundColor: "rgba(255,99,132,0.2)",
+      //         borderColor: "rgba(255,99,132,1)",
+      //         pointBackgroundColor: "rgba(255,99,132,1)",
+      //         pointBorderColor: "#fff",
+      //         pointHoverBackgroundColor: "#fff",
+      //         pointHoverBorderColor: "rgba(255,99,132,1)",
+      //         data: [
+      //           this.feedbackSummary["มะเร็งกระเพาะอาหาร"]?.["กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งกระเพาะอาหาร"]?.["เยื่อบุปากอักเสบ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งกระเพาะอาหาร"]?.["ผมร่วง/ ผมบาง"] ?? 0,
+      //           this.feedbackSummary["มะเร็งกระเพาะอาหาร"]?.["อ่อนเพลีย / ครั่นเนื้อครั่นตัว"] ?? 0,
+      //           this.feedbackSummary["มะเร็งกระเพาะอาหาร"]?.["ผิวหนังสีเข้มขึ้น"] ?? 0,
+      //           this.feedbackSummary["มะเร็งกระเพาะอาหาร"]?.["ใจสั่น / หอบเหนื่อยง่าย"] ?? 0,
+      //           this.feedbackSummary["มะเร็งกระเพาะอาหาร"]?.["กระเพาะปัสสาวะอักเสบ"] ?? 0,
+      //         ],
+      //       },
+      //       {
+      //         label: "มะเร็งลำไส้ใหญ่",
+      //         backgroundColor: "rgba(255,206,86,0.2)",
+      //         borderColor: "rgba(255,206,86,1)",
+      //         pointBackgroundColor: "rgba(255,206,86,1)",
+      //         pointBorderColor: "#fff",
+      //         pointHoverBackgroundColor: "#fff",
+      //         pointHoverBorderColor: "rgba(255,99,132,1)",
+      //         data: [
+      //           this.feedbackSummary["มะเร็งลำไส้ใหญ่"]?.["กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งลำไส้ใหญ่"]?.["เยื่อบุปากอักเสบ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งลำไส้ใหญ่"]?.["ผมร่วง/ ผมบาง"] ?? 0,
+      //           this.feedbackSummary["มะเร็งลำไส้ใหญ่"]?.["อ่อนเพลีย / ครั่นเนื้อครั่นตัว"] ?? 0,
+      //           this.feedbackSummary["มะเร็งลำไส้ใหญ่"]?.["ผิวหนังสีเข้มขึ้น"] ?? 0,
+      //           this.feedbackSummary["มะเร็งลำไส้ใหญ่"]?.["ใจสั่น / หอบเหนื่อยง่าย"] ?? 0,
+      //           this.feedbackSummary["มะเร็งลำไส้ใหญ่"]?.["กระเพาะปัสสาวะอักเสบ"] ?? 0,
+      //         ],
+      //       },
+      //       {
+      //         label: "มะเร็งตับ",
+      //         backgroundColor: "rgba(75,192,192,0.2)",
+      //         borderColor: "rgba(75,192,192,1)",
+      //         pointBackgroundColor: "rgba(75,192,192,1)",
+      //         pointBorderColor: "#fff",
+      //         pointHoverBackgroundColor: "#fff",
+      //         pointHoverBorderColor: "rgba(255,99,132,1)",
+      //         data: [
+      //           this.feedbackSummary["มะเร็งตับ"]?.["กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งตับ"]?.["เยื่อบุปากอักเสบ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งตับ"]?.["ผมร่วง/ ผมบาง"] ?? 0,
+      //           this.feedbackSummary["มะเร็งตับ"]?.["อ่อนเพลีย / ครั่นเนื้อครั่นตัว"] ?? 0,
+      //           this.feedbackSummary["มะเร็งตับ"]?.["ผิวหนังสีเข้มขึ้น"] ?? 0,
+      //           this.feedbackSummary["มะเร็งตับ"]?.["ใจสั่น / หอบเหนื่อยง่าย"] ?? 0,
+      //           this.feedbackSummary["มะเร็งตับ"]?.["กระเพาะปัสสาวะอักเสบ"] ?? 0,
+      //         ],
+      //       },
+      //       {
+      //         label: "มะเร็งตับอ่อน",
+      //         backgroundColor: "rgba(153,102,255,0.2)",
+      //         borderColor: "rgba(153,102,255,1)",
+      //         pointBackgroundColor: "rgba(153,102,255,1)",
+      //         pointBorderColor: "#fff",
+      //         pointHoverBackgroundColor: "#fff",
+      //         pointHoverBorderColor: "rgba(255,99,132,1)",
+      //         data: [
+      //           this.feedbackSummary["มะเร็งตับอ่อน"]?.["กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งตับอ่อน"]?.["เยื่อบุปากอักเสบ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งตับอ่อน"]?.["ผมร่วง/ ผมบาง"] ?? 0,
+      //           this.feedbackSummary["มะเร็งตับอ่อน"]?.["อ่อนเพลีย / ครั่นเนื้อครั่นตัว"] ?? 0,
+      //           this.feedbackSummary["มะเร็งตับอ่อน"]?.["ผิวหนังสีเข้มขึ้น"] ?? 0,
+      //           this.feedbackSummary["มะเร็งตับอ่อน"]?.["ใจสั่น / หอบเหนื่อยง่าย"] ?? 0,
+      //           this.feedbackSummary["มะเร็งตับอ่อน"]?.["กระเพาะปัสสาวะอักเสบ"] ?? 0,
+      //         ],
+      //       },
+      //       {
+      //         label: "มะเร็งต่อมไทรอยด์",
+      //         backgroundColor: "rgba(255,159,64,0.2)",
+      //         borderColor: "rgba(255,159,64,1)",
+      //         pointBackgroundColor: "rgba(255,159,64,1)",
+      //         pointBorderColor: "#fff",
+      //         pointHoverBackgroundColor: "#fff",
+      //         pointHoverBorderColor: "rgba(255,99,132,1)",
+      //         data: [
+      //           this.feedbackSummary["มะเร็งต่อมไทรอยด์"]?.["กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งต่อมไทรอยด์"]?.["เยื่อบุปากอักเสบ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งต่อมไทรอยด์"]?.["ผมร่วง/ ผมบาง"] ?? 0,
+      //           this.feedbackSummary["มะเร็งต่อมไทรอยด์"]?.["อ่อนเพลีย / ครั่นเนื้อครั่นตัว"] ?? 0,
+      //           this.feedbackSummary["มะเร็งต่อมไทรอยด์"]?.["ผิวหนังสีเข้มขึ้น"] ?? 0,
+      //           this.feedbackSummary["มะเร็งต่อมไทรอยด์"]?.["ใจสั่น / หอบเหนื่อยง่าย"] ?? 0,
+      //           this.feedbackSummary["มะเร็งต่อมไทรอยด์"]?.["กระเพาะปัสสาวะอักเสบ"] ?? 0,
+      //         ],
+      //       },
+      //       {
+      //         label: "มะเร็งไต",
+      //         backgroundColor: "rgba(255,255,102,0.2)",
+      //         borderColor: "rgba(255,255,102,1)",
+      //         pointBackgroundColor: "rgba(255,255,102,1)",
+      //         pointBorderColor: "#fff",
+      //         pointHoverBackgroundColor: "#fff",
+      //         pointHoverBorderColor: "rgba(255,99,132,1)",
+      //         data: [
+      //           this.feedbackSummary["มะเร็งไต"]?.["กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งไต"]?.["เยื่อบุปากอักเสบ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งไต"]?.["ผมร่วง/ ผมบาง"] ?? 0,
+      //           this.feedbackSummary["มะเร็งไต"]?.["อ่อนเพลีย / ครั่นเนื้อครั่นตัว"] ?? 0,
+      //           this.feedbackSummary["มะเร็งไต"]?.["ผิวหนังสีเข้มขึ้น"] ?? 0,
+      //           this.feedbackSummary["มะเร็งไต"]?.["ใจสั่น / หอบเหนื่อยง่าย"] ?? 0,
+      //           this.feedbackSummary["มะเร็งไต"]?.["กระเพาะปัสสาวะอักเสบ"] ?? 0,
+      //         ],
+      //       },
+      //       {
+      //         label: "มะเร็งกระเพาะปัสสาวะ",
+      //         backgroundColor: "rgba(102,255,102,0.2)",
+      //         borderColor: "rgba(102,255,102,1)",
+      //         pointBackgroundColor: "rgba(102,255,102,1)",
+      //         pointBorderColor: "#fff",
+      //         pointHoverBackgroundColor: "#fff",
+      //         pointHoverBorderColor: "rgba(255,99,132,1)",
+      //         data: [
+      //           this.feedbackSummary["มะเร็งกระเพาะปัสสาวะ"]?.["กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งกระเพาะปัสสาวะ"]?.["เยื่อบุปากอักเสบ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งกระเพาะปัสสาวะ"]?.["ผมร่วง/ ผมบาง"] ?? 0,
+      //           this.feedbackSummary["มะเร็งกระเพาะปัสสาวะ"]?.["อ่อนเพลีย / ครั่นเนื้อครั่นตัว"] ?? 0,
+      //           this.feedbackSummary["มะเร็งกระเพาะปัสสาวะ"]?.["ผิวหนังสีเข้มขึ้น"] ?? 0,
+      //           this.feedbackSummary["มะเร็งกระเพาะปัสสาวะ"]?.["ใจสั่น / หอบเหนื่อยง่าย"] ?? 0,
+      //           this.feedbackSummary["มะเร็งกระเพาะปัสสาวะ"]?.["กระเพาะปัสสาวะอักเสบ"] ?? 0,
+      //         ],
+      //       },
+      //       {
+      //         label: "มะเร็งอัณฑะ",
+      //         backgroundColor: "rgba(102,204,255,0.2)",
+      //         borderColor: "rgba(102,204,255,1)",
+      //         pointBackgroundColor: "rgba(102,204,255,1)",
+      //         pointBorderColor: "#fff",
+      //         pointHoverBackgroundColor: "#fff",
+      //         pointHoverBorderColor: "rgba(255,99,132,1)",
+      //         data: [
+      //           this.feedbackSummary["มะเร็งอัณฑะ"]?.["กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งอัณฑะ"]?.["เยื่อบุปากอักเสบ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งอัณฑะ"]?.["ผมร่วง/ ผมบาง"] ?? 0,
+      //           this.feedbackSummary["มะเร็งอัณฑะ"]?.["อ่อนเพลีย / ครั่นเนื้อครั่นตัว"] ?? 0,
+      //           this.feedbackSummary["มะเร็งอัณฑะ"]?.["ผิวหนังสีเข้มขึ้น"] ?? 0,
+      //           this.feedbackSummary["มะเร็งอัณฑะ"]?.["ใจสั่น / หอบเหนื่อยง่าย"] ?? 0,
+      //           this.feedbackSummary["มะเร็งอัณฑะ"]?.["กระเพาะปัสสาวะอักเสบ"] ?? 0,
+      //         ],
+      //       },
+      //       {
+      //         label: "มะเร็งต่อมลูกหมาก",
+      //         backgroundColor: "rgba(255,102,255,0.2)",
+      //         borderColor: "rgba(255,102,255,1)",
+      //         pointBackgroundColor: "rgba(255,102,255,1)",
+      //         pointBorderColor: "#fff",
+      //         pointHoverBackgroundColor: "#fff",
+      //         pointHoverBorderColor: "rgba(255,99,132,1)",
+      //         data: [
+      //           this.feedbackSummary["มะเร็งต่อมลูกหมาก"]?.["กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งต่อมลูกหมาก"]?.["เยื่อบุปากอักเสบ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งต่อมลูกหมาก"]?.["ผมร่วง/ ผมบาง"] ?? 0,
+      //           this.feedbackSummary["มะเร็งต่อมลูกหมาก"]?.["อ่อนเพลีย / ครั่นเนื้อครั่นตัว"] ?? 0,
+      //           this.feedbackSummary["มะเร็งต่อมลูกหมาก"]?.["ผิวหนังสีเข้มขึ้น"] ?? 0,
+      //           this.feedbackSummary["มะเร็งต่อมลูกหมาก"]?.["ใจสั่น / หอบเหนื่อยง่าย"] ?? 0,
+      //           this.feedbackSummary["มะเร็งต่อมลูกหมาก"]?.["กระเพาะปัสสาวะอักเสบ"] ?? 0,
+      //         ],
+      //       },
+      //       {
+      //         label: "มะเร็งถุงน้ำดี",
+      //         backgroundColor: "rgba(255,102,178,0.2)",
+      //         borderColor: "rgba(255,102,178,1)",
+      //         pointBackgroundColor: "rgba(255,102,178,1)",
+      //         pointBorderColor: "#fff",
+      //         pointHoverBackgroundColor: "#fff",
+      //         pointHoverBorderColor: "rgba(255,99,132,1)",
+      //         data: [
+      //           this.feedbackSummary["มะเร็งถุงน้ำดี"]?.["กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งถุงน้ำดี"]?.["เยื่อบุปากอักเสบ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งถุงน้ำดี"]?.["ผมร่วง/ ผมบาง"] ?? 0,
+      //           this.feedbackSummary["มะเร็งถุงน้ำดี"]?.["อ่อนเพลีย / ครั่นเนื้อครั่นตัว"] ?? 0,
+      //           this.feedbackSummary["มะเร็งถุงน้ำดี"]?.["ผิวหนังสีเข้มขึ้น"] ?? 0,
+      //           this.feedbackSummary["มะเร็งถุงน้ำดี"]?.["ใจสั่น / หอบเหนื่อยง่าย"] ?? 0,
+      //           this.feedbackSummary["มะเร็งถุงน้ำดี"]?.["กระเพาะปัสสาวะอักเสบ"] ?? 0,
+      //         ],
+      //       },
+      //       {
+      //         label: "มะเร็งมดลูก",
+      //         backgroundColor: "rgba(178,102,255,0.2)",
+      //         borderColor: "rgba(178,102,255,1)",
+      //         pointBackgroundColor: "rgba(178,102,255,1)",
+      //         pointBorderColor: "#fff",
+      //         pointHoverBackgroundColor: "#fff",
+      //         pointHoverBorderColor: "rgba(255,99,132,1)",
+      //         data: [
+      //           this.feedbackSummary["มะเร็งมดลูก"]?.["กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งมดลูก"]?.["เยื่อบุปากอักเสบ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งมดลูก"]?.["ผมร่วง/ ผมบาง"] ?? 0,
+      //           this.feedbackSummary["มะเร็งมดลูก"]?.["อ่อนเพลีย / ครั่นเนื้อครั่นตัว"] ?? 0,
+      //           this.feedbackSummary["มะเร็งมดลูก"]?.["ผิวหนังสีเข้มขึ้น"] ?? 0,
+      //           this.feedbackSummary["มะเร็งมดลูก"]?.["ใจสั่น / หอบเหนื่อยง่าย"] ?? 0,
+      //           this.feedbackSummary["มะเร็งมดลูก"]?.["กระเพาะปัสสาวะอักเสบ"] ?? 0,
+      //         ],
+      //       },
+      //       {
+      //         label: "มะเร็งเต้านม",
+      //         backgroundColor: "rgba(102,178,255,0.2)",
+      //         borderColor: "rgba(102,178,255,1)",
+      //         pointBackgroundColor: "rgba(102,178,255,1)",
+      //         pointBorderColor: "#fff",
+      //         pointHoverBackgroundColor: "#fff",
+      //         pointHoverBorderColor: "rgba(255,99,132,1)",
+      //         data: [
+      //           this.feedbackSummary["มะเร็งเต้านม"]?.["กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งเต้านม"]?.["เยื่อบุปากอักเสบ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งเต้านม"]?.["ผมร่วง/ ผมบาง"] ?? 0,
+      //           this.feedbackSummary["มะเร็งเต้านม"]?.["อ่อนเพลีย / ครั่นเนื้อครั่นตัว"] ?? 0,
+      //           this.feedbackSummary["มะเร็งเต้านม"]?.["ผิวหนังสีเข้มขึ้น"] ?? 0,
+      //           this.feedbackSummary["มะเร็งเต้านม"]?.["ใจสั่น / หอบเหนื่อยง่าย"] ?? 0,
+      //           this.feedbackSummary["มะเร็งเต้านม"]?.["กระเพาะปัสสาวะอักเสบ"] ?? 0,
+      //         ],
+      //       },
+      //       {
+      //         label: "มะเร็งรังไข่",
+      //         backgroundColor: "rgba(102,255,178,0.2)",
+      //         borderColor: "rgba(102,255,178,1)",
+      //         pointBackgroundColor: "rgba(102,255,178,1)",
+      //         pointBorderColor: "#fff",
+      //         pointHoverBackgroundColor: "#fff",
+      //         pointHoverBorderColor: "rgba(255,99,132,1)",
+      //         data: [
+      //           this.feedbackSummary["มะเร็งรังไข่"]?.["กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งรังไข่"]?.["เยื่อบุปากอักเสบ"] ?? 0,
+      //           this.feedbackSummary["มะเร็งรังไข่"]?.["ผมร่วง/ ผมบาง"] ?? 0,
+      //           this.feedbackSummary["มะเร็งรังไข่"]?.["อ่อนเพลีย / ครั่นเนื้อครั่นตัว"] ?? 0,
+      //           this.feedbackSummary["มะเร็งรังไข่"]?.["ผิวหนังสีเข้มขึ้น"] ?? 0,
+      //           this.feedbackSummary["มะเร็งรังไข่"]?.["ใจสั่น / หอบเหนื่อยง่าย"] ?? 0,
+      //           this.feedbackSummary["มะเร็งรังไข่"]?.["กระเพาะปัสสาวะอักเสบ"] ?? 0,
+      //         ],
+      //       },
+      //     ],
+      //   }
+          
+      //   },
+      radarData() {
+        const colors = [
+          "rgba(179,181,198,0.2)",
+          "rgba(255,99,132,0.2)",
+          "rgba(255,206,86,0.2)",
+          "rgba(75,192,192,0.2)",
+          "rgba(153,102,255,0.2)",
+          "rgba(255,159,64,0.2)",
+          "rgba(255,255,102,0.2)",
+          "rgba(102,255,102,0.2)",
+          "rgba(102,204,255,0.2)",
+          "rgba(255,102,255,0.2)",
+          "rgba(255,102,178,0.2)",
+          "rgba(178,102,255,0.2)",
+          "rgba(102,178,255,0.2)",
+          "rgba(102,255,178,0.2)",
+        ];
+
+        const borderColorList = [
+          "rgba(179,181,198,1)",
+          "rgba(255,99,132,1)",
+          "rgba(255,206,86,1)",
+          "rgba(75,192,192,1)",
+          "rgba(153,102,255,1)",
+          "rgba(255,159,64,1)",
+          "rgba(255,255,102,1)",
+          "rgba(102,255,102,1)",
+          "rgba(102,204,255,1)",
+          "rgba(255,102,255,1)",
+          "rgba(255,102,178,1)",
+          "rgba(178,102,255,1)",
+          "rgba(102,178,255,1)",
+          "rgba(102,255,178,1)",
+        ];
+
+        return {
+          labels: this.selectedFeedbacks,
+          datasets: this.selectedCancers.map((cancerType, index) => ({
+            label: cancerType,
+            backgroundColor: colors[index],
+            borderColor: borderColorList[index],
+            pointBackgroundColor: borderColorList[index],
+            pointBorderColor: "#fff",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: borderColorList[index],
+            data: this.selectedFeedbacks.map(
+              feedback => this.feedbackSummary[cancerType]?.[feedback] ?? 0
+            )
+          }))
+        };
+      },
+      radarData2() {
+        const colors = [
+          "rgba(179,181,198,0.2)",
+          "rgba(255,99,132,0.2)",
+          "rgba(255,206,86,0.2)",
+          "rgba(75,192,192,0.2)",
+          "rgba(153,102,255,0.2)",
+          "rgba(255,159,64,0.2)",
+          "rgba(255,255,102,0.2)",
+          "rgba(102,255,102,0.2)",
+          "rgba(102,204,255,0.2)",
+          "rgba(255,102,255,0.2)",
+          "rgba(255,102,178,0.2)",
+          "rgba(178,102,255,0.2)",
+          "rgba(102,178,255,0.2)",
+          "rgba(102,255,178,0.2)",
+        ];
+
+        const borderColorList = [
+          "rgba(179,181,198,1)",
+          "rgba(255,99,132,1)",
+          "rgba(255,206,86,1)",
+          "rgba(75,192,192,1)",
+          "rgba(153,102,255,1)",
+          "rgba(255,159,64,1)",
+          "rgba(255,255,102,1)",
+          "rgba(102,255,102,1)",
+          "rgba(102,204,255,1)",
+          "rgba(255,102,255,1)",
+          "rgba(255,102,178,1)",
+          "rgba(178,102,255,1)",
+          "rgba(102,178,255,1)",
+          "rgba(102,255,178,1)",
+        ];
+
+        return {
+          labels: this.selectedFeedbacks,
+          datasets: this.selectedCancers.map((cancerType, index) => ({
+            label: cancerType,
+            backgroundColor: colors[index],
+            borderColor: borderColorList[index],
+            pointBackgroundColor: borderColorList[index],
+            pointBorderColor: "#fff",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: borderColorList[index],
+            data: this.selectedFeedbacks.map(
+              feedback => this.feedbackSummary[cancerType]?.[feedback] ?? 0
+            )
+          }))
+        };
+      }
+
     },
   };
   </script>

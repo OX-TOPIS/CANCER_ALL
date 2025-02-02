@@ -1408,6 +1408,151 @@ router.get('/cancer-summary', async (req, res) => {
   }
 });
 
+
+// DASHBOARD FEEDBACK
+// router.get('/feedback-summary', async (req, res) => {
+//   try {
+
+//       const [rows] = await pool.query(`
+//           SELECT appointment.HN, GROUP_CONCAT(feedback.patientSideEffect SEPARATOR '*') AS patientSideEffects, appointment.appointId, cancer_patient.cancerId, GROUP_CONCAT(cancer.cancerType SEPARATOR '*') AS cancerTypes FROM feedback JOIN appointment ON appointment.appointId = feedback.appointId JOIN cancer_patient ON cancer_patient.HN = appointment.HN JOIN cancer ON cancer.cancerId = cancer_patient.cancerId GROUP BY appointment.HN;
+//       `);
+
+//       const result = rows.map(row => ({
+//         HN: row.HN,
+//         appointId: row.appointId,
+//         cancerId: row.cancerId,
+//         patientSideEffects: row.patientSideEffects
+//           ? row.patientSideEffects.split('*')
+//               .flatMap(effect => effect.split(','))
+//               .map(effect => effect.trim())
+//           : [],
+//         cancerTypes: row.cancerTypes
+//           ? [...new Set(row.cancerTypes.split('*').map(type => type.trim()))]
+//           : []
+//       }));
+  
+//       res.json(result);
+
+//   } catch (error) {
+//       console.error(error);
+//       res.status(500).json({ error: 'Error' });
+//   }
+// });
+router.get('/feedback-summary', async (req, res) => { 
+  try {
+    const [rows] = await pool.query(`
+      SELECT 
+        appointment.HN, 
+        GROUP_CONCAT(feedback.patientSideEffect SEPARATOR '*') AS patientSideEffects, 
+        appointment.appointId, 
+        cancer_patient.cancerId, 
+        GROUP_CONCAT(cancer.cancerType SEPARATOR '*') AS cancerTypes
+      FROM 
+        feedback 
+      JOIN 
+        appointment ON appointment.appointId = feedback.appointId 
+      JOIN 
+        cancer_patient ON cancer_patient.HN = appointment.HN 
+      JOIN 
+        cancer ON cancer.cancerId = cancer_patient.cancerId 
+      GROUP BY 
+        appointment.HN;
+    `);
+
+    // รายการอาการทั้งหมด
+    const sideEffectsList = [
+      "กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ",
+      "เยื่อบุปากอักเสบ",
+      "ผมร่วง/ ผมบาง",
+      "อ่อนเพลีย / ครั่นเนื้อครั่นตัว",
+      "ผิวหนังสีเข้มขึ้น",
+      "ใจสั่น / หอบเหนื่อยง่าย",
+      "กระเพาะปัสสาวะอักเสบ"
+    ];
+
+    // รายการประเภทมะเร็งทั้งหมด
+    const cancerTypesList = [
+      "มะเร็งปอด",
+      "มะเร็งกระเพาะอาหาร",
+      "มะเร็งลำไส้ใหญ่",
+      "มะเร็งตับ",
+      "มะเร็งตับอ่อน",
+      "มะเร็งต่อมไทรอยด์",
+      "มะเร็งไต",
+      "มะเร็งกระเพาะปัสสาวะ",
+      "มะเร็งอัณฑะ",
+      "มะเร็งต่อมลูกหมาก",
+      "มะเร็งถุงน้ำดี",
+      "มะเร็งมดลูก",
+      "มะเร็งเต้านม",
+      "มะเร็งรังไข่"
+    ];
+
+    const result = {};
+
+    rows.forEach(row => {
+      const patientSideEffects = row.patientSideEffects ? row.patientSideEffects.split('*').flatMap(effect => effect.split(',')).map(effect => effect.trim()) : [];
+      const cancerTypes = row.cancerTypes ? [...new Set(row.cancerTypes.split('*').map(type => type.trim()))] : [];
+      
+      const effectCounts = sideEffectsList.reduce((acc, effect) => {
+        acc[effect] = patientSideEffects.filter(sideEffect => sideEffect === effect).length;
+        return acc;
+      }, {});
+
+      cancerTypes.forEach(cancerType => {
+        if (!result[cancerType]) {
+          result[cancerType] = sideEffectsList.reduce((acc, effect) => {
+            acc[effect] = 0;
+            return acc;
+          }, {});
+          result[cancerType].patients = new Set();
+        }
+
+        result[cancerType].patients.add(row.HN);
+
+        sideEffectsList.forEach(effect => {
+          result[cancerType][effect] += effectCounts[effect];
+        });
+      });
+    });
+
+    // เติมข้อมูลสำหรับมะเร็งที่ไม่มีข้อมูล
+    cancerTypesList.forEach(cancerType => {
+      if (!result[cancerType]) {
+        result[cancerType] = sideEffectsList.reduce((acc, effect) => {
+          acc[effect] = 0;
+          return acc;
+        }, {});
+        result[cancerType].patients = new Set();
+      }
+    });
+
+    // คำนวณอัตราส่วนในแต่ละอาการ
+    Object.keys(result).forEach(cancerType => {
+      const totalSideEffects = sideEffectsList.reduce((sum, effect) => sum + result[cancerType][effect], 0);
+      const totalPatients = result[cancerType].patients.size;
+
+      sideEffectsList.forEach(effect => {
+        if (totalSideEffects > 0) {
+          result[cancerType][effect] = (result[cancerType][effect] / totalSideEffects) * 100;
+        }
+      });
+
+      delete result[cancerType].patients;
+    });
+
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error' });
+  }
+});
+
+
+
+
+
+
 // EXPORT ข้อมูล
 // router.get("/export/csv", async (req, res) => {
 //   try {
@@ -1454,15 +1599,6 @@ router.get('/cancer-summary', async (req, res) => {
 //     res.status(500).json({ error: error.message });
 //   }
 // });
-
-
-
-
-
-
-
-
-
 
 
 
