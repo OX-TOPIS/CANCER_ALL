@@ -4,13 +4,10 @@
       <h2>ข้อมูลสถิติของผู้ป่วยโรงพยาบาลมะเร็งชลบุรี</h2>
 
       <!-- Filter -->
-      <div class="d-flex">
-
-
-
+      <div class="d-flex justify-content-center gap-5">
         <!-- GENDER -->
         <div>
-          <label for="">เพศของผู้ป่วย</label>
+          <label for="" class="d-flex justify-content-center">เพศของผู้ป่วย</label>
           <div class="dropdown">
             <button
               class="btn btn-primary dropdown-toggle"
@@ -33,14 +30,14 @@
                 </label>
               </li>
             </ul>
-            <div class="mt-3">
+            <!-- <div class="mt-3">
               <strong>เพศที่เลือก:</strong> {{ selectedGenders }}
-            </div>
+            </div> -->
           </div>
         </div>
         <!-- CANCER TYPE -->
         <div>
-        <label for="">ประเภทมะเร็ง</label>
+        <label for="" class="d-flex justify-content-center">ประเภทมะเร็ง</label>
         <div class="dropdown">
           <button
             class="btn btn-primary dropdown-toggle"
@@ -63,14 +60,14 @@
               </label>
             </li>
           </ul>
-          <div class="mt-3">
+          <!-- <div class="mt-3">
             <strong>ประเภทมะเร็งที่เลือก:</strong> {{ selectedCancers }}
-          </div>
+          </div> -->
         </div>
       </div>
       <!-- RANGE AGE -->
       <div>
-        <label for="">ช่วงอายุ</label>
+        <label for="" class="d-flex justify-content-center">ช่วงอายุ</label>
         <div class="dropdown">
           <button
             class="btn btn-primary dropdown-toggle"
@@ -93,14 +90,14 @@
               </label>
             </li>
           </ul>
-          <div class="mt-3">
+          <!-- <div class="mt-3">
             <strong>ช่วงอายุที่เลือก:</strong> {{ selectedRangeages }}
-          </div>
+          </div> -->
         </div>
       </div>
       <!-- CANCER STATE -->
       <div>
-        <label for=""> ระยะของมะเร็ง</label>
+        <label for="" class="d-flex justify-content-center"> ระยะของมะเร็ง</label>
         <div class="dropdown">
           <button
             class="btn btn-primary dropdown-toggle"
@@ -123,14 +120,14 @@
               </label>
             </li>
           </ul>
-          <div class="mt-3">
+          <!-- <div class="mt-3">
             <strong>ช่วงอายุที่เลือก:</strong> {{ selectedCancerstates }}
-          </div>
+          </div> -->
         </div>
       </div>
       <!-- FEEDBACK -->
       <div>
-        <label for=""> ผลข้างเคียง</label>
+        <label for="" class="d-flex justify-content-center"> ผลข้างเคียง</label>
         <div class="dropdown">
           <button
             class="btn btn-primary dropdown-toggle"
@@ -153,14 +150,14 @@
               </label>
             </li>
           </ul>
-          <div class="mt-3">
+          <!-- <div class="mt-3">
             <strong>ผลข้างเคียง:</strong> {{ selectedFeedbacks }}
-          </div>
+          </div> -->
         </div>
       </div>
       <!-- DISEASE -->
       <div>
-        <label for="">โรคประจำตัว</label>
+        <label for="" class="d-flex justify-content-center">โรคประจำตัว</label>
         <div class="dropdown">
           <button
             class="btn btn-primary dropdown-toggle"
@@ -183,12 +180,41 @@
               </label>
             </li>
           </ul>
-          <div class="mt-3">
+          <!-- <div class="mt-3">
             <strong>โรคประจำตัว:</strong> {{ selectedDiseases }}
-          </div>
+          </div> -->
         </div>
       </div>
-
+      <!-- FOMULA -->
+      <div>
+        <label for="" class="d-flex justify-content-center">สูตรยา</label>
+        <div class="dropdown">
+          <button
+            class="btn btn-primary dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            style="background-color: #0A6B3A; color: white;"
+          >
+          สูตรยา
+          </button>
+          <ul class="dropdown-menu">
+            <li v-for="fomula in fomulas" :key="fomula.value" >
+              <label class="dropdown-item">
+                <input
+                  type="checkbox"
+                  :value="fomula.value"
+                  v-model="showFomula"
+                />
+                {{ fomula.label }}
+              </label>
+            </li>
+          </ul>
+          <!-- <div class="mt-3">
+            <strong>สูตรยา:</strong> {{ selectedFomulas }}
+          </div> -->
+        </div>
+      </div>
       </div>
       <!--END Filter -->
 
@@ -249,6 +275,15 @@
           { label: "เพศหญิง", value: "เพศหญิง" },
         ],
         showGender: ["เพศหญิง", "เพศชาย"],
+        fomulas: [
+          { label: "AC", value: "AC" },
+          { label: "FAC", value: "FAC" },
+          { label: "Cis CCRT Cervix", value: "Cis CCRT Cervix" },
+          { label: "Carbo CCRT Cervix", value: "Carbo CCRT Cervix" },
+          { label: "5FU-Leucovorin", value: "5FU-Leucovorin" },
+          { label: "Pac-Carbo", value: "Pac-Carbo" },
+        ],
+        showFomula: ["AC", "FAC", "Cis CCRT Cervix", "Carbo CCRT Cervix", "5FU-Leucovorin", "Pac-Carbo"],
         cancers: [
         { label: "มะเร็งปอด", value: "มะเร็งปอด" },
         { label: "มะเร็งกระเพาะอาหาร", value: "มะเร็งกระเพาะอาหาร" },
@@ -265,7 +300,8 @@
         { label: "มะเร็งเต้านม", value: "มะเร็งเต้านม" },
         { label: "มะเร็งรังไข่", value: "มะเร็งรังไข่" },
         ],
-        showCancer: ["มะเร็งปอด", "มะเร็งกระเพาะอาหาร"],
+        showCancer: ["มะเร็งปอด", "มะเร็งกระเพาะอาหาร", "มะเร็งลำไส้ใหญ่", "มะเร็งตับ", "มะเร็งตับอ่อน", "มะเร็งต่อมไทรอยด์", "มะเร็งไต", "มะเร็งกระเพาะปัสสาวะ", 
+        "มะเร็งอัณฑะ", "มะเร็งต่อมลูกหมาก", "มะเร็งถุงน้ำดี", "มะเร็งมดลูก", "มะเร็งเต้านม", "มะเร็งรังไข่"],
         rangeages: [
           { label: "อายุ 0-18", value: "อายุ 0-18" },
           { label: "อายุ 19-35", value: "อายุ 19-35" },
@@ -273,12 +309,12 @@
           { label: "อายุ 51-65", value: "อายุ 51-65" },
           { label: "อายุ 65+", value: "อายุ 65+" },
         ],
-        showRangeage: [],
+        showRangeage: ["อายุ 0-18", "อายุ 19-35", "อายุ 36-50", "อายุ 51-65", "อายุ 65+"],
         cancerstates: [
           { label: "cancerstate 1", value: "cancerstate 1" },
           { label: "cancerstate 2", value: "cancerstate 2" },
         ],
-        showCancerstate: [],
+        showCancerstate: ["cancerstate 1", "cancerstate 2"],
         feedbacks: [
           { label: "กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ", value: "กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ" },
           { label: "เยื่อบุปากอักเสบ", value: "เยื่อบุปากอักเสบ" },
@@ -288,17 +324,18 @@
           { label: "ใจสั่น / หอบเหนื่อยง่าย", value: "ใจสั่น / หอบเหนื่อยง่าย" },
           { label: "กระเพาะปัสสาวะอักเสบ", value: "กระเพาะปัสสาวะอักเสบ" },
         ],
-        showFeedback: ["กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ", "เยื่อบุปากอักเสบ", "ผมร่วง/ ผมบาง"],
+        showFeedback: ["กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ", "เยื่อบุปากอักเสบ", "ผมร่วง/ ผมบาง", "อ่อนเพลีย / ครั่นเนื้อครั่นตัว", "ผิวหนังสีเข้มขึ้น", "ใจสั่น / หอบเหนื่อยง่าย", "กระเพาะปัสสาวะอักเสบ"],
         diseases: [
           { label: "diseases 1", value: "diseases 1" },
           { label: "diseases 2", value: "diseases 2" },
         ],
-        showDisease: [],
+        showDisease: ["diseases 1", "diseases 2"],
         // END เพิ่มมาตอนทำ Filter
 
         ageGroups: {}, // เก็บข้อมูลอายุผู้ป่วย
         cancerSummary: {}, // เก็บข้อมูลอายุผู้ป่วย
         feedbackSummary: {}, // เก็บข้อมูลผลข้างเคียงไว้ทำกราฟ
+        fomulaSummary:{},
         // chartData1: {
         //   labels: [
         //     "มะเร็งปอด",
@@ -596,11 +633,21 @@
           console.error("Error fetching feedbackSummary", error);
         }
       },
+      async fetchFomulaData() {
+          try {
+          const response = await axios.get("http://localhost:8080/fomula-summary");
+          this.fomulaSummary = response.data;
+          
+        } catch (error) {
+          console.error("Error fetching fomulaSummary", error);
+        }
+      },
     },
     created() {
       this.fetchAgeGroups(); // เรียกใช้ฟังก์ชันเมื่อ component ถูกสร้าง
       this.fetchCancerData(); //chart1
       this.fetchFeedbackData();
+      this.fetchFomulaData();
     },
     computed: {
       // แปลงค่าที่เลือก (showGender) กลับมาเป็นชื่อภาษาไทย
@@ -608,6 +655,11 @@
         return this.genders
           .filter((gender) => this.showGender.includes(gender.value))
           .map((gender) => gender.value);
+      },
+      selectedFomulas() {
+        return this.fomulas
+          .filter((fomula) => this.showFomula.includes(fomula.value))
+          .map((fomula) => fomula.value);
       },
       selectedCancers() {
         return this.cancers
@@ -1048,7 +1100,7 @@
 
         return {
           labels: this.selectedFeedbacks,
-          datasets: this.selectedCancers.map((cancerType, index) => ({
+          datasets: this.selectedFomulas.map((cancerType, index) => ({
             label: cancerType,
             backgroundColor: colors[index],
             borderColor: borderColorList[index],
@@ -1057,7 +1109,7 @@
             pointHoverBackgroundColor: "#fff",
             pointHoverBorderColor: borderColorList[index],
             data: this.selectedFeedbacks.map(
-              feedback => this.feedbackSummary[cancerType]?.[feedback] ?? 0
+              feedback => this.fomulaSummary[cancerType]?.[feedback] ?? 0
             )
           }))
         };

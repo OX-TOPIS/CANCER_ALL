@@ -1549,6 +1549,91 @@ router.get('/feedback-summary', async (req, res) => {
 });
 
 
+router.get('/fomula-summary', async (req, res) => { 
+  try {
+    const [rows] = await pool.query(`
+      SELECT appointment.HN, GROUP_CONCAT(feedback.patientSideEffect SEPARATOR '*') AS patientSideEffects, appointment.appointId, cancer_patient.cancerId, GROUP_CONCAT(cancer.cancerType SEPARATOR '*') AS cancerTypes, formula.formulaName FROM feedback JOIN appointment ON appointment.appointId = feedback.appointId JOIN cancer_patient ON cancer_patient.HN = appointment.HN JOIN cancer ON cancer.cancerId = cancer_patient.cancerId JOIN treatment ON treatment.HN = cancer_patient.HN JOIN formula ON formula.formulaId = treatment.formulaId GROUP BY appointment.HN, formula.formulaName;
+    `);
+
+    // รายการอาการทั้งหมด
+    const sideEffectsList = [
+      "กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ",
+      "เยื่อบุปากอักเสบ",
+      "ผมร่วง/ ผมบาง",
+      "อ่อนเพลีย / ครั่นเนื้อครั่นตัว",
+      "ผิวหนังสีเข้มขึ้น",
+      "ใจสั่น / หอบเหนื่อยง่าย",
+      "กระเพาะปัสสาวะอักเสบ"
+    ];
+
+    // รายการ Fomula ทั้งหมด
+    const formulaNamesList = [
+      "AC",
+      "FAC",
+      "Cis CCRT Cervix",
+      "Carbo CCRT Cervix",
+      "5FU-Leucovorin",
+      "Pac-Carbo"
+    ];
+
+    const result = {};
+
+    rows.forEach(row => {
+      const patientSideEffects = row.patientSideEffects ? row.patientSideEffects.split('*').flatMap(effect => effect.split(',')).map(effect => effect.trim()) : [];
+      
+      const effectCounts = sideEffectsList.reduce((acc, effect) => {
+        acc[effect] = patientSideEffects.filter(sideEffect => sideEffect === effect).length;
+        return acc;
+      }, {});
+
+      const formulaName = row.formulaName;
+      
+      if (!result[formulaName]) {
+        result[formulaName] = sideEffectsList.reduce((acc, effect) => {
+          acc[effect] = 0;
+          return acc;
+        }, {});
+        result[formulaName].patients = new Set();
+      }
+
+      result[formulaName].patients.add(row.HN);
+
+      sideEffectsList.forEach(effect => {
+        result[formulaName][effect] += effectCounts[effect];
+      });
+    });
+
+    // เติมข้อมูลสำหรับ formula ที่ไม่มีข้อมูล
+    formulaNamesList.forEach(formulaName => {
+      if (!result[formulaName]) {
+        result[formulaName] = sideEffectsList.reduce((acc, effect) => {
+          acc[effect] = 0;
+          return acc;
+        }, {});
+        result[formulaName].patients = new Set();
+      }
+    });
+
+    // คำนวณอัตราส่วนในแต่ละอาการ
+    Object.keys(result).forEach(formulaName => {
+      const totalSideEffects = sideEffectsList.reduce((sum, effect) => sum + result[formulaName][effect], 0);
+      const totalPatients = result[formulaName].patients.size;
+
+      sideEffectsList.forEach(effect => {
+        if (totalSideEffects > 0) {
+          result[formulaName][effect] = (result[formulaName][effect] / totalSideEffects) * 100;
+        }
+      });
+
+      delete result[formulaName].patients;
+    });
+
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error' });
+  }
+});
 
 
 
