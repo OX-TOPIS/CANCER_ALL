@@ -1371,26 +1371,52 @@ router.get('/age-groups', async (req, res) => {
 //       res.status(500).json({ error: 'Error' });
 //   }
 // });
+// 
+
+
+// ทดวันที่ 25/2/68
+// router.get('/cancer-summary', async (req, res) => {
+//   try {
+
+//       const [rows] = await pool.query(`
+//           SELECT 
+//               c.cancerType,
+//               g.gender,
+//               COUNT(p.IDcard) AS total
+//           FROM 
+//               (SELECT 'ชาย' AS gender UNION SELECT 'หญิง') g
+//           CROSS JOIN 
+//               cancer c
+//           LEFT JOIN 
+//               cancer_patient cp ON c.cancerId = cp.cancerId
+//           LEFT JOIN 
+//               patient p ON cp.IDcard = p.IDcard AND p.gender = g.gender
+//           GROUP BY 
+//               c.cancerType, g.gender
+//           ORDER BY 
+//               c.cancerType, g.gender;
+//       `);
+
+//       // แปลงข้อมูลเป็น JSON ในรูปแบบที่ต้องการ
+//       const result = {};
+//       rows.forEach(row => {
+//           const key = `${row.cancerType} ${row.gender}`;
+//           result[key] = row.total;
+//       });
+
+//       res.json(result);
+
+//   } catch (error) {
+//       console.error(error);
+//       res.status(500).json({ error: 'Error' });
+//   }
+// });
+
 router.get('/cancer-summary', async (req, res) => {
   try {
 
       const [rows] = await pool.query(`
-          SELECT 
-              c.cancerType,
-              g.gender,
-              COUNT(p.IDcard) AS total
-          FROM 
-              (SELECT 'ชาย' AS gender UNION SELECT 'หญิง') g
-          CROSS JOIN 
-              cancer c
-          LEFT JOIN 
-              cancer_patient cp ON c.cancerId = cp.cancerId
-          LEFT JOIN 
-              patient p ON cp.IDcard = p.IDcard AND p.gender = g.gender
-          GROUP BY 
-              c.cancerType, g.gender
-          ORDER BY 
-              c.cancerType, g.gender;
+          SELECT c.cancerType, g.gender, COUNT(p.IDcard) AS total, GROUP_CONCAT(cp.cancerState SEPARATOR '*') AS cancerState FROM (SELECT 'ชาย' AS gender UNION SELECT 'หญิง') g CROSS JOIN cancer c LEFT JOIN cancer_patient cp ON c.cancerId = cp.cancerId LEFT JOIN patient p ON cp.IDcard = p.IDcard AND p.gender = g.gender GROUP BY c.cancerType, g.gender ORDER BY c.cancerType, g.gender;
       `);
 
       // แปลงข้อมูลเป็น JSON ในรูปแบบที่ต้องการ
@@ -1407,6 +1433,58 @@ router.get('/cancer-summary', async (req, res) => {
       res.status(500).json({ error: 'Error' });
   }
 });
+
+
+// CancerState /cancer-summary
+router.get('/cancerstate-cancer-summary', async (req, res) => {
+  try {
+      // รับค่า cancerState จากพารามิเตอร์ใน URL
+      const { cancerState } = req.query; // ตัวอย่างเช่น /cancerstate-cancer-summary?cancerState=1
+
+      // สร้างเงื่อนไขในการกรอง
+      let cancerStateCondition = '';
+      if (cancerState) {
+          cancerStateCondition = `AND cp.cancerState = ?`;
+      }
+
+      // ใช้ prepared statement เพื่อป้องกัน SQL injection
+      const query = `
+          SELECT c.cancerType, g.gender, COUNT(p.IDcard) AS total, 
+                 GROUP_CONCAT(cp.cancerState SEPARATOR '*') AS cancerState 
+          FROM (SELECT 'ชาย' AS gender UNION SELECT 'หญิง') g 
+          CROSS JOIN cancer c 
+          LEFT JOIN cancer_patient cp ON c.cancerId = cp.cancerId 
+          LEFT JOIN patient p ON cp.IDcard = p.IDcard AND p.gender = g.gender 
+          WHERE 1=1 ${cancerStateCondition} 
+          GROUP BY c.cancerType, g.gender 
+          ORDER BY c.cancerType, g.gender;
+      `;
+
+      // ทำการ query โดยส่งพารามิเตอร์สำหรับ cancerState หากมี
+      const [rows] = await pool.query(query, cancerState ? [cancerState] : []);
+
+      // แปลงข้อมูลเป็น JSON ในรูปแบบที่ต้องการ
+      const result = {};
+      rows.forEach(row => {
+          const key = `${row.cancerType} ${row.gender}`;
+          result[key] = row.total;
+      });
+
+      res.json(result);
+
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error' });
+  }
+});
+
+
+
+
+
+
+
+
 
 
 // DASHBOARD FEEDBACK
@@ -1438,25 +1516,122 @@ router.get('/cancer-summary', async (req, res) => {
 //       res.status(500).json({ error: 'Error' });
 //   }
 // });
+
+
+// ทดวันที่ 25/2/68
+// router.get('/feedback-summary', async (req, res) => { 
+//   try {
+//     const [rows] = await pool.query(`
+//       SELECT 
+//         appointment.HN, 
+//         GROUP_CONCAT(feedback.patientSideEffect SEPARATOR '*') AS patientSideEffects, 
+//         appointment.appointId, 
+//         cancer_patient.cancerId, 
+//         GROUP_CONCAT(cancer.cancerType SEPARATOR '*') AS cancerTypes
+//       FROM 
+//         feedback 
+//       JOIN 
+//         appointment ON appointment.appointId = feedback.appointId 
+//       JOIN 
+//         cancer_patient ON cancer_patient.HN = appointment.HN 
+//       JOIN 
+//         cancer ON cancer.cancerId = cancer_patient.cancerId 
+//       GROUP BY 
+//         appointment.HN;
+//     `);
+
+//     // รายการอาการทั้งหมด
+//     const sideEffectsList = [
+//       "กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ",
+//       "เยื่อบุปากอักเสบ",
+//       "ผมร่วง/ ผมบาง",
+//       "อ่อนเพลีย / ครั่นเนื้อครั่นตัว",
+//       "ผิวหนังสีเข้มขึ้น",
+//       "ใจสั่น / หอบเหนื่อยง่าย",
+//       "กระเพาะปัสสาวะอักเสบ"
+//     ];
+
+//     // รายการประเภทมะเร็งทั้งหมด
+//     const cancerTypesList = [
+//       "มะเร็งปอด",
+//       "มะเร็งกระเพาะอาหาร",
+//       "มะเร็งลำไส้ใหญ่",
+//       "มะเร็งตับ",
+//       "มะเร็งตับอ่อน",
+//       "มะเร็งต่อมไทรอยด์",
+//       "มะเร็งไต",
+//       "มะเร็งกระเพาะปัสสาวะ",
+//       "มะเร็งอัณฑะ",
+//       "มะเร็งต่อมลูกหมาก",
+//       "มะเร็งถุงน้ำดี",
+//       "มะเร็งมดลูก",
+//       "มะเร็งเต้านม",
+//       "มะเร็งรังไข่"
+//     ];
+
+//     const result = {};
+
+//     rows.forEach(row => {
+//       const patientSideEffects = row.patientSideEffects ? row.patientSideEffects.split('*').flatMap(effect => effect.split(',')).map(effect => effect.trim()) : [];
+//       const cancerTypes = row.cancerTypes ? [...new Set(row.cancerTypes.split('*').map(type => type.trim()))] : [];
+      
+//       const effectCounts = sideEffectsList.reduce((acc, effect) => {
+//         acc[effect] = patientSideEffects.filter(sideEffect => sideEffect === effect).length;
+//         return acc;
+//       }, {});
+
+//       cancerTypes.forEach(cancerType => {
+//         if (!result[cancerType]) {
+//           result[cancerType] = sideEffectsList.reduce((acc, effect) => {
+//             acc[effect] = 0;
+//             return acc;
+//           }, {});
+//           result[cancerType].patients = new Set();
+//         }
+
+//         result[cancerType].patients.add(row.HN);
+
+//         sideEffectsList.forEach(effect => {
+//           result[cancerType][effect] += effectCounts[effect];
+//         });
+//       });
+//     });
+
+//     // เติมข้อมูลสำหรับมะเร็งที่ไม่มีข้อมูล
+//     cancerTypesList.forEach(cancerType => {
+//       if (!result[cancerType]) {
+//         result[cancerType] = sideEffectsList.reduce((acc, effect) => {
+//           acc[effect] = 0;
+//           return acc;
+//         }, {});
+//         result[cancerType].patients = new Set();
+//       }
+//     });
+
+//     // คำนวณอัตราส่วนในแต่ละอาการ
+//     Object.keys(result).forEach(cancerType => {
+//       const totalSideEffects = sideEffectsList.reduce((sum, effect) => sum + result[cancerType][effect], 0);
+//       const totalPatients = result[cancerType].patients.size;
+
+//       sideEffectsList.forEach(effect => {
+//         if (totalSideEffects > 0) {
+//           result[cancerType][effect] = (result[cancerType][effect] / totalSideEffects) * 100;
+//         }
+//       });
+
+//       delete result[cancerType].patients;
+//     });
+
+//     res.json(result);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: 'Error' });
+//   }
+// });
 router.get('/feedback-summary', async (req, res) => { 
   try {
     const [rows] = await pool.query(`
-      SELECT 
-        appointment.HN, 
-        GROUP_CONCAT(feedback.patientSideEffect SEPARATOR '*') AS patientSideEffects, 
-        appointment.appointId, 
-        cancer_patient.cancerId, 
-        GROUP_CONCAT(cancer.cancerType SEPARATOR '*') AS cancerTypes
-      FROM 
-        feedback 
-      JOIN 
-        appointment ON appointment.appointId = feedback.appointId 
-      JOIN 
-        cancer_patient ON cancer_patient.HN = appointment.HN 
-      JOIN 
-        cancer ON cancer.cancerId = cancer_patient.cancerId 
-      GROUP BY 
-        appointment.HN;
+      SELECT appointment.HN, GROUP_CONCAT(feedback.patientSideEffect SEPARATOR '*') AS patientSideEffects, appointment.appointId, cancer_patient.cancerId, GROUP_CONCAT(cancer.cancerType SEPARATOR '*') AS cancerTypes, GROUP_CONCAT(cancer_patient.cancerState SEPARATOR '*') AS cancerState FROM feedback JOIN appointment ON appointment.appointId = feedback.appointId JOIN cancer_patient ON cancer_patient.HN = appointment.HN JOIN cancer ON cancer.cancerId = cancer_patient.cancerId GROUP BY appointment.HN;
     `);
 
     // รายการอาการทั้งหมด
@@ -1547,7 +1722,6 @@ router.get('/feedback-summary', async (req, res) => {
     res.status(500).json({ error: 'Error' });
   }
 });
-
 
 router.get('/fomula-summary', async (req, res) => { 
   try {
@@ -1845,5 +2019,81 @@ router.get(`/getWeight/:IDcard`, async function (req, res, next) {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+
+
+// DASH BORD PIE CHART
+router.get('/usersfeedback-summary', async (req, res) => { 
+  try {
+    const { userName } = req.query;
+
+    if (!userName) {
+      return res.status(400).json({ error: "Missing userName parameter" });
+    }
+
+    const [rows] = await pool.query(`
+      SELECT appointment.HN, GROUP_CONCAT(feedback.patientSideEffect SEPARATOR '*') AS patientSideEffects
+      FROM feedback 
+      JOIN appointment ON appointment.appointId = feedback.appointId 
+      JOIN treatment ON treatment.HN = appointment.HN 
+      JOIN formula ON formula.formulaId = treatment.formulaId
+      JOIN user ON user.userName = appointment.IDcard
+      WHERE user.userName = ?
+      GROUP BY appointment.HN;
+    `, [userName]);
+
+    // รายการอาการทั้งหมด
+    const sideEffectsList = [
+      "กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ",
+      "เยื่อบุปากอักเสบ",
+      "ผมร่วง/ ผมบาง",
+      "อ่อนเพลีย / ครั่นเนื้อครั่นตัว",
+      "ผิวหนังสีเข้มขึ้น",
+      "ใจสั่น / หอบเหนื่อยง่าย",
+      "กระเพาะปัสสาวะอักเสบ"
+    ];
+
+    const totalEffectCounts = sideEffectsList.reduce((acc, effect) => {
+      acc[effect] = 0; // Initialize the counts
+      return acc;
+    }, {});
+
+    let totalSideEffects = 0;
+
+    // รวมผลข้างเคียงทั้งหมดของผู้ป่วย
+    rows.forEach(row => {
+      const patientSideEffects = row.patientSideEffects 
+        ? row.patientSideEffects.split('*').flatMap(effect => effect.split(',')).map(effect => effect.trim()) 
+        : [];
+      
+      const effectCounts = sideEffectsList.reduce((acc, effect) => {
+        acc[effect] = patientSideEffects.filter(sideEffect => sideEffect === effect).length;
+        return acc;
+      }, {});
+
+      sideEffectsList.forEach(effect => {
+        totalEffectCounts[effect] += effectCounts[effect];
+        totalSideEffects += effectCounts[effect];
+      });
+    });
+
+    // คำนวณอัตราส่วนของผลข้างเคียงทั้งหมด
+    const result = {};
+    sideEffectsList.forEach(effect => {
+      if (totalSideEffects > 0) {
+        result[effect] = (totalEffectCounts[effect] / totalSideEffects) * 100;
+      } else {
+        result[effect] = 0;
+      }
+    });
+
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error' });
+  }
+});
+
+
 
 exports.router = router;

@@ -588,7 +588,7 @@ export default {
       this.posts = response.data;
     });
     axios
-      .get(`http://localhost:8080/doctor`)
+      .get(`http://localhost:8080/doctorr`)
       .then((response) => {
         this.doctors = response.data;
       })

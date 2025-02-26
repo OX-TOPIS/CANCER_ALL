@@ -419,7 +419,7 @@
 
 
 
-    <div class="col-md-5 card" style="margin-left: 145px">
+    <div class="col-md-5 card" style="margin: auto; width: 80%;">
               <div class="card-header" style="background-color: #90eeb7">
                 <b>ผลเลือด</b>
               </div>
@@ -427,8 +427,6 @@
                 <table class="table">
                   <thead>
                     <tr class="table">
-                      <th scope="col">ผลเลือด</th>
-                      <th scope="col"></th>
                     </tr>
                   </thead>
                   <tbody class="table">
@@ -562,37 +560,7 @@
                             selectedBloodresult.status == 'อนุมัติผลเลือด'
                           "
                         >
-                          <label class="col-sm-2 col-form-label"><b>ชนิดยา : </b></label>
-                          <div class="col-sm-10" style="text-align: left">
-                            <div class="col">
-                              <div class="form-check form-check-inline">
-                                <input
-                                  class="form-check-input"
-                                  type="radio"
-                                  name="inlineRadioOptions"
-                                  id="inlineRadio1"
-                                  v-model="medType"
-                                  value="ฉีดเข้าเส้นเลือด"
-                                />
-                                <label class="form-check-label" for="inlineRadio1"
-                                  >ชนิดฉีด</label
-                                >
-                              </div>
-                              <div class="form-check form-check-inline">
-                                <input
-                                  class="form-check-input"
-                                  type="radio"
-                                  name="inlineRadioOptions"
-                                  id="inlineRadio2"
-                                  v-model="medType"
-                                  value="รับประทาน"
-                                />
-                                <label class="form-check-label" for="inlineRadio2"
-                                  >ชนิดรับประทาน</label
-                                >
-                              </div>
-                            </div>
-                          </div>
+                          
                         </div>
                         <div
                           class="row mb-3"
@@ -628,21 +596,7 @@
                                   >
                                 </div>
                               </div>
-                              <div class="col-sm-2" v-if="medType == 'รับประทาน'">
-                                <div class="input-group mb-3">
-                                  <input
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="จำนวน"
-                                    aria-label="Recipient's username"
-                                    aria-describedby="basic-addon2"
-                                    v-model="tab[index]"
-                                  />
-                                  <span class="input-group-text" id="basic-addon2"
-                                    >เม็ด</span
-                                  >
-                                </div>
-                              </div>
+                              
                             </div>
                           </div>
                         </div>
@@ -707,26 +661,14 @@
 
 
 
-    <h3>กราฟแสดงข้อมูลผู้ป่วย</h3>
+    <h3 class="header-graph">กราฟแสดงข้อมูลผู้ป่วย</h3>
     <h4>{{ patient.prefix }}{{ patient.firstName }} {{ patient.lastName }} {{ patient.IDcard }}</h4>
     <div class="line-chart-container">
-      <!-- <Line :data="datacharteffect" :options="optioncharteffect" /> -->
       <Line :data="datachartweight" :options="optionchartweight" />
-      
-      
     </div>
-
-<!-- แปะไว้เฉยๆ -->
-    <Bar id="my-chart-id-1" :options="chartOptions1" :data="chartData1" />
-    <Radar :data="radarData" :options="radarOptions" />
-
-
-
-
-
-
-
-    
+    <div class="line-chart-container">
+      <Pie :data="dataPie" :options="optionsPie" />
+    </div>    
   </div>
 </template>
 
@@ -747,8 +689,10 @@ import {
     LineElement,
     RadialLinearScale,
     Filler,
+    ArcElement,
+
   } from "chart.js";
-import { Line, Radar, Bar } from "vue-chartjs";
+import { Line, Pie } from "vue-chartjs";
 ChartJS.register(
     Title,
     Tooltip,
@@ -759,14 +703,14 @@ ChartJS.register(
     PointElement,
     LineElement,
     RadialLinearScale,
-    Filler
+    Filler,
+    ArcElement
   );
 export default {
   name: "DetailPatient",
   components: {
     Line,
-    Radar,
-    Bar
+    Pie
   },
   data() {
     return {
@@ -865,6 +809,19 @@ export default {
         radarOptions: {
           responsive: true,
           maintainAspectRatio: false,
+        },
+        dataPie : {
+          labels: ['กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ', 'เยื่อบุปากอักเสบ', 'ผมร่วง/ ผมบาง', 'อ่อนเพลีย / ครั่นเนื้อครั่นตัว', 'ผิวหนังสีเข้มขึ้น', 'ใจสั่น / หอบเหนื่อยง่าย', 'กระเพาะปัสสาวะอักเสบ'],
+          datasets: [
+            {
+              backgroundColor: ["rgba(65,184,131,0.2)", "rgba(228,102,81,0.2)", "rgba(0,216,255,0.2)", "rgba(221,27,22,0.2)", "rgba(255,167,38,0.2)", "rgba(142,68,173,0.2)", "rgba(44,62,80,0.2)" ],
+              data: [0,0,0,0,0,0,0]
+            }
+          ]
+        },
+        optionsPie : {
+          responsive: true,
+          maintainAspectRatio: false
         },
       patient: [],
       formula: "",
@@ -971,6 +928,8 @@ export default {
       });
     const HN = this.$route.params.HN;
     const treatmentId = this.$route.params.treatmentId;
+    // const IDcard = this.$route.params.IDcard;
+    
     axios
       .get(`http://localhost:8080/patient/${HN}/${treatmentId}`)
       .then((response) => {
@@ -1038,6 +997,40 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+    
+      axios
+  .get(`http://localhost:8080/usersfeedback-summary?userName=1234567891011`)
+  .then((response) => {
+    const labelsArray = Object.keys(response.data);
+    const valuesArray = Object.values(response.data);
+    const colors = [
+      "rgba(65,184,131,0.8)",
+      "rgba(228,102,81,0.8)",
+      "rgba(0,216,255,0.8)",
+      "rgba(221,27,22,0.8)",
+      "rgba(255,167,38,0.8)",
+      "rgba(142,68,173,0.8)",
+      "rgba(44,62,80,0.8)",
+    ];
+
+    // กำหนดสีที่ใช้ให้กับแต่ละข้อมูลใน Pie chart
+    const backgroundColors = valuesArray.map((_, index) => colors[index % colors.length]);
+
+    this.dataPie = {
+      labels: labelsArray,
+      datasets: [
+        {
+          backgroundColor: backgroundColors,
+          data: valuesArray,
+        },
+      ],
+    };
+    console.log("this.dataPie", this.dataPie);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
     axios
       .get(`http://localhost:8080/currentTreatment/${HN}/${treatmentId}`)
       .then((response) => {
@@ -1075,7 +1068,7 @@ export default {
       .catch((error) => {
         console.log(error);
       });
-      axios
+    axios
       .get(`http://localhost:8080/bloodresult/patient/${HN}/${treatmentId}`)
       .then((response) => {
         if (response.data == "not found") {
@@ -1105,7 +1098,7 @@ export default {
       .catch((error) => {
         console.log(error);
       });
-      axios
+    axios
         .get(`http://localhost:8080/getWeight/1234567891011`)
         .then((response) => {
           const weightsArray = [];
@@ -1303,10 +1296,16 @@ export default {
     display: flex;
     justify-content: center;
     width: 100%;
-    height: 500px;
+    height: 100%;
 }
 canvas {
     max-width: 45%;
     height: 400px !important;
 }
+
+.header-graph{
+  margin-top: 80px;
+}
+
+
 </style>
