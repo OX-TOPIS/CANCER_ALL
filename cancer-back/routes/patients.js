@@ -1414,10 +1414,27 @@ router.get('/age-groups', async (req, res) => {
 
 router.get('/cancer-summary', async (req, res) => {
   try {
+      
+      const { cancerState } = req.query;
+
+      let cancerStateCondition = '';
+
+      if (cancerState) {
+          cancerStateCondition = `AND cp.cancerState = ?`;
+      }
 
       const [rows] = await pool.query(`
-          SELECT c.cancerType, g.gender, COUNT(p.IDcard) AS total, GROUP_CONCAT(cp.cancerState SEPARATOR '*') AS cancerState FROM (SELECT 'ชาย' AS gender UNION SELECT 'หญิง') g CROSS JOIN cancer c LEFT JOIN cancer_patient cp ON c.cancerId = cp.cancerId LEFT JOIN patient p ON cp.IDcard = p.IDcard AND p.gender = g.gender GROUP BY c.cancerType, g.gender ORDER BY c.cancerType, g.gender;
-      `);
+          SELECT c.cancerType, g.gender, COUNT(p.IDcard) AS total, 
+          GROUP_CONCAT(cp.cancerState SEPARATOR '*') AS cancerState 
+          FROM (SELECT 'ชาย' AS gender UNION SELECT 'หญิง') g 
+          CROSS JOIN cancer c 
+          LEFT JOIN cancer_patient cp ON c.cancerId = cp.cancerId 
+          LEFT JOIN patient p ON cp.IDcard = p.IDcard AND p.gender = g.gender 
+          WHERE 1=1 ${cancerStateCondition} 
+          GROUP BY c.cancerType, g.gender 
+          ORDER BY c.cancerType, g.gender;
+        `);
+
 
       // แปลงข้อมูลเป็น JSON ในรูปแบบที่ต้องการ
       const result = {};
@@ -1439,12 +1456,17 @@ router.get('/cancer-summary', async (req, res) => {
 router.get('/cancerstate-cancer-summary', async (req, res) => {
   try {
       // รับค่า cancerState จากพารามิเตอร์ใน URL
-      const { cancerState } = req.query; // ตัวอย่างเช่น /cancerstate-cancer-summary?cancerState=1
+      const { cancerState } = req.query; // ตัวอย่างเช่น /cancerstate-cancer-summary?cancerState=1,2,3
 
       // สร้างเงื่อนไขในการกรอง
       let cancerStateCondition = '';
+      let queryParams = [];
+      
       if (cancerState) {
-          cancerStateCondition = `AND cp.cancerState = ?`;
+          // แปลงค่าจากพารามิเตอร์ที่คั่นด้วย comma เป็น array
+          const cancerStateArray = cancerState.split(',').map(state => state.trim());
+          cancerStateCondition = `AND cp.cancerState IN (?)`; // ใช้ IN สำหรับกรองหลายค่า
+          queryParams.push(cancerStateArray); // เพิ่ม array ของ cancerState ไปใน queryParams
       }
 
       // ใช้ prepared statement เพื่อป้องกัน SQL injection
@@ -1461,7 +1483,7 @@ router.get('/cancerstate-cancer-summary', async (req, res) => {
       `;
 
       // ทำการ query โดยส่งพารามิเตอร์สำหรับ cancerState หากมี
-      const [rows] = await pool.query(query, cancerState ? [cancerState] : []);
+      const [rows] = await pool.query(query, queryParams.length ? queryParams : []);
 
       // แปลงข้อมูลเป็น JSON ในรูปแบบที่ต้องการ
       const result = {};
@@ -1477,6 +1499,7 @@ router.get('/cancerstate-cancer-summary', async (req, res) => {
       res.status(500).json({ error: 'Error' });
   }
 });
+
 
 
 

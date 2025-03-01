@@ -22,18 +22,27 @@
           </div>
           <div class="modal-body">
             <div class="mb-3 row">
-              <strong>หมอ: {{ selectedDoctorName }}</strong>
-              <ul>
+              <strong>นัดหมายเดิม</strong>
+              <p>{{selectedDate}}</p>
+              <strong>แพทย์ฺผู้ดูแล</strong>
+              <p>{{ selectedDoctorName }}</p>
+              <!-- <ul>
                 <li v-for="patient in selectedPatientList" :key="patient.id">{{ patient.firstName }} {{ patient.lastName }}</li>
-              </ul>
+              </ul> -->
+              <strong>เลือกผู้ป่วย</strong>
+              <select>
+                <option v-for="patient in selectedPatientList" :key="patient.id" :value="patient.id">
+                  {{ patient.firstName }} {{ patient.lastName }} 
+                </option>
+              </select>
             </div>
             <div class="mb-3 row">
-              <label for="exampleFormControlInput1" class="col-sm-4 form-label">
-                เลือกวันที่นัดหมาย
-              </label>
+              <strong for="exampleFormControlInput1" class="col-sm-4 form-label">
+                เลือกวันที่นัดหมายใหม่
+              </strong>
               <div class="col-sm-8">
                 <VueDatePicker
-                  v-model="date"
+                  v-model="posponedate"
                   :enable-time-picker="false"
                   placeholder="กรุณาระบุวัน"
                   selectText="เลือก"
@@ -47,12 +56,12 @@
               </div>
             </div>
             <div class="mb-3 row">
-              <label for="exampleFormControlInput1" class="col-sm-4 form-label">
+              <strong for="exampleFormControlInput1" class="col-sm-4 form-label">
                 เลือกเวลาที่นัดหมาย
-              </label>
+              </strong>
               <div class="col-sm-8">
                 <VueDatePicker
-                  v-model="time"
+                  v-model="posponetime"
                   time-picker
                   placeholder="กรุณาระบุเวลา"
                   selectText="เลือก"
@@ -83,7 +92,7 @@
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
               ยกเลิก
             </button>
-            <button type="button" class="btn btn-success" data-bs-dismiss="modal" @click="addAppoint">
+            <button type="button" class="btn btn-success" data-bs-dismiss="modal" @click="postponeAppoint">
               ตกลง
             </button>
           </div>
@@ -101,17 +110,23 @@ import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listGridPlugin from "@fullcalendar/list";
 import axios from 'axios';
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 
 export default {
   components: {
-    FullCalendar,
+    FullCalendar, VueDatePicker
   },
   data() {
     return {
+      posponedate: "",
+      posponetime: "",
       patientList: [],
       doctorName: '',
       selectedPatient: null,
       selectedDoctorName: '',
+      selectedDate: '',
+      selectedAppointId: '',
       selectedPatientList: [],
       // FullCalendar options
       calendarOptions: {
@@ -132,6 +147,7 @@ export default {
         eventContent: (eventInfo) => {
           const doctorName = eventInfo.event.extendedProps.doctorName;
           const patients = eventInfo.event.extendedProps.patients;
+          const date = eventInfo.event.extendedProps.date;
 
           const patientList = patients
             ? patients.map(patient => `<li>${patient.firstName} ${patient.lastName}</li>`).join('')
@@ -139,14 +155,23 @@ export default {
 
           return {
             html: `
-              <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#exampleModal6" @click="openModal('${doctorName}', ${JSON.stringify(patients)})">
+              <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#exampleModal6" @click="openModal('${doctorName}', ${JSON.stringify(patients)}, '${date}')">
                 <div style="padding: 10px; z-index: 100 !important;">
+                  
                   <strong>หมอ: ${doctorName}</strong>
                   <ul>${patientList}</ul>
                 </div>
               </button>
             `,
           };
+        },
+        eventClick: (info) => {
+          // ดึงค่าที่ต้องการจาก event
+          const doctorName = info.event.extendedProps.doctorName;
+          const patients = info.event.extendedProps.patients;
+          const date = info.event.extendedProps.date;
+          // เรียก openModal เพื่ออัปเดตข้อมูล
+          this.openModal(doctorName, patients, date);
         },
         datesSet: this.onDatesSet
       },
@@ -157,17 +182,21 @@ export default {
     this.fetchAppointments();
   },
   methods: {
-    openModal(doctorName, patients) {
-      console.log("firstfirstfirstfirst")
+    openModal(doctorName, patients, date) {
+      console.log(doctorName, patients)
       this.selectedDoctorName = doctorName;
       this.selectedPatientList = patients;
+      this.selectedDate = date;
+        // this.selectedAppointId = appointments.appointId;
     },
 
     async fetchAppointments() {
       try {
         const response = await axios.get("http://localhost:8080/getAppointment");
         const appointments = response.data;
+        console.log("appointments", appointments)
         const groupedAppointments = this.groupAppointmentsByDateAndDoctor(appointments);
+        console.log("appointments", appointments)
         this.calendarOptions.events = groupedAppointments.map(group => {
           return group.doctors.map(doctor => {
             return {

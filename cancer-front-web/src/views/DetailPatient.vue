@@ -661,12 +661,14 @@
 
 
 
-    <h3 class="header-graph">กราฟแสดงข้อมูลผู้ป่วย</h3>
+    <h2 class="header-graph">กราฟแสดงข้อมูลผู้ป่วย</h2>
     <h4>{{ patient.prefix }}{{ patient.firstName }} {{ patient.lastName }} {{ patient.IDcard }}</h4>
-    <div class="line-chart-container">
+    <div class="con-chart">
+      <h4>กราฟแสดงแนวโน้มน้ำหนักขอผู้ป่วย</h4>
       <Line :data="datachartweight" :options="optionchartweight" />
     </div>
-    <div class="line-chart-container">
+    <div class="con-chart">
+      <h4>กราฟแสดงอัตราว่วนของผลข้างเคียงที่เกิดขึ้น</h4>
       <Pie :data="dataPie" :options="optionsPie" />
     </div>    
   </div>
@@ -916,7 +918,7 @@ export default {
       },
     };
   },
-  mounted() {
+  async mounted() {
     let userId = this.$route.params.userId;
     axios
       .get(`http://localhost:8080/user/${userId}`)
@@ -930,7 +932,7 @@ export default {
     const treatmentId = this.$route.params.treatmentId;
     // const IDcard = this.$route.params.IDcard;
     
-    axios
+    await axios
       .get(`http://localhost:8080/patient/${HN}/${treatmentId}`)
       .then((response) => {
         for (let i = 0; i < response.data.length; i++) {
@@ -999,7 +1001,7 @@ export default {
       });
     
       axios
-  .get(`http://localhost:8080/usersfeedback-summary?userName=1234567891011`)
+  .get(`http://localhost:8080/usersfeedback-summary?userName=${this.patient.IDcard}`)
   .then((response) => {
     const labelsArray = Object.keys(response.data);
     const valuesArray = Object.values(response.data);
@@ -1099,7 +1101,7 @@ export default {
         console.log(error);
       });
     axios
-        .get(`http://localhost:8080/getWeight/1234567891011`)
+        .get(`http://localhost:8080/getWeight/${this.patient.IDcard}`)
         .then((response) => {
           const weightsArray = [];
           response.data.rows.forEach((row) => {
@@ -1299,13 +1301,38 @@ export default {
     height: 100%;
 }
 canvas {
-    max-width: 45%;
-    height: 400px !important;
-}
+    max-width: 80%;
+    height: 700px !important;
+  }
 
 .header-graph{
   margin-top: 80px;
 }
 
+.con-chart {
+    margin: auto;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #90EEB7;
+    border-radius: 15px;
+    width: 80%;
+    
+    height: 100%;
+  }
 
+  .con-chart h4 {
+    width: 100%;
+    background-color: #90EEB7;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #1C2939;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 15px  15px 0px 0px;
+}
 </style>

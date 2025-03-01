@@ -340,6 +340,7 @@
     components: { Bar, Radar },
     data() {
       return {
+        StringState: "",
         selectAllGender: true,
         selectAllFomula: true,
         selectAllDisease: true,
@@ -394,7 +395,7 @@
           { label: "มะเร็งระยะที่ 3", value: "มะเร็งระยะที่ 3" },
           { label: "มะเร็งระยะที่ 4", value: "มะเร็งระยะที่ 4" },
         ],
-        showCancerstate: ["มะเร็งระยะที่ 1", "มะเร็งระยะที่ 2", "มะเร็งระยะที่ 3", "มะเร็งระยะที่ 4",],
+        showCancerstate: ["มะเร็งระยะที่ 1", "มะเร็งระยะที่ 2", "มะเร็งระยะที่ 3", "มะเร็งระยะที่ 4"],
         feedbacks: [
           { label: "กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ", value: "กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ" },
           { label: "เยื่อบุปากอักเสบ", value: "เยื่อบุปากอักเสบ" },
@@ -682,6 +683,27 @@
       };
     },
     methods: {
+      generateCancerStateString() {
+        // สร้าง object ที่จับคู่ระหว่างข้อความกับหมายเลข
+        const cancerStateMapping = {
+            "มะเร็งระยะที่ 1": 1,
+            "มะเร็งระยะที่ 2": 2,
+            "มะเร็งระยะที่ 3": 3,
+            "มะเร็งระยะที่ 4": 4
+        };
+
+        // กรอง selectedCancerstates และ map ให้เป็นตัวเลขตาม mapping
+        const cancerStateNumbers = this.selectedCancerstates
+            .map(state => cancerStateMapping[state])
+            .filter(state => state !== undefined); // กรองค่า undefined ถ้ามี
+
+        // แปลงเป็น string ที่คั่นด้วย comma
+        const cancerStateString = cancerStateNumbers.join(',');
+        
+        // เก็บผลลัพธ์ใน StringState
+        this.StringState = `cancerState=${cancerStateString}`;
+        console.log("StringStateStringState2", this.StringState);
+    },
       toggleAllGender() {
         if (this.selectAllGender) {
           this.showGender = this.genders.map(g => g.value); // เลือกทั้งหมด
@@ -742,10 +764,10 @@
       },
       async fetchCancerData() {
           try {
-          const response = await axios.get("http://localhost:8080/cancer-summary");
+          const response = await axios.get(`http://localhost:8080/cancerstate-cancer-summary/${this.StringState}`);
           this.cancerSummary = response.data;
 
-          console.log(this.cancerSummary);
+          console.log("StringStateStringState", this.StringState);
           
         } catch (error) {
           console.error("Error fetching cancerSummary", error);
@@ -783,6 +805,17 @@
           console.error("Error fetching fomulaSummary", error);
         }
       },
+    },
+    watch: {
+    // ติดตามการเปลี่ยนแปลงของ selectedCancerstates
+    selectedCancerstates() {
+      // เรียกใช้ฟังก์ชัน generateCancerStateString ทุกครั้งที่ selectedCancerstates เปลี่ยนแปลง
+      this.generateCancerStateString();
+    }
+    },
+    mounted() {
+    // เมื่อ component โหลด ฟังก์ชันนี้จะทำงาน
+    this.generateCancerStateString();
     },
     created() {
       this.fetchAgeGroups(); // เรียกใช้ฟังก์ชันเมื่อ component ถูกสร้าง
@@ -1258,6 +1291,8 @@
       }
 
     },
+    
+    
   };
   </script>
   

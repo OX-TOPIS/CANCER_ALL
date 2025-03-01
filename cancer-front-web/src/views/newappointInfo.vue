@@ -206,13 +206,13 @@
 
             <div class="col-md-5 card" style="margin-bottom: 50px">
               <div class="card-header" style="background-color: #90eeb7">
-                <b>ผลเลือดกก</b>
+                <b>ผลเลือด</b>
               </div>
               <div class="card-body">
                 <table class="table">
                   <thead>
                     <tr class="table">
-                      <th scope="col">ผลเลือดก</th>
+                      <th scope="col">ผลเลือด</th>
                       <th scope="col"></th>
                     </tr>
                   </thead>
