@@ -92,7 +92,7 @@
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
               ยกเลิก
             </button>
-            <button type="button" class="btn btn-success" data-bs-dismiss="modal" @click="postponeAppoint">
+            <button type="button" class="btn btn-success" data-bs-dismiss="modal" @click="postponeAppoint()">
               ตกลง
             </button>
           </div>
@@ -112,6 +112,7 @@ import listGridPlugin from "@fullcalendar/list";
 import axios from 'axios';
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
+import moment from "moment";
 
 export default {
   components: {
@@ -148,6 +149,7 @@ export default {
           const doctorName = eventInfo.event.extendedProps.doctorName;
           const patients = eventInfo.event.extendedProps.patients;
           const date = eventInfo.event.extendedProps.date;
+          const appointId = eventInfo.event.extendedProps.appointId;
 
           const patientList = patients
             ? patients.map(patient => `<li>${patient.firstName} ${patient.lastName}</li>`).join('')
@@ -155,7 +157,7 @@ export default {
 
           return {
             html: `
-              <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#exampleModal6" @click="openModal('${doctorName}', ${JSON.stringify(patients)}, '${date}')">
+              <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#exampleModal6" @click="openModal('${doctorName}', ${JSON.stringify(patients)}, '${date}', '${appointId}')">
                 <div style="padding: 10px; z-index: 100 !important;">
                   
                   <strong>หมอ: ${doctorName}</strong>
@@ -170,8 +172,9 @@ export default {
           const doctorName = info.event.extendedProps.doctorName;
           const patients = info.event.extendedProps.patients;
           const date = info.event.extendedProps.date;
+          const appointId = info.event.extendedProps.appointId;
           // เรียก openModal เพื่ออัปเดตข้อมูล
-          this.openModal(doctorName, patients, date);
+          this.openModal(doctorName, patients, date, appointId);
         },
         datesSet: this.onDatesSet
       },
@@ -182,27 +185,26 @@ export default {
     this.fetchAppointments();
   },
   methods: {
-    openModal(doctorName, patients, date) {
+    openModal(doctorName, patients, date, appointId) {
       console.log(doctorName, patients)
       this.selectedDoctorName = doctorName;
       this.selectedPatientList = patients;
       this.selectedDate = date;
-        // this.selectedAppointId = appointments.appointId;
+      this.selectedAppointId = appointId;
     },
 
     async fetchAppointments() {
       try {
         const response = await axios.get("http://localhost:8080/getAppointment");
         const appointments = response.data;
-        console.log("appointments", appointments)
         const groupedAppointments = this.groupAppointmentsByDateAndDoctor(appointments);
-        console.log("appointments", appointments)
         this.calendarOptions.events = groupedAppointments.map(group => {
           return group.doctors.map(doctor => {
             return {
               title: `หมอ: ${doctor.doctorName}`,
               date: group.date,
               extendedProps: {
+                appointId: doctor.appointId,
                 doctorName: doctor.doctorName,
                 date: group.date,
                 patients: doctor.patients,
@@ -233,6 +235,7 @@ export default {
         const doctorGroup = groupedByDate[dateKey].doctors.find(doctor => doctor.doctorName === doctorKey);
         if (!doctorGroup) {
           groupedByDate[dateKey].doctors.push({
+            appointId: appointment.appointId,
             doctorName: doctorKey,
             patients: [{
               firstName: appointment.patientFirstName,
@@ -248,6 +251,18 @@ export default {
       });
       return Object.values(groupedByDate);
     },
+    async postponeAppoint() {
+      try {
+        const appointId = this.selectedAppointId; // ต้องมี appointId ของนัดหมายที่ต้องการเลื่อน
+        const newDate = moment(this.posponedate).format("YYYY-MM-DD") + " " + this.posponetime.hours + ":" + this.posponetime.minutes + ":00";
+        await axios.put(`http://localhost:8080/changeAppointment/${appointId}`, {
+          newDate
+        });
+        this.fetchAppointments()
+      } catch (error) {
+        console.error("Error change appointments:", error);
+      }
+    }
   },
 };
 </script>

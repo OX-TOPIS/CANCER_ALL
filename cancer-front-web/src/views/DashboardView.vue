@@ -143,6 +143,7 @@
             type="checkbox"
             :value="cancerstate.value"
             v-model="showCancerstate"
+            @change="setCancerState"
           />
           {{ cancerstate.label }}
         </label>
@@ -726,11 +727,15 @@
         }
       },
       toggleAllState() {
+        this.fetchCancerData();
         if (this.selectAllState) {
           this.showCancerstate = this.cancerstates.map(g => g.value); // เลือกทั้งหมด
         } else {
           this.showCancerstate = []; // ยกเลิกทั้งหมด
         }
+      },
+      setCancerState() {
+        this.fetchCancerData();
       },
       toggleAllFeedback() {
         if (this.selectAllFeedback) {
@@ -764,10 +769,10 @@
       },
       async fetchCancerData() {
           try {
-          const response = await axios.get(`http://localhost:8080/cancerstate-cancer-summary/${this.StringState}`);
+          const response = await axios.get(`http://localhost:8080/cancerstate-cancer-summary?${this.StringState}`);
           this.cancerSummary = response.data;
 
-          console.log("StringStateStringState", this.StringState);
+          console.log("StringStateeiei", this.StringState);
           
         } catch (error) {
           console.error("Error fetching cancerSummary", error);
@@ -775,7 +780,7 @@
       },
       async fetchCancerStateData() {
           try {
-          const response = await axios.get("http://localhost:8080/cancerstate-cancer-summary?cancerState=2");
+          const response = await axios.get("http://localhost:8080/cancerstate-cancer-summary?cancerState=1,2,3,4");
           this.cancerStateSummary = response.data;
 
           console.log(this.cancerStateSummary);
