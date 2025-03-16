@@ -367,7 +367,7 @@ router.post("/updateFormula/:formulaId", async function (req, res, next) {
 router.get(`/guideBook`, async function (req, res, next) {
   try {
     const [row, f] = await pool.query(
-      `select * from formula left join guideBook on formula.formulaId=guideBook.formulaId`
+      `select * from formula left join guidebook on formula.formulaId=guidebook.formulaId`
     );
     res.json(row);
   } catch (error) {

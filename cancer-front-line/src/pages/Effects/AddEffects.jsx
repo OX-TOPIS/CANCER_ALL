@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AutoComplete, Input, Checkbox, Button } from 'antd';
 import { AxiosClient } from '../../apiClient';
+import useCheckUser from '../../hook/useCheckUser';
 
 //func เปลี่ยน format date 
 function formatDateToCustomFormat(date) {
@@ -22,6 +23,8 @@ const AddEffects = () => {
   const [selectedEffects, setSelectedEffects] = useState([]);
   const [customEffect, setCustomEffect] = useState('');
   const navigateHistory = useNavigate(); //navigateไปหน้าประวัติ
+
+  useCheckUser()
 
   const onChange = (e) => {
     const value = e.target.value;

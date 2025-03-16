@@ -43,6 +43,7 @@ const appointmentRouter = require("./routes/appointment");
 const bloodResultRouter = require("./routes/bloodresult");
 const feedbackRouter = require("./routes/feedback");
 const userRouter = require("./routes/user");
+const chatbot = require("./routes/chatbot.js");
 
 app.use(doctorRouter.router);
 app.use(patientsRouter.router);
@@ -51,6 +52,7 @@ app.use(appointmentRouter.router);
 app.use(bloodResultRouter.router);
 app.use(feedbackRouter.router);
 app.use(userRouter.router);
+app.use(chatbot.router);
 app.use(express.static("uploads"));
 //app.use(ocrRouter.router)
 

@@ -7,6 +7,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
+import useCheckUser from '../../hook/useCheckUser';
 
 const PatientManual = () => {
   const [manualData, setManualData] = useState(null);
@@ -109,6 +110,8 @@ const PatientManual = () => {
       ]
     }
   ];
+
+  useCheckUser()
 
   useEffect(() => { 
     setHN(Cookies.get('HN'));

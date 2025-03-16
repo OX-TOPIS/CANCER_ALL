@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
+import useCheckUser from '../../hook/useCheckUser';
 
 const Appointment = () => {
   const [username, setUsername] = useState('');
@@ -8,6 +9,8 @@ const Appointment = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  useCheckUser()
 
   useEffect(() => {
     const user = Cookies.get('userName');

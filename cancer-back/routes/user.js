@@ -182,17 +182,31 @@ router.get(`/chemist`, async function (req, res, next) {
 router.post("/login34", async function (req, res, next) {
   let userName = req.body.userName;
   let UserIdLine = req.body.UserIdLine;
+  let password = req.body.password;
+
   try {
     const [rows, _] = await pool.query(
-      `SELECT * FROM user JOIN treatment ON user.userName = treatment.IDCard WHERE user.userName = ? AND user.type = 'patient';`,
+      `SELECT * FROM user JOIN treatment ON user.userName = treatment.IDCard 
+       WHERE user.userName = ? AND user.type = 'patient';`,
       [userName]
     );
+
     if (rows.length > 0) {
-      await pool.query(
-        `UPDATE user SET UserIdLine = ? WHERE userName = ?`,
-        [UserIdLine, userName]
-      );
-      res.status(200).json(rows[0]);
+      const user = rows[0];
+
+      // ตรวจสอบรหัสผ่านที่เข้ารหัส
+      const passwordMatch = await bcrypt.compare(password, user.psw);
+
+      if (passwordMatch) {
+        // อัปเดต UserIdLine ในฐานข้อมูล
+        await pool.query(
+          `UPDATE user SET UserIdLine = ? WHERE userName = ?`,
+          [UserIdLine, userName]
+        );
+        res.status(200).json(user);
+      } else {
+        res.status(401).json({ message: "Invalid password" });
+      }
     } else {
       res.status(404).json({ message: "User not found" });
     }
@@ -215,5 +229,24 @@ router.get(`/useridline/:userName`, async function (req, res, next) {
   }
 });
 
+router.get(`/checkUserRegis`, async function (req, res, next) {
+  try {
+    let userId = req.query.userId;
+    let userName = req.query.userName;
+
+    const [rows] = await pool.query(
+      `SELECT UserIdLine, userName FROM user WHERE UserIdLine = ? AND userName = ?`,
+      [userId, userName]
+    );
+
+    if (rows.length > 0) {
+      return res.status(200).json({ message: "User found" });
+    }
+    return res.status(401).json({ message: "User not found" });
+
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 exports.router = router;

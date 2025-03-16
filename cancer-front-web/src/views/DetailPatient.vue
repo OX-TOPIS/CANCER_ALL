@@ -668,10 +668,11 @@
       <Line :data="datachartweight" :options="optionchartweight" />
     </div>
     <div class="con-chart">
-      <h4>กราฟแสดงอัตราว่วนของผลข้างเคียงที่เกิดขึ้น</h4>
+      <h4>กราฟแสดงอัตราส่วนของผลข้างเคียงที่เกิดขึ้น</h4>
       <Pie :data="dataPie" :options="optionsPie" />
-    </div>    
+    </div>  
   </div>
+  
 </template>
 
 <script>

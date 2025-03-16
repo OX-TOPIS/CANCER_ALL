@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined, KeyOutlined } from '@ant-design/icons';
 import { Input, Button, Checkbox, Form, Typography } from 'antd';
 import liff from '@line/liff';
 import Cookies from 'js-cookie';
@@ -19,12 +19,14 @@ const { Title } = Typography;
 const Login = () => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
   const [profile, setProfile] = useState(null);
   const [userId, setUserId] = useState("");
 
   const userData = {
     userName: userName,
-    UserIdLine: userId
+    UserIdLine: userId,
+    password
   };
 
   useEffect(() => {
@@ -70,7 +72,7 @@ const Login = () => {
       }
     } catch (error) {
       console.error(error)
-      alert(error);
+      alert(error.response?.data?.message ?? "Invalid data");
     }
   }
 
@@ -106,6 +108,18 @@ const Login = () => {
                 placeholder="เลขประจำตัวประชาชน 13 หลัก"
                 prefix={<UserOutlined />}
                 onChange={e => setUserName(e.target.value)}
+              />
+            </Form.Item>
+
+            <Form.Item
+              name="password"
+              rules={[{ required: true, message: 'กรุณากรอกรหัสผ่าน' }]}
+            >
+              <Input
+                size="large"
+                placeholder="รหัสผ่าน"
+                prefix={<KeyOutlined />}
+                onChange={e => setPassword(e.target.value)}
               />
             </Form.Item>
 

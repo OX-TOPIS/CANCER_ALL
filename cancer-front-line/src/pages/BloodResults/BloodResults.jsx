@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
-
+import useCheckUser from "../../hook/useCheckUser.js";
 const BloodResults = () => {
   const [username, setUsername] = useState('');
   const [formula, setFormula] = useState('');
   const [cancerTypes, setCancerTypes] = useState([]);
+
+  useCheckUser()
 
   useEffect(() => {
     const user = Cookies.get('userName');

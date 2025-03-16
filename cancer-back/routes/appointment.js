@@ -763,7 +763,7 @@ const formattedDate = formatDate(newAppointDate);
       messages:[
           {
               type: 'text',
-              text: `เลื่อนนัดสำเร็จ กรุณามาตามนัดวันที่ ${formattedDate}`
+              text: `เลื่อนนัดสำเร็จ กรุณามาตามนัด ${formattedDate}`
           }
       ]
   }
@@ -991,7 +991,7 @@ const formattedDate = formatDate(appointDate);
       messages:[
           {
               type: 'text',
-              text: `ส่งคำขอเลื่อนนัดแล้ว จากวันที่ ${formattedNewDate} เป็นวันที่ ${formattedDate} รอพยาบาลยืนยันการเลื่อนนัดหมายค่ะ`
+              text: `ส่งคำขอเลื่อนนัดแล้ว จาก ${formattedNewDate} เป็น ${formattedDate} รอพยาบาลยืนยันการเลื่อนนัดหมายค่ะ`
           }
       ]
     }

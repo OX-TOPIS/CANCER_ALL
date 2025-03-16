@@ -79,7 +79,7 @@ const Register = () => {
       
       {/* ลงทะเบียน */}
       <div className='pt-10 text-center sm:pt-16 lg:pt-5'>
-          <h2 level={3} className='sarabun-extralight text-2xl'>ลงทะเบียน</h2>
+          <h2 level={3} className='sarabun-extralight text-2xl'><strong>ลงทะเบียน</strong></h2>
       </div>
 
       {/* form */}
