@@ -82,7 +82,7 @@ const PostponeAppointment = () => {
             let newAppointmentCounts = [];
   
             // Loop to fetch date and call API for each date 7 days apart
-            for (let i = 1; i <= 8; i++) {
+            for (let i = 1; i <= 5; i++) {
               const newDate = new Date(localDate);
               newDate.setDate(localDate.getDate() + i * 7);  // Add 7 days for each iteration
   
@@ -285,46 +285,69 @@ const PostponeAppointment = () => {
     return `${day} ${month} ${year} ${hours}:${minutes} น.`;
   };
   
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+
   // console.log(appointmentCounts)
   return (
     <div>
       <div className="p-4 space-y-12">
         <div className="">
-          <h2 className="text-lg">นัดหมายเดิม</h2>
+          <h2 className="text-center font-bold text-xl">นัดหมายเดิม</h2>
           {/* {datecheck} {doctorId} {test} {appointments[0].appointDate} {appointments[0].doctorId} {appointments[0].HN} */}
           {/* {appointmentCount}  */}
           {/* <h1>User ID Line: {userIdLine}</h1>
           <h1>UserName: {username}</h1> */}
           {appointments.map((appointment) => (
-            <div key={appointment.appointId} className="pt-2">
-              <h3 className="text-md">{new Date(appointment.appointDate).toLocaleDateString('th-TH', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}</h3>
-              <div className="">{new Date(appointment.appointDate).toLocaleTimeString('th-TH', {
-                hour: '2-digit',
-                minute: '2-digit',
-              })} น.</div>
-            </div>
-          ))}
+                <div 
+                  key={appointment.appointId} 
+                  className="p-4 border border-gray-200 rounded-md bg-gray-50"
+                >
+                  <h3 className="text-md font-semibold text-gray-700">
+                    วันนัดหมายล่าสุด: {new Date(appointment.appointDate).toLocaleDateString('th-TH', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                  </h3>
+                  <div className="text-sm text-gray-600">
+                    เวลา: {new Date(appointment.appointDate).toLocaleTimeString('th-TH', {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })} น.
+                  </div>
+                </div>
+              ))}
         </div>
         <div className="">
-          <h2 className="text-lg">นัดหมายใหม่</h2>
-          {/* NEW! */}
-          <Radio.Group onChange={onChangenewAppointDate} value={newAppointDate}>
-            {appointmentCounts
-              .filter((appointment) => appointment.count < 5)
-              .map((appointment) => (
-                <Radio
-                  key={appointment.datecheck}
-                  value={appointment.datecheck}
-                  style={{ fontSize: "16px" }} // เพิ่มขนาดตัวอักษร
-                >
-                  {formatDate(appointment.datecheck)}
-                </Radio>
-              ))}
-          </Radio.Group>
+          <h2 className="text-center font-bold text-xl">นัดหมายใหม่ ที่ต้องการของเลื่อน</h2>
+
+
+          <Radio.Group onChange={onChangenewAppointDate} value={newAppointDate} style={{ width: "100%" }}>
+              {appointmentCounts
+                .filter((appointment) => appointment.count < 5)
+                .map((appointment) => (
+                  <Radio
+                    key={appointment.datecheck}
+                    value={appointment.datecheck}
+                    style={{
+                      display: "block", // ทำให้แต่ละตัวเลือกเป็น Block (เต็มความกว้าง)
+                      padding: "5px",
+                      border: "2px solid #007DBC",
+                      borderRadius: "8px",
+                      textAlign: "center",
+                      cursor: "pointer",
+                      fontSize: "16px",
+                      margin: "10px",
+                      background: newAppointDate === appointment.datecheck ? "#007DBC" : "white",
+                      color: newAppointDate === appointment.datecheck ? "white" : "black",
+                      transition: "0.3s",
+                    }}
+                  >
+                    {formatDate(appointment.datecheck)}
+                  </Radio>
+                ))}
+            </Radio.Group>
+
 
 
           
@@ -343,8 +366,8 @@ const PostponeAppointment = () => {
               <Input placeholder="เหตุผล" onChange={e => setReason(e.target.value)} />
             </div>
             <div>
-              <div>อีเมลล์</div>
-              <Input placeholder="อีเมลล์" onChange={e => setEmail(e.target.value)} />
+              <div>อีเมล</div>
+              <Input placeholder="อีเมล" onChange={e => setEmail(e.target.value)} />
             </div>
             <div>
               <div>เบอร์โทร</div>

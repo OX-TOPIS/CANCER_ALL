@@ -64,7 +64,7 @@ const AppointmentDetails = () => {
       </div>
 
       <div className='p-7 flex flex-col space-y-2'>
-        <Link to={"/"}><button className='p-3 rounded-full w-52 text-white bg-blue700 border-collapse hover:bg-blue600 duration-300 hover:drop-shadow-lg'>กลับไปยังหน้าหลัก</button></Link>
+        <Link to={"/Appointment"}><button className='p-3 rounded-full w-52 text-white bg-blue700 border-collapse hover:bg-blue600 duration-300 hover:drop-shadow-lg'>กลับไปยังหน้าหลัก</button></Link>
       </div>
     </div>
   );
