@@ -9,23 +9,41 @@
                 v-if="user.type == 'nurse'"
                 class="nav-item"
                 @click="goToRegis()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" aria-current="page" href="#" style="color: #ffffff"
+                <a
+                  class="nav-link"
+                  aria-current="page"
+                  href="#"
+                  style="color: #ffffff"
                   >ลงทะเบียนผู้ป่วย</a
                 >
               </li>
               <li
                 class="nav-item"
                 @click="goTonewHome()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">การอนุมัติผลเลือด</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >การอนุมัติผลเลือด</a
+                >
               </li>
               <li
                 class="nav-item"
                 @click="goTonewAppoint()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
                 <a class="nav-link" href="#" style="color: #ffffff">นัดหมาย</a>
               </li>
@@ -33,21 +51,37 @@
               <li
                 class="nav-item"
                 @click="goToPatient()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">ประวัติการรักษา</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >ประวัติการรักษา</a
+                >
               </li>
               <li
                 class="nav-item"
                 @click="goToMedFor()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">สูตรยาเคมีบำบัด</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >สูตรยาเคมีบำบัด</a
+                >
               </li>
               <li
                 class="nav-item"
                 @click="goToguideBook()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
                 <a
                   class="nav-link active"
@@ -59,80 +93,73 @@
               <li
                 class="nav-item"
                 @click="goToExportimport()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">นำเข้าส่งออกข้อมูล</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >นำเข้าส่งออกข้อมูล</a
+                >
               </li>
               <li
                 class="nav-item"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="http://localhost:8081/dashboardview" target="_blank" style="color: #ffffff">ข้อมูลสถิติผู้ป่วย</a>
+                <a
+                  class="nav-link"
+                  href="http://localhost:8081/dashboardview"
+                  target="_blank"
+                  style="color: #ffffff"
+                  >ข้อมูลสถิติผู้ป่วย</a
+                >
               </li>
 
-
               <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <button
-                @click="logOut()"
-                class="btn btn-light me-md-2"
-                type="button"
-                style="margin-top: 15px; margin-bottom: 10px"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-box-arrow-in-right"
-                  viewBox="0 0 16 16"
+                <button
+                  @click="logOut()"
+                  class="btn btn-light me-md-2"
+                  type="button"
+                  style="margin-top: 15px; margin-bottom: 10px"
                 >
-                  <path
-                    fill-rule="evenodd"
-                    d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"
-                  />
-                  <path
-                    fill-rule="evenodd"
-                    d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
-                  />
-                </svg>
-                ออกจากระบบ
-              </button>
-            </div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-box-arrow-in-right"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
+                    />
+                  </svg>
+                  ออกจากระบบ
+                </button>
+              </div>
             </ul>
           </div>
-          
         </div>
       </div>
     </nav>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <div class="col-md-10 offset-md-1">
       <div class="bd-example-snippet bd-code-snippet" style="border: none">
         <div class="card" style="margin: 20px">
-          <div class="card-header" style="background-color: #90eeb7; padding: 20px">
+          <div
+            class="card-header"
+            style="background-color: #90eeb7; padding: 20px"
+          >
             <nav class="navbar">
               <div class="container-fluid">
                 <div class="d-flex mb-2">
@@ -153,7 +180,11 @@
                   </button>
                 </div>
                 <div>
-                  <select class="form-select mb-2" v-model="sortFormula" @click="sortColumn()">
+                  <select
+                    class="form-select mb-2"
+                    v-model="sortFormula"
+                    @click="sortColumn()"
+                  >
                     <option disabled>เรียงลำดับตาม ID</option>
                     <option value="1">เรียงตามลำดับที่ น้อยไปมาก</option>
                     <option value="2">เรียงตามลำดับที่ มากไปน้อย</option>
@@ -254,7 +285,9 @@
                 </div>
                 <div class="modal-body">
                   <div class="container" style="margin-bottom: 30px">
-                    <span v-if="selectedFormula.QRcode == null">ยังไม่มีรูปภาพ</span>
+                    <span v-if="selectedFormula.QRcode == null"
+                      >ยังไม่มีรูปภาพ</span
+                    >
                     <img :src="getPhoto" alt="" />
                   </div>
                   <div class="mb-3">
@@ -270,10 +303,18 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    data-bs-dismiss="modal"
+                  >
                     ยกเลิก
                   </button>
-                  <button type="submit" class="btn btn-success" @click="saveQRcode()">
+                  <button
+                    type="submit"
+                    class="btn btn-success"
+                    @click="saveQRcode()"
+                  >
                     บันทึก
                   </button>
                 </div>
@@ -281,62 +322,72 @@
             </div>
           </div>
 
-            <div
-              class="modal fade"
-              id="exampleModal1"
-              tabindex="-1"
-              role="dialog"
-              aria-labelledby="exampleModalLabel"
-              aria-hidden="true"
-            >
-              <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">
-                      {{ selectedFormula.formulaName }} PDF
-                    </h5>
-                    <button
-                      type="button"
-                      class="btn close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
+          <div
+            class="modal fade"
+            id="exampleModal1"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    {{ selectedFormula.formulaName }} PDF
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="mb-3">
+                    <label for="formFile" class="form-label"
+                      >เพิ่ม หรือเปลี่ยนไฟล์ PDF</label
                     >
-                      <span aria-hidden="true">&times;</span>
-                    </button>
+                    <input
+                      class="form-control"
+                      type="file"
+                      id="formFile"
+                      @change="onFileChange"
+                    />
                   </div>
-                  <div class="modal-body">
-                    <div class="mb-3">
-                      <label for="formFile" class="form-label"
-                        >เพิ่ม หรือเปลี่ยนไฟล์ PDF</label
-                      >
-                      <input
-                        class="form-control"
-                        type="file"
-                        id="formFile"
-                        @change="onFileChange"
-                      />
-                    </div>
-                    <div class="container" style="margin-top: 30px">
-                      <span v-if="selectedFormula.pdf == null">ยังไม่มีไฟล์ pdf</span>
-                      <iframe
-                        v-if="selectedFormula.pdf != null"
-                        style="width: 100%; height: 400px"
-                        :src="getPDF"
-                        alt=""
-                      ></iframe>
-                    </div>
+                  <div class="container" style="margin-top: 30px">
+                    <span v-if="selectedFormula.pdf == null"
+                      >ยังไม่มีไฟล์ pdf</span
+                    >
+                    <iframe
+                      v-if="selectedFormula.pdf != null"
+                      style="width: 100%; height: 400px"
+                      :src="getPDF"
+                      alt=""
+                    ></iframe>
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                      ยกเลิก
-                    </button>
-                    <button type="submit" class="btn btn-success" @click="savePDF()">
-                      บันทึก
-                    </button>
-                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    data-bs-dismiss="modal"
+                  >
+                    ยกเลิก
+                  </button>
+                  <button
+                    type="submit"
+                    class="btn btn-success"
+                    @click="savePDF()"
+                  >
+                    บันทึก
+                  </button>
                 </div>
               </div>
             </div>
+          </div>
         </div>
       </div>
     </div>
@@ -364,7 +415,7 @@ export default {
   mounted() {
     let userId = this.$route.params.userId;
     axios
-      .get(`http://localhost:8080/user/${userId}`)
+      .get(`https://cancer-api.gadoz.dev/user/${userId}`)
       .then((response) => {
         this.user = response.data[0];
       })
@@ -372,7 +423,7 @@ export default {
         console.log(error);
       });
     axios
-      .get(`http://localhost:8080/guideBook`)
+      .get(`https://cancer-api.gadoz.dev/guideBook`)
       .then((response) => {
         this.guideBook = response.data;
       })
@@ -387,7 +438,7 @@ export default {
         formdata.append("file", this.file);
         formdata.append("formulaId", this.selectedFormula.formulaId);
         axios
-          .post(`http://localhost:8080/savePDF`, formdata)
+          .post(`https://cancer-api.gadoz.dev/savePDF`, formdata)
           .then((response) => {
             Swal.fire({
               title: "สำเร็จ",
@@ -417,7 +468,7 @@ export default {
       if (this.sortFormula != "เรียงลำดับตาม ID") {
         const data = { sortFormula: this.sortFormula };
         axios
-          .post(`http://localhost:8080/sortGuideBook`, data)
+          .post(`https://cancer-api.gadoz.dev/sortGuideBook`, data)
           .then((response) => {
             this.guideBook = response.data[0];
           })
@@ -429,7 +480,7 @@ export default {
     searchGuideBook() {
       const data = { search: this.search };
       axios
-        .post(`http://localhost:8080/searchGuideBook`, data)
+        .post(`https://cancer-api.gadoz.dev/searchGuideBook`, data)
         .then((response) => {
           if (response.data == "ไม่พบสูตรยาที่ค้นหา") {
             Swal.fire({
@@ -458,7 +509,7 @@ export default {
         formdata.append("image", this.file);
         formdata.append("formulaId", this.selectedFormula.formulaId);
         axios
-          .post(`http://localhost:8080/addQRcode`, formdata)
+          .post(`https://cancer-api.gadoz.dev/addQRcode`, formdata)
           .then((response) => {
             Swal.fire({
               title: "สำเร็จ",
@@ -489,7 +540,7 @@ export default {
     },
     openQR(f) {
       this.selectedFormula = f;
-      this.img = "http://localhost:8080/" + f.QRcode;
+      this.img = "https://cancer-api.gadoz.dev/" + f.QRcode;
     },
     goToRegis() {
       this.$router.push(`/RegisPatient/${this.$route.params.userId}`);
@@ -510,15 +561,15 @@ export default {
       this.$router.push(`/guideBook/${this.$route.params.userId}`);
     },
     goToExportimport() {
-            this.$router.push(`/ExportImport/${this.$route.params.userId}`);
+      this.$router.push(`/ExportImport/${this.$route.params.userId}`);
     },
   },
   computed: {
     getPhoto() {
-      return "http://localhost:8080/" + this.selectedFormula.QRcode;
+      return "https://cancer-api.gadoz.dev/" + this.selectedFormula.QRcode;
     },
     getPDF() {
-      return "http://localhost:8080/" + this.selectedFormula.pdf;
+      return "https://cancer-api.gadoz.dev/" + this.selectedFormula.pdf;
     },
   },
 };

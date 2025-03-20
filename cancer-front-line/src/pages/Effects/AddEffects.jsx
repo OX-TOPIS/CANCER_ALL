@@ -1,9 +1,10 @@
 //หน้าเพิ่มผลข้างเคียง
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AutoComplete, Input, Checkbox, Button } from 'antd';
 import { AxiosClient } from '../../apiClient';
 import useCheckUser from '../../hook/useCheckUser';
+import Cookies from 'js-cookie';
 
 //func เปลี่ยน format date 
 function formatDateToCustomFormat(date) {
@@ -20,9 +21,19 @@ function formatDateToCustomFormat(date) {
 const { TextArea } = Input;
 
 const AddEffects = () => {
+  const [HN, setHN] = useState("");
   const [selectedEffects, setSelectedEffects] = useState([]);
   const [customEffect, setCustomEffect] = useState('');
   const navigateHistory = useNavigate(); //navigateไปหน้าประวัติ
+
+
+  useEffect(() => {
+      const hn = Cookies.get('HN');
+      if (hn) {
+        setHN(hn);
+      }
+    }, []);
+
 
   useCheckUser()
 
@@ -47,15 +58,15 @@ const handleCheckboxChange = (effect) => {
     event.preventDefault();
     const patientSideEffect = [...selectedEffects, customEffect].filter(Boolean).join(', ');
     const sendAt = formatDateToCustomFormat(new Date()); //Format date"YYYY-MM-DD HH:MM:SS"
-    const hn = '123456'; 
+    
 
     // เช็คค่า
-    console.log('HN:', hn);
+    console.log('HN:', HN);
     console.log('Patient Side Effect:', patientSideEffect);
     console.log('Send At:', sendAt);
 
     try {
-      const response = await AxiosClient.post(`/feedback/${hn}`, {
+      const response = await AxiosClient.post(`/feedback/${HN}`, {
           sideEffect: patientSideEffect,
           date: sendAt,
       });
@@ -71,7 +82,7 @@ const handleCheckboxChange = (effect) => {
   return (
     <div className='p-4'>
       <div className="flex flex-col md:justify-center md:items-center">
-      <h2 className='pb-4'>ผลข้างเคียง</h2>
+      <h1 className='text-center font-bold text-xl m-4'>ผลข้างเคียง</h1>
     <form onSubmit={handleSubmit}>
       <div className="flex flex-col space-y-4">
         <label>
@@ -130,7 +141,9 @@ const handleCheckboxChange = (effect) => {
                onChange={(e) => setCustomEffect(e.target.value)}
            />
         </div>
-          <button className='bt-blue mt-20' type="submit">บันทึกผลข้างเคียง</button>
+          <div className='flex items-center justify-items-center w-full'>
+            <button className='bt-blue mt-20' type="submit">บันทึกผลข้างเคียง</button>
+          </div>
       </form>
     </div>
   </div>

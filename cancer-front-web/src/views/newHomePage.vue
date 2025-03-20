@@ -1,28 +1,5 @@
 <template>
   <div class="row g-0 text-center">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <nav style="background-color: #1c2939">
       <div class="container">
         <div class="row">
@@ -32,14 +9,24 @@
                 v-if="user.type == 'nurse'"
                 class="nav-item"
                 @click="goToRegis()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">ลงทะเบียนผู้ป่วย</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >ลงทะเบียนผู้ป่วย</a
+                >
               </li>
               <li
                 class="nav-item"
                 @click="goTonewHome()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
                 <a
                   class="nav-link active"
@@ -52,133 +39,127 @@
               <li
                 class="nav-item"
                 @click="goTonewAppoint()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
                 <a class="nav-link" href="#" style="color: #ffffff">นัดหมาย</a>
               </li>
               <li
                 class="nav-item"
                 @click="goToPatient()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">ประวัติการรักษา</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >ประวัติการรักษา</a
+                >
               </li>
               <li
                 class="nav-item"
                 @click="goToMedFor()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">สูตรยาเคมีบำบัด</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >สูตรยาเคมีบำบัด</a
+                >
               </li>
               <li
                 class="nav-item"
                 @click="goToguideBook()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">คู่มือผู้ป่วย</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >คู่มือผู้ป่วย</a
+                >
               </li>
-              
+
               <li
                 class="nav-item"
                 @click="goToExportimport()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">นำเข้าส่งออกข้อมูล</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >นำเข้าส่งออกข้อมูล</a
+                >
               </li>
               <li
                 class="nav-item"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="http://localhost:8081/dashboardview" target="_blank" style="color: #ffffff">ข้อมูลสถิติผู้ป่วย</a>
+                <a
+                  class="nav-link"
+                  href="http://localhost:8081/dashboardview"
+                  target="_blank"
+                  style="color: #ffffff"
+                  >ข้อมูลสถิติผู้ป่วย</a
+                >
               </li>
 
-
               <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <button
-                @click="logOut()"
-                class="btn btn-light me-md-2"
-                type="button"
-                style="margin-top: 15px; margin-bottom: 10px"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-box-arrow-in-right"
-                  viewBox="0 0 16 16"
+                <button
+                  @click="logOut()"
+                  class="btn btn-light me-md-2"
+                  type="button"
+                  style="margin-top: 15px; margin-bottom: 10px"
                 >
-                  <path
-                    fill-rule="evenodd"
-                    d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"
-                  />
-                  <path
-                    fill-rule="evenodd"
-                    d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
-                  />
-                </svg>
-                ออกจากระบบ
-              </button>
-            </div>
-
-
-
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-box-arrow-in-right"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
+                    />
+                  </svg>
+                  ออกจากระบบ
+                </button>
+              </div>
             </ul>
           </div>
-          
         </div>
       </div>
     </nav>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     <div class="col-md-10 offset-md-1">
       <div class="bd-example-snippet bd-code-snippet" style="border: none">
         <div class="card" style="margin: 20px">
-          <div class="card-header" style="background-color: #90eeb7; padding: 20px">
-
-
-
-
-
-
-
-
-
+          <div
+            class="card-header"
+            style="background-color: #90eeb7; padding: 20px"
+          >
             <nav class="navbar">
               <div class="container-fluid">
-              
-<!-- 1 -->
+                <!-- 1 -->
                 <button
                   type="button"
                   class="btn btn-light mb-2 mr-2"
@@ -203,7 +184,7 @@
                   </svg>
                   เพิ่มแผนการรักษา
                 </button>
-<!-- Modal -->
+                <!-- Modal -->
                 <div
                   class="modal fade"
                   id="exampleModal"
@@ -226,7 +207,9 @@
                       </div>
                       <div class="modal-body">
                         <div class="mb-3 row" style="text-align: left">
-                          <label for="inputFirstname" class="col-sm-2 col-form-label"
+                          <label
+                            for="inputFirstname"
+                            class="col-sm-2 col-form-label"
                             >ชื่อ</label
                           >
                           <div class="col-sm-10">
@@ -239,7 +222,9 @@
                           </div>
                         </div>
                         <div class="mb-3 row" style="text-align: left">
-                          <label for="inputFirstname" class="col-sm-2 col-form-label"
+                          <label
+                            for="inputFirstname"
+                            class="col-sm-2 col-form-label"
                             >นามสกุล</label
                           >
                           <div class="col-sm-10">
@@ -261,24 +246,36 @@
                               <option v-for="(c, index) in infoCancer" :key="index">{{c}}</option>
                             </datalist>-->
                             <select class="form-select" v-model="cancerType">
-                              <option value="" disabled>กรุณาเลือกประเภทมะเร็ง</option>
-                              <option v-for="(c, index) in infoCancer" :key="index">
+                              <option value="" disabled>
+                                กรุณาเลือกประเภทมะเร็ง
+                              </option>
+                              <option
+                                v-for="(c, index) in infoCancer"
+                                :key="index"
+                              >
                                 {{ c }}
                               </option>
                             </select>
                           </div>
-                          <label for="inputState" class="col-sm-2 col-form-label"
+                          <label
+                            for="inputState"
+                            class="col-sm-2 col-form-label"
                             >ระยะของโรค</label
                           >
                           <div class="col-sm-3">
                             <!--<input type="text" class="form-control" id="inputText" v-model="cancerState">-->
                             <select class="form-select" v-model="cancerState">
                               <option value="" disabled>ระยะมะเร็ง</option>
-                              <option v-for="index in 4" :key="index">{{ index }}</option>
+                              <option v-for="index in 4" :key="index">
+                                {{ index }}
+                              </option>
                             </select>
                           </div>
                           <div class="col-sm-1">
-                            <button class="btn btn-success" @click="addToListCancer()">
+                            <button
+                              class="btn btn-success"
+                              @click="addToListCancer()"
+                            >
                               เพิ่ม
                             </button>
                           </div>
@@ -288,10 +285,16 @@
                           style="text-align: left; margin-bottom: 10px"
                           v-if="listCancer != ''"
                         >
-                          <div class="row" v-for="(c, index) in listCancer" :key="index">
+                          <div
+                            class="row"
+                            v-for="(c, index) in listCancer"
+                            :key="index"
+                          >
                             <div class="col-sm-3"></div>
                             <div class="col-6">
-                              <li>{{ c.cancerType }} ระยะที่ {{ c.cancerState }}</li>
+                              <li>
+                                {{ c.cancerType }} ระยะที่ {{ c.cancerState }}
+                              </li>
                             </div>
                             <div class="col-3">
                               <button
@@ -317,12 +320,16 @@
                           </div>
                         </div>
                         <div class="mb-3 row" style="text-align: left">
-                          <label for="inputState" class="col-sm-2 col-form-label"
+                          <label
+                            for="inputState"
+                            class="col-sm-2 col-form-label"
                             >สูตรยา</label
                           >
                           <div class="col-sm-10">
                             <select class="form-select" v-model="fomula">
-                              <option value="" disabled>กรุณาเลือกสูตรยา</option>
+                              <option value="" disabled>
+                                กรุณาเลือกสูตรยา
+                              </option>
                               <option
                                 v-for="formula in formulas"
                                 :key="formula.formulaId"
@@ -333,13 +340,20 @@
                           </div>
                         </div>
                         <div class="mb-3 row" style="text-align: left">
-                          <label for="inputState" class="col-sm-2 col-form-label"
+                          <label
+                            for="inputState"
+                            class="col-sm-2 col-form-label"
                             >แพทย์ผู้ดูแล</label
                           >
                           <div class="col-sm-10">
                             <select class="form-select" v-model="doctor">
-                              <option value="" disabled>กรุณาเลือกแพทย์ผู้ดูแล</option>
-                              <option v-for="doc in doctors" :key="doc.firstName">
+                              <option value="" disabled>
+                                กรุณาเลือกแพทย์ผู้ดูแล
+                              </option>
+                              <option
+                                v-for="doc in doctors"
+                                :key="doc.firstName"
+                              >
                                 {{ doc.firstName }} {{ doc.lastName }}
                               </option>
                             </select>
@@ -365,9 +379,8 @@
                       </div>
                     </div>
                   </div>
-
                 </div>
-<!-- 2 -->
+                <!-- 2 -->
                 <div class="d-flex mb-2">
                   <input
                     class="form-control me-2 d-flex"
@@ -385,9 +398,13 @@
                     ค้นหา
                   </button>
                 </div>
-<!-- 3 -->
+                <!-- 3 -->
                 <div class="dropdown mb-2">
-                  <select class="form-select" v-model="sortBlood" @click="sortBloodInfo">
+                  <select
+                    class="form-select"
+                    v-model="sortBlood"
+                    @click="sortBloodInfo"
+                  >
                     <option disabled>เรียงลำดับตาม HN</option>
                     <option value="1">ชื่อ-นามสกุล จาก ก ถึง ฮ</option>
                     <option value="2">ชื่อ-นามสกุล จาก ฮ ถึง ก</option>
@@ -398,25 +415,8 @@
                     <option value="7">เฉพาะส่งผลเลือดใหม่อีกครั้ง</option>
                   </select>
                 </div>
-
-
-              
               </div>
             </nav>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           </div>
           <div class="card-body" style="text-align: left; padding: 30px">
             <table class="table">
@@ -433,14 +433,21 @@
                 <tr v-for="p in displayedPosts" :key="p.HN">
                   <td>{{ p.HN }}</td>
                   <td>{{ p.firstName }} {{ p.lastName }}</td>
-                  <td> <div v-for="i in p.cancer" :key="i.HN"> {{ i.cancerType }} ระยะที่ {{ i.cancerState }} </div>
-                </td>
+                  <td>
+                    <div v-for="i in p.cancer" :key="i.HN">
+                      {{ i.cancerType }} ระยะที่ {{ i.cancerState }}
+                    </div>
+                  </td>
 
                   <td>
                     <button
                       type="button"
                       class="btn"
-                      style="border-radius: 20px; background-color: #34495e; color: white"
+                      style="
+                        border-radius: 20px;
+                        background-color: #34495e;
+                        color: white;
+                      "
                       @click="goToHis(p)"
                     >
                       See More
@@ -523,7 +530,6 @@ import "toastify-js/src/toastify.css";
 //   }).showToast();
 // });
 
-
 export default {
   name: "HomePage",
   data() {
@@ -577,18 +583,18 @@ export default {
   mounted() {
     const userId = this.$route.params.userId;
     axios
-      .get(`http://localhost:8080/user/${userId}`)
+      .get(`https://cancer-api.gadoz.dev/user/${userId}`)
       .then((response) => {
         this.user = response.data[0];
       })
       .catch((error) => {
         console.log(error);
       });
-    axios.get(`http://localhost:8080/Allpatient`).then((response) => {
+    axios.get(`https://cancer-api.gadoz.dev/Allpatient`).then((response) => {
       this.posts = response.data;
     });
     axios
-      .get(`http://localhost:8080/doctorr`)
+      .get(`https://cancer-api.gadoz.dev/doctorr`)
       .then((response) => {
         this.doctors = response.data;
       })
@@ -596,7 +602,7 @@ export default {
         console.log(error);
       });
     axios
-      .get(`http://localhost:8080/Allformula`)
+      .get(`https://cancer-api.gadoz.dev/Allformula`)
       .then((response) => {
         this.formulas = response.data;
       })
@@ -639,7 +645,7 @@ export default {
       };
       if (this.sortBlood != "เรียงลำดับตาม HN") {
         axios
-          .post(`http://localhost:8080/sortBloodresult`, data)
+          .post(`https://cancer-api.gadoz.dev/sortBloodresult`, data)
           .then((response) => {
             this.posts = response.data[0];
           })
@@ -653,7 +659,7 @@ export default {
         selected: this.selected,
       };
       axios
-        .post(`http://localhost:8080/selectedPatient`, data)
+        .post(`https://cancer-api.gadoz.dev/selectedPatient`, data)
         .then((response) => {
           this.posts = response.data[0];
         })
@@ -686,7 +692,7 @@ export default {
           doctor: this.doctor,
         };
         axios
-          .post(`http://localhost:8080/createTreatment`, data)
+          .post(`https://cancer-api.gadoz.dev/createTreatment`, data)
           .then((response) => {
             if (response.data == "no") {
               Swal.fire({
@@ -762,7 +768,7 @@ export default {
       }
     },
     goToExportimport() {
-            this.$router.push(`/ExportImport/${this.$route.params.userId}`);
+      this.$router.push(`/ExportImport/${this.$route.params.userId}`);
     },
     paginate(posts) {
       let page = this.page;

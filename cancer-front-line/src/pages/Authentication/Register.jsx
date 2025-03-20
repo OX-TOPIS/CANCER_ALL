@@ -9,6 +9,7 @@ const Register = () => {
   const [userName, setUserName] = useState("");
   const [psw, setPsw] = useState("");
   const [confirmPsw, setConfirmPsw] = useState("");
+  const isInvalid = userName.length > 0 && userName.length !== 13;
   
   const userData = {
     userName: userName,
@@ -85,7 +86,7 @@ const Register = () => {
       {/* form */}
       <div className="flex items-center justify-center md:justify-center md:items-center">
       <div className='p-12 w-full flex flex-col space-y-5'>
-          <input size="large" placeholder="เลขประจำตัวประชาชน 13 หลัก" onChange={e => setUserName(e.target.value)}/>
+          <input size="large" placeholder="เลขประจำตัวประชาชน 13 หลัก" onChange={e => setUserName(e.target.value)} className={`border-2 ${isInvalid ? "border-red-500" : "border-gray-300"} rounded-lg`} />
           <input size="large" placeholder="รหัสผ่าน" onChange={e => setPsw(e.target.value)} />
           <input size="large" placeholder="ยืนยันรหัสผ่าน" onChange={e => setConfirmPsw(e.target.value)}/>
           <button className='bt-blue' onClick={handleReg} >ลงทะเบียน</button>

@@ -17,7 +17,9 @@
         <div class="card-body">
           <div class="col" style="padding: 20px; padding-top: 40px">
             <form>
-              <h5 style="text-align: left; padding-bottom: 30px"><b>เข้าสู่ระบบ</b></h5>
+              <h5 style="text-align: left; padding-bottom: 30px">
+                <b>เข้าสู่ระบบ</b>
+              </h5>
               <div class="row" style="margin-bottom: 20px">
                 <label for="exampleInputEmail1" class="form-label"
                   ><b>ชื่อผู้ใช้</b></label
@@ -79,7 +81,7 @@ export default {
         psw: this.psw,
       };
       axios
-        .post(`http://localhost:8080/login`, data)
+        .post(`https://cancer-api.gadoz.dev/login`, data)
         .then((response) => {
           console.log(response.data);
           if (response.data == "not found") {

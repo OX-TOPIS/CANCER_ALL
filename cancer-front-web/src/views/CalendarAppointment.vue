@@ -2,7 +2,7 @@
   <v-container>
     <!-- FullCalendar -->
     <FullCalendar :options="calendarOptions" :key="calendarKey" />
-    
+
     <div
       class="modal fade"
       id="exampleModal6"
@@ -11,19 +11,23 @@
       aria-hidden="true"
       data-bs-backdrop="false"
       data-bs-keyboard="false"
-      style="z-index: 1055 !important;"
+      style="z-index: 1055 !important"
     >
-      <div class="modal-dialog modal-lg" style="z-index: 1055;">
+      <div class="modal-dialog modal-lg" style="z-index: 1055">
         <div class="modal-content">
           <div class="modal-header" style="background-color: #90eeb7">
-            <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: #1c2939">
+            <h1
+              class="modal-title fs-5"
+              id="exampleModalLabel"
+              style="color: #1c2939"
+            >
               <b>กำหนดนัดหมายใหม่</b>
             </h1>
           </div>
           <div class="modal-body">
             <div class="mb-3 row">
               <strong>นัดหมายเดิม</strong>
-              <p>{{selectedDate}}</p>
+              <p>{{ selectedDate }}</p>
               <strong>แพทย์ฺผู้ดูแล</strong>
               <p>{{ selectedDoctorName }}</p>
               <!-- <ul>
@@ -31,13 +35,20 @@
               </ul> -->
               <strong>เลือกผู้ป่วย</strong>
               <select>
-                <option v-for="patient in selectedPatientList" :key="patient.id" :value="patient.id">
-                  {{ patient.firstName }} {{ patient.lastName }} 
+                <option
+                  v-for="patient in selectedPatientList"
+                  :key="patient.id"
+                  :value="patient.id"
+                >
+                  {{ patient.firstName }} {{ patient.lastName }}
                 </option>
               </select>
             </div>
             <div class="mb-3 row">
-              <strong for="exampleFormControlInput1" class="col-sm-4 form-label">
+              <strong
+                for="exampleFormControlInput1"
+                class="col-sm-4 form-label"
+              >
                 เลือกวันที่นัดหมายใหม่
               </strong>
               <div class="col-sm-8">
@@ -56,7 +67,10 @@
               </div>
             </div>
             <div class="mb-3 row">
-              <strong for="exampleFormControlInput1" class="col-sm-4 form-label">
+              <strong
+                for="exampleFormControlInput1"
+                class="col-sm-4 form-label"
+              >
                 เลือกเวลาที่นัดหมาย
               </strong>
               <div class="col-sm-8">
@@ -89,17 +103,25 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+            >
               ยกเลิก
             </button>
-            <button type="button" class="btn btn-success" data-bs-dismiss="modal" @click="postponeAppoint()">
+            <button
+              type="button"
+              class="btn btn-success"
+              data-bs-dismiss="modal"
+              @click="postponeAppoint()"
+            >
               ตกลง
             </button>
           </div>
         </div>
       </div>
     </div>
-
   </v-container>
 </template>
 
@@ -109,25 +131,26 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listGridPlugin from "@fullcalendar/list";
-import axios from 'axios';
+import axios from "axios";
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import moment from "moment";
 
 export default {
   components: {
-    FullCalendar, VueDatePicker
+    FullCalendar,
+    VueDatePicker,
   },
   data() {
     return {
       posponedate: "",
       posponetime: "",
       patientList: [],
-      doctorName: '',
+      doctorName: "",
       selectedPatient: null,
-      selectedDoctorName: '',
-      selectedDate: '',
-      selectedAppointId: '',
+      selectedDoctorName: "",
+      selectedDate: "",
+      selectedAppointId: "",
       selectedPatientList: [],
       // FullCalendar options
       calendarOptions: {
@@ -143,7 +166,7 @@ export default {
           center: "title",
           right: "listWeek,dayGridMonth,timeGridWeek,timeGridDay",
         },
-        events: [],  // จะถูกกรอกใน mounted
+        events: [], // จะถูกกรอกใน mounted
         locale: "th",
         eventContent: (eventInfo) => {
           const doctorName = eventInfo.event.extendedProps.doctorName;
@@ -152,12 +175,19 @@ export default {
           const appointId = eventInfo.event.extendedProps.appointId;
 
           const patientList = patients
-            ? patients.map(patient => `<li>${patient.firstName} ${patient.lastName}</li>`).join('')
-            : '';
+            ? patients
+                .map(
+                  (patient) =>
+                    `<li>${patient.firstName} ${patient.lastName}</li>`
+                )
+                .join("")
+            : "";
 
           return {
             html: `
-              <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#exampleModal6" @click="openModal('${doctorName}', ${JSON.stringify(patients)}, '${date}', '${appointId}')">
+              <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#exampleModal6" @click="openModal('${doctorName}', ${JSON.stringify(
+              patients
+            )}, '${date}', '${appointId}')">
                 <div style="padding: 10px; z-index: 100 !important;">
                   
                   <strong>หมอ: ${doctorName}</strong>
@@ -176,7 +206,7 @@ export default {
           // เรียก openModal เพื่ออัปเดตข้อมูล
           this.openModal(doctorName, patients, date, appointId);
         },
-        datesSet: this.onDatesSet
+        datesSet: this.onDatesSet,
       },
       currentViewType: "listWeek",
     };
@@ -186,7 +216,7 @@ export default {
   },
   methods: {
     openModal(doctorName, patients, date, appointId) {
-      console.log(doctorName, patients)
+      console.log(doctorName, patients);
       this.selectedDoctorName = doctorName;
       this.selectedPatientList = patients;
       this.selectedDate = date;
@@ -195,23 +225,28 @@ export default {
 
     async fetchAppointments() {
       try {
-        const response = await axios.get("http://localhost:8080/getAppointment");
+        const response = await axios.get(
+          "https://cancer-api.gadoz.dev/getAppointment"
+        );
         const appointments = response.data;
-        const groupedAppointments = this.groupAppointmentsByDateAndDoctor(appointments);
-        this.calendarOptions.events = groupedAppointments.map(group => {
-          return group.doctors.map(doctor => {
-            return {
-              title: `หมอ: ${doctor.doctorName}`,
-              date: group.date,
-              extendedProps: {
-                appointId: doctor.appointId,
-                doctorName: doctor.doctorName,
+        const groupedAppointments =
+          this.groupAppointmentsByDateAndDoctor(appointments);
+        this.calendarOptions.events = groupedAppointments
+          .map((group) => {
+            return group.doctors.map((doctor) => {
+              return {
+                title: `หมอ: ${doctor.doctorName}`,
                 date: group.date,
-                patients: doctor.patients,
-              },
-            };
-          });
-        }).flat();
+                extendedProps: {
+                  appointId: doctor.appointId,
+                  doctorName: doctor.doctorName,
+                  date: group.date,
+                  patients: doctor.patients,
+                },
+              };
+            });
+          })
+          .flat();
       } catch (error) {
         console.error("Error fetching appointments:", error);
       }
@@ -219,8 +254,10 @@ export default {
 
     groupAppointmentsByDateAndDoctor(appointments) {
       const groupedByDate = {};
-      appointments.forEach(appointment => {
-        const dateKey = appointment.appointDate ? appointment.appointDate.split("T")[0] : null;
+      appointments.forEach((appointment) => {
+        const dateKey = appointment.appointDate
+          ? appointment.appointDate.split("T")[0]
+          : null;
         if (dateKey === null) {
           console.warn("Appointment without a valid date", appointment);
           return;
@@ -232,15 +269,19 @@ export default {
           };
         }
         const doctorKey = `${appointment.doctorFirstName} ${appointment.doctorLastName}`;
-        const doctorGroup = groupedByDate[dateKey].doctors.find(doctor => doctor.doctorName === doctorKey);
+        const doctorGroup = groupedByDate[dateKey].doctors.find(
+          (doctor) => doctor.doctorName === doctorKey
+        );
         if (!doctorGroup) {
           groupedByDate[dateKey].doctors.push({
             appointId: appointment.appointId,
             doctorName: doctorKey,
-            patients: [{
-              firstName: appointment.patientFirstName,
-              lastName: appointment.patientLastName,
-            }],
+            patients: [
+              {
+                firstName: appointment.patientFirstName,
+                lastName: appointment.patientLastName,
+              },
+            ],
           });
         } else {
           doctorGroup.patients.push({
@@ -254,15 +295,24 @@ export default {
     async postponeAppoint() {
       try {
         const appointId = this.selectedAppointId; // ต้องมี appointId ของนัดหมายที่ต้องการเลื่อน
-        const newDate = moment(this.posponedate).format("YYYY-MM-DD") + " " + this.posponetime.hours + ":" + this.posponetime.minutes + ":00";
-        await axios.put(`http://localhost:8080/changeAppointment/${appointId}`, {
-          newDate
-        });
-        this.fetchAppointments()
+        const newDate =
+          moment(this.posponedate).format("YYYY-MM-DD") +
+          " " +
+          this.posponetime.hours +
+          ":" +
+          this.posponetime.minutes +
+          ":00";
+        await axios.put(
+          `https://cancer-api.gadoz.dev/changeAppointment/${appointId}`,
+          {
+            newDate,
+          }
+        );
+        this.fetchAppointments();
       } catch (error) {
         console.error("Error change appointments:", error);
       }
-    }
+    },
   },
 };
 </script>

@@ -4,76 +4,147 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
-                        <ul class="nav nav-underline">
-                            <li class="nav-item" @click="goToRegis()" v-if="user.type == 'nurse'"
-                                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px;">
-                                <a class="nav-link" href="#" style="color: #ffffff;">ลงทะเบียนผู้ป่วย</a>
-                            </li>
-                            <li class="nav-item" @click="goTonewHome()"
-                                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px;">
-                                <a class="nav-link" href="#" style="color: #ffffff;">การอนุมัติผลเลือด</a>
-                            </li>
-                            <li class="nav-item" @click="goTonewAppoint()"
-                                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px;">
-                                <a class="nav-link" href="#" style="color: #ffffff;">นัดหมาย</a>
-                            </li>
-                            <li class="nav-item" @click="goToPatient()"
-                                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px;">
-                                <a class="nav-link active" aria-current="page" href="#"
-                                    style="color: #ffffff; font-size: large;">ประวัติการรักษา</a>
-                            </li>
-                            <li class="nav-item" @click="goToMedFor()"
-                                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px;">
-                                <a class="nav-link" href="#" style="color: #ffffff;">สูตรยาเคมีบำบัด</a>
-                            </li>
-                            <li class="nav-item" @click="goToguideBook()"
-                            style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px;">
-                            <a class="nav-link" href="#" style="color: #ffffff;">คู่มือผู้ป่วย</a>
-                            </li>
-                            <li
+            <ul class="nav nav-underline">
+              <li
                 class="nav-item"
-                @click="goToExportimport()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                @click="goToRegis()"
+                v-if="user.type == 'nurse'"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">นำเข้าส่งออกข้อมูล</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >ลงทะเบียนผู้ป่วย</a
+                >
               </li>
               <li
                 class="nav-item"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                @click="goTonewHome()"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="http://localhost:8081/dashboardview" target="_blank" style="color: #ffffff">ข้อมูลสถิติผู้ป่วย</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >การอนุมัติผลเลือด</a
+                >
+              </li>
+              <li
+                class="nav-item"
+                @click="goTonewAppoint()"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
+              >
+                <a class="nav-link" href="#" style="color: #ffffff">นัดหมาย</a>
+              </li>
+              <li
+                class="nav-item"
+                @click="goToPatient()"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
+              >
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="#"
+                  style="color: #ffffff; font-size: large"
+                  >ประวัติการรักษา</a
+                >
+              </li>
+              <li
+                class="nav-item"
+                @click="goToMedFor()"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
+              >
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >สูตรยาเคมีบำบัด</a
+                >
+              </li>
+              <li
+                class="nav-item"
+                @click="goToguideBook()"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
+              >
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >คู่มือผู้ป่วย</a
+                >
+              </li>
+              <li
+                class="nav-item"
+                @click="goToExportimport()"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
+              >
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >นำเข้าส่งออกข้อมูล</a
+                >
+              </li>
+              <li
+                class="nav-item"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
+              >
+                <a
+                  class="nav-link"
+                  href="http://localhost:8081/dashboardview"
+                  target="_blank"
+                  style="color: #ffffff"
+                  >ข้อมูลสถิติผู้ป่วย</a
+                >
               </li>
 
-
               <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <button
-                @click="logOut()"
-                class="btn btn-light me-md-2"
-                type="button"
-                style="margin-top: 15px; margin-bottom: 10px"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-box-arrow-in-right"
-                  viewBox="0 0 16 16"
+                <button
+                  @click="logOut()"
+                  class="btn btn-light me-md-2"
+                  type="button"
+                  style="margin-top: 15px; margin-bottom: 10px"
                 >
-                  <path
-                    fill-rule="evenodd"
-                    d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"
-                  />
-                  <path
-                    fill-rule="evenodd"
-                    d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
-                  />
-                </svg>
-                ออกจากระบบ
-              </button>
-            </div>
-                        </ul>
-                    </div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-box-arrow-in-right"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
+                    />
+                  </svg>
+                  ออกจากระบบ
+                </button>
+              </div>
+            </ul>
+          </div>
         </div>
       </div>
     </nav>
@@ -415,254 +486,242 @@
       </div>
     </div>
 
-
-
-
-
-    <div class="col-md-5 card" style="margin: auto; width: 80%;">
-              <div class="card-header" style="background-color: #90eeb7">
-                <b>ผลเลือด</b>
+    <div class="col-md-5 card" style="margin: auto; width: 80%">
+      <div class="card-header" style="background-color: #90eeb7">
+        <b>ผลเลือด</b>
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr class="table"></tr>
+          </thead>
+          <tbody class="table">
+            <tr v-for="blood in bloodresult" :key="blood.brId">
+              <td>{{ blood.picture }}</td>
+              <td>
+                <a
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal4"
+                  @click="openIMG(blood)"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-eye-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                    <path
+                      d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"
+                    />
+                  </svg>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="exampleModal4"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">ผลเลือด</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="card-body" style="text-align: left">
+              <h5 class="col-sm-3" style="color: #0a6b3a"><b>รายงานผล</b></h5>
+              <div
+                class="mb-3"
+                style="
+                  width: 80%;
+                  height: 450px;
+                  margin: auto;
+                  background-color: white;
+                  border: 1px solid #0a6b3a;
+                "
+              >
+                <img style="width: 100%; height: 100%" :src="this.img" />
               </div>
-              <div class="card-body">
-                <table class="table">
-                  <thead>
-                    <tr class="table">
-                    </tr>
-                  </thead>
-                  <tbody class="table">
-                    <tr v-for="blood in bloodresult" :key="blood.brId">
-                      <td>{{ blood.picture }}</td>
-                      <td>
-                        <a
-                          data-bs-toggle="modal"
-                          data-bs-target="#exampleModal4"
-                          @click="openIMG(blood)"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            class="bi bi-eye-fill"
-                            viewBox="0 0 16 16"
-                          >
-                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
-                            <path
-                              d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"
-                            />
-                          </svg>
-                        </a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div
-              class="modal fade"
-              id="exampleModal4"
-              tabindex="-1"
-              aria-labelledby="exampleModalLabel"
-              aria-hidden="true"
-            >
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">ผลเลือด</h1>
-                    <button
-                      type="button"
-                      class="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    ></button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="card-body" style="text-align: left">
-                      <h5 class="col-sm-3" style="color: #0a6b3a"><b>รายงานผล</b></h5>
-                      <div
-                        class="mb-3"
-                        style="
-                          width: 80%;
-                          height: 450px;
-                          margin: auto;
-                          background-color: white;
-                          border: 1px solid #0a6b3a;
-                        "
-                      >
-                        <img style="width: 100%; height: 100%" :src="this.img" />
-                      </div>
-                      <form style="margin-top: 10px">
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label"><b>สถานะ : </b></label>
-                          <div class="col-sm-4" style="text-align: left">
-                            <div
-                              class="col"
-                              v-if="selectedBloodresult.status == 'รออนุมัติผลเลือด'"
-                            >
-                              <label
-                                v-if="selectedBloodresult.status == 'อนุมัติผลเลือด'"
-                                >{{ selectedBloodresult.status }}</label
-                              >
-                              <select
-                                v-if="selectedBloodresult.status != 'อนุมัติผลเลือด'"
-                                class="form-select"
-                                v-model="status"
-                              >
-                                <option selected disabled>
-                                  {{ selectedBloodresult.status }}
-                                </option>
-                                <option
-                                  value="yes"
-                                  :disabled="
-                                    selectedBloodresult.status == 'อนุมัติผลเลือด'
-                                  "
-                                >
-                                  อนุมัติผลเลือด
-                                </option>
-                                <option
-                                  value="no"
-                                  :disabled="
-                                    selectedBloodresult.status == 'ส่งผลเลือดอีกครั้ง'
-                                  "
-                                >
-                                  ส่งผลเลือดอีกครั้ง
-                                </option>
-                              </select>
-                            </div>
-                            <div
-                              class="col"
-                              v-if="
-                                selectedBloodresult.status == 'อนุมัติผลเลือด' ||
-                                selectedBloodresult.status == 'ส่งผลเลือดอีกครั้ง'
-                              "
-                            >
-                              <label>{{ selectedBloodresult.status }}</label>
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          class="row mb-3"
-                          v-if="
-                            status == 'yes' ||
-                            selectedBloodresult.status == 'อนุมัติผลเลือด'
-                          "
-                        >
-                          <label class="col-sm-2 col-form-label"><b>สูตรยา : </b></label>
-                          <div class="col-sm-4" style="text-align: left">
-                            {{ patient.formulaName }}
-                            <div class="col"></div>
-                          </div>
-                        </div>
-                        <div
-                          class="row mb-3"
-                          v-if="
-                            status == 'yes' ||
-                            selectedBloodresult.status == 'อนุมัติผลเลือด'
-                          "
-                        >
-                          
-                        </div>
-                        <div
-                          class="row mb-3"
-                          v-if="
-                            status == 'yes' ||
-                            selectedBloodresult.status == 'อนุมัติผลเลือด'
-                          "
-                        >
-                          <div
-                            class="col-sm-10"
-                            style="text-align: left"
-                            v-for="(med, index) in medicine"
-                            :key="med.medId"
-                          >
-                            <div class="row g-3 align-items-center">
-                              <div class="col-sm-4">
-                                <label for="inputPassword6" class="col-form-label">{{
-                                  med.medName
-                                }}</label>
-                              </div>
-                              <div class="col-sm-3">
-                                <div class="input-group mb-3">
-                                  <input
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="ปริมาณ"
-                                    aria-label="Recipient's username"
-                                    aria-describedby="basic-addon2"
-                                    v-model="amount[index]"
-                                  />
-                                  <span class="input-group-text" id="basic-addon2"
-                                    >มก.</span
-                                  >
-                                </div>
-                              </div>
-                              
-                            </div>
-                          </div>
-                        </div>
-                      </form>
-                      <label class="col-sm-3 col-form-label"><b>ข้อเสนอแนะ</b></label
-                      ><br />
+              <form style="margin-top: 10px">
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label"><b>สถานะ : </b></label>
+                  <div class="col-sm-4" style="text-align: left">
+                    <div
+                      class="col"
+                      v-if="selectedBloodresult.status == 'รออนุมัติผลเลือด'"
+                    >
                       <label
-                        class="form-control"
-                        v-if="
-                          selectedBloodresult.status != 'รออนุมัติผลเลือด' &&
-                          selectedBloodresult.suggestion == null
-                        "
-                        >-</label
+                        v-if="selectedBloodresult.status == 'อนุมัติผลเลือด'"
+                        >{{ selectedBloodresult.status }}</label
                       >
-                      <label
-                        class="form-control"
-                        v-else-if="selectedBloodresult.status != 'รออนุมัติผลเลือด'"
-                        >{{ selectedBloodresult.suggestion }}</label
+                      <select
+                        v-if="selectedBloodresult.status != 'อนุมัติผลเลือด'"
+                        class="form-select"
+                        v-model="status"
                       >
-                      <textarea
-                        v-else-if="selectedBloodresult.status == 'รออนุมัติผลเลือด'"
-                        class="form-control"
-                        id="exampleFormControlTextarea1"
-                        rows="3"
-                        v-model="suggestion"
-                      ></textarea>
-                
+                        <option selected disabled>
+                          {{ selectedBloodresult.status }}
+                        </option>
+                        <option
+                          value="yes"
+                          :disabled="
+                            selectedBloodresult.status == 'อนุมัติผลเลือด'
+                          "
+                        >
+                          อนุมัติผลเลือด
+                        </option>
+                        <option
+                          value="no"
+                          :disabled="
+                            selectedBloodresult.status == 'ส่งผลเลือดอีกครั้ง'
+                          "
+                        >
+                          ส่งผลเลือดอีกครั้ง
+                        </option>
+                      </select>
+                    </div>
+                    <div
+                      class="col"
+                      v-if="
+                        selectedBloodresult.status == 'อนุมัติผลเลือด' ||
+                        selectedBloodresult.status == 'ส่งผลเลือดอีกครั้ง'
+                      "
+                    >
+                      <label>{{ selectedBloodresult.status }}</label>
                     </div>
                   </div>
-                  <div
-                    class="modal-footer"
-                    v-if="
-                      selectedBloodresult.status == 'รออนุมัติผลเลือด' &&
-                      user.type == 'doctor'
-                    "
+                </div>
+                <div
+                  class="row mb-3"
+                  v-if="
+                    status == 'yes' ||
+                    selectedBloodresult.status == 'อนุมัติผลเลือด'
+                  "
+                >
+                  <label class="col-sm-2 col-form-label"
+                    ><b>สูตรยา : </b></label
                   >
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                      ยกเลิก
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-success"
-                      data-bs-dismiss="modal"
-                      @click="saveComment()"
-                    >
-                      ตกลง
-                    </button>
+                  <div class="col-sm-4" style="text-align: left">
+                    {{ patient.formulaName }}
+                    <div class="col"></div>
                   </div>
                 </div>
-              </div>
+                <div
+                  class="row mb-3"
+                  v-if="
+                    status == 'yes' ||
+                    selectedBloodresult.status == 'อนุมัติผลเลือด'
+                  "
+                ></div>
+                <div
+                  class="row mb-3"
+                  v-if="
+                    status == 'yes' ||
+                    selectedBloodresult.status == 'อนุมัติผลเลือด'
+                  "
+                >
+                  <div
+                    class="col-sm-10"
+                    style="text-align: left"
+                    v-for="(med, index) in medicine"
+                    :key="med.medId"
+                  >
+                    <div class="row g-3 align-items-center">
+                      <div class="col-sm-4">
+                        <label for="inputPassword6" class="col-form-label">{{
+                          med.medName
+                        }}</label>
+                      </div>
+                      <div class="col-sm-3">
+                        <div class="input-group mb-3">
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="ปริมาณ"
+                            aria-label="Recipient's username"
+                            aria-describedby="basic-addon2"
+                            v-model="amount[index]"
+                          />
+                          <span class="input-group-text" id="basic-addon2"
+                            >มก.</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <label class="col-sm-3 col-form-label"><b>ข้อเสนอแนะ</b></label
+              ><br />
+              <label
+                class="form-control"
+                v-if="
+                  selectedBloodresult.status != 'รออนุมัติผลเลือด' &&
+                  selectedBloodresult.suggestion == null
+                "
+                >-</label
+              >
+              <label
+                class="form-control"
+                v-else-if="selectedBloodresult.status != 'รออนุมัติผลเลือด'"
+                >{{ selectedBloodresult.suggestion }}</label
+              >
+              <textarea
+                v-else-if="selectedBloodresult.status == 'รออนุมัติผลเลือด'"
+                class="form-control"
+                id="exampleFormControlTextarea1"
+                rows="3"
+                v-model="suggestion"
+              ></textarea>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
+          </div>
+          <div
+            class="modal-footer"
+            v-if="
+              selectedBloodresult.status == 'รออนุมัติผลเลือด' &&
+              user.type == 'doctor'
+            "
+          >
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+            >
+              ยกเลิก
+            </button>
+            <button
+              type="button"
+              class="btn btn-success"
+              data-bs-dismiss="modal"
+              @click="saveComment()"
+            >
+              ตกลง
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <h2 class="header-graph">กราฟแสดงข้อมูลผู้ป่วย</h2>
-    <h4>{{ patient.prefix }}{{ patient.firstName }} {{ patient.lastName }} {{ patient.IDcard }}</h4>
+    <h4>
+      {{ patient.prefix }}{{ patient.firstName }} {{ patient.lastName }}
+      {{ patient.IDcard }}
+    </h4>
     <div class="con-chart">
       <h4>กราฟแสดงแนวโน้มน้ำหนักขอผู้ป่วย</h4>
       <Line :data="datachartweight" :options="optionchartweight" />
@@ -670,9 +729,8 @@
     <div class="con-chart">
       <h4>กราฟแสดงอัตราส่วนของผลข้างเคียงที่เกิดขึ้น</h4>
       <Pie :data="dataPie" :options="optionsPie" />
-    </div>  
+    </div>
   </div>
-  
 </template>
 
 <script>
@@ -681,151 +739,166 @@ import moment from "moment";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 import {
-    Chart as ChartJS,
-    Title,
-    Tooltip,
-    Legend,
-    BarElement,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    RadialLinearScale,
-    Filler,
-    ArcElement,
-
-  } from "chart.js";
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  RadialLinearScale,
+  Filler,
+  ArcElement,
+} from "chart.js";
 import { Line, Pie } from "vue-chartjs";
 ChartJS.register(
-    Title,
-    Tooltip,
-    Legend,
-    BarElement,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    RadialLinearScale,
-    Filler,
-    ArcElement
-  );
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  RadialLinearScale,
+  Filler,
+  ArcElement
+);
 export default {
   name: "DetailPatient",
   components: {
     Line,
-    Pie
+    Pie,
   },
   data() {
     return {
       weights: [],
       chartOptions1: {
-          responsive: true,
-          plugins: {
-            legend: {
-              position: "bottom",
-            },
-            title: {
-              display: true,
-              text: "กราฟแท่งแสดงจำนวนผู้ป่วยแยกตามชนิดมะเร็ง",
-            },
+        responsive: true,
+        plugins: {
+          legend: {
+            position: "bottom",
+          },
+          title: {
+            display: true,
+            text: "กราฟแท่งแสดงจำนวนผู้ป่วยแยกตามชนิดมะเร็ง",
           },
         },
-        chartData1: {
-          labels: [
-            "ครั้งที่1",
-            "ครั้งที่2",
-            "ครั้งที่3",
-            "ครั้งที่4",
-            "ครั้งที่5",
-          ],
-          datasets: [
-            {
-              label: "ผมร่วง",
-              backgroundColor: "rgba(54, 162, 235, 0.6)",
-              data: [0, 1, 0, 0, 1],
-            },
-            {
-              label: "ใจสั่น",
-              backgroundColor: "rgba(255, 99, 132, 0.6)",
-              data: [0, 1, 0, 0, 1],
-            },
-            {
-              label: "ครั่นเนื้อครั่นตัว",
-              backgroundColor: "rgba(179,181,198,0.2)",
-              data: [10, 1, 1, 1, 10],
-            },
-            {
-              label: "เหนื่อยง่าย",
-              backgroundColor: "rgba(255,99,132,0.2)",
-              data: [10, 1, 10, 10, 10],
-            },
-            {
-              label: "ใจสั่น",
-              backgroundColor: "rgba(255,206,86,0.2)",
-              data: [1, 10, 10, 10, 10],
-            },
-            {
-              label: "วิงเวียนศีรษะ",
-              backgroundColor: "rgba(75,192,192,0.2)",
-              data: [1, 10, 10, 1, 1],
-            },
-            {
-              label: "อาเจียน",
-              backgroundColor: "rgba(153,102,255,0.2)",
-              data: [10, 1, 10, 1, 1],
-            },
-          ],
-        },
+      },
+      chartData1: {
+        labels: [
+          "ครั้งที่1",
+          "ครั้งที่2",
+          "ครั้งที่3",
+          "ครั้งที่4",
+          "ครั้งที่5",
+        ],
+        datasets: [
+          {
+            label: "ผมร่วง",
+            backgroundColor: "rgba(54, 162, 235, 0.6)",
+            data: [0, 1, 0, 0, 1],
+          },
+          {
+            label: "ใจสั่น",
+            backgroundColor: "rgba(255, 99, 132, 0.6)",
+            data: [0, 1, 0, 0, 1],
+          },
+          {
+            label: "ครั่นเนื้อครั่นตัว",
+            backgroundColor: "rgba(179,181,198,0.2)",
+            data: [10, 1, 1, 1, 10],
+          },
+          {
+            label: "เหนื่อยง่าย",
+            backgroundColor: "rgba(255,99,132,0.2)",
+            data: [10, 1, 10, 10, 10],
+          },
+          {
+            label: "ใจสั่น",
+            backgroundColor: "rgba(255,206,86,0.2)",
+            data: [1, 10, 10, 10, 10],
+          },
+          {
+            label: "วิงเวียนศีรษะ",
+            backgroundColor: "rgba(75,192,192,0.2)",
+            data: [1, 10, 10, 1, 1],
+          },
+          {
+            label: "อาเจียน",
+            backgroundColor: "rgba(153,102,255,0.2)",
+            data: [10, 1, 10, 1, 1],
+          },
+        ],
+      },
       radarData: {
-          labels: [
-            "ผมร่วง",
-            "ใจสั่น",
-            "ครั่นเนื้อครั่นตัว",
-            "เหนื่อยง่าย",
-            "วิงเวียนศีรษะ",
-            "อาเจียน",
-            "ผิวหนังสีเข้ม",
-          ],
-          datasets: [
-            {
-              label: "บันทึกผลข้างเคียงครั้งที่1",
-              backgroundColor: "rgba(179,181,198,0.2)",
-              borderColor: "rgba(179,181,198,1)",
-              pointBackgroundColor: "rgba(179,181,198,1)",
-              pointBorderColor: "#fff",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(179,181,198,1)",
-              data: [0,0,1,1,1,0,0],
-            },
-            {
-              label: "บันทึกผลข้างเคียงครั้งที่2",
-              backgroundColor: "rgba(255,99,132,0.2)",
-              borderColor: "rgba(255,99,132,1)",
-              pointBackgroundColor: "rgba(255,99,132,1)",
-              pointBorderColor: "#fff",
-              pointHoverBackgroundColor: "#fff",
-              pointHoverBorderColor: "rgba(255,99,132,1)",
-              data: [1,1,0,1,0,0,1],
-            },
-          ],
-        },
-        radarOptions: {
-          responsive: true,
-          maintainAspectRatio: false,
-        },
-        dataPie : {
-          labels: ['กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ', 'เยื่อบุปากอักเสบ', 'ผมร่วง/ ผมบาง', 'อ่อนเพลีย / ครั่นเนื้อครั่นตัว', 'ผิวหนังสีเข้มขึ้น', 'ใจสั่น / หอบเหนื่อยง่าย', 'กระเพาะปัสสาวะอักเสบ'],
-          datasets: [
-            {
-              backgroundColor: ["rgba(65,184,131,0.2)", "rgba(228,102,81,0.2)", "rgba(0,216,255,0.2)", "rgba(221,27,22,0.2)", "rgba(255,167,38,0.2)", "rgba(142,68,173,0.2)", "rgba(44,62,80,0.2)" ],
-              data: [0,0,0,0,0,0,0]
-            }
-          ]
-        },
-        optionsPie : {
-          responsive: true,
-          maintainAspectRatio: false
-        },
+        labels: [
+          "ผมร่วง",
+          "ใจสั่น",
+          "ครั่นเนื้อครั่นตัว",
+          "เหนื่อยง่าย",
+          "วิงเวียนศีรษะ",
+          "อาเจียน",
+          "ผิวหนังสีเข้ม",
+        ],
+        datasets: [
+          {
+            label: "บันทึกผลข้างเคียงครั้งที่1",
+            backgroundColor: "rgba(179,181,198,0.2)",
+            borderColor: "rgba(179,181,198,1)",
+            pointBackgroundColor: "rgba(179,181,198,1)",
+            pointBorderColor: "#fff",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: "rgba(179,181,198,1)",
+            data: [0, 0, 1, 1, 1, 0, 0],
+          },
+          {
+            label: "บันทึกผลข้างเคียงครั้งที่2",
+            backgroundColor: "rgba(255,99,132,0.2)",
+            borderColor: "rgba(255,99,132,1)",
+            pointBackgroundColor: "rgba(255,99,132,1)",
+            pointBorderColor: "#fff",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: "rgba(255,99,132,1)",
+            data: [1, 1, 0, 1, 0, 0, 1],
+          },
+        ],
+      },
+      radarOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+      },
+      dataPie: {
+        labels: [
+          "กดการทำงานของไขกระดูก หรือภูมิต้านทานต่ำ",
+          "เยื่อบุปากอักเสบ",
+          "ผมร่วง/ ผมบาง",
+          "อ่อนเพลีย / ครั่นเนื้อครั่นตัว",
+          "ผิวหนังสีเข้มขึ้น",
+          "ใจสั่น / หอบเหนื่อยง่าย",
+          "กระเพาะปัสสาวะอักเสบ",
+        ],
+        datasets: [
+          {
+            backgroundColor: [
+              "rgba(65,184,131,0.2)",
+              "rgba(228,102,81,0.2)",
+              "rgba(0,216,255,0.2)",
+              "rgba(221,27,22,0.2)",
+              "rgba(255,167,38,0.2)",
+              "rgba(142,68,173,0.2)",
+              "rgba(44,62,80,0.2)",
+            ],
+            data: [0, 0, 0, 0, 0, 0, 0],
+          },
+        ],
+      },
+      optionsPie: {
+        responsive: true,
+        maintainAspectRatio: false,
+      },
       patient: [],
       formula: "",
       weightsLength: 0,
@@ -870,59 +943,78 @@ export default {
       ],
       user: [],
       datachartweight: {
-        labels: ['เดือนที่ 1', 'เดือนที่ 2', 'เดือนที่ 3', 'เดือนที่ 4', 'เดือนที่ 5', 'เดือนที่ 6', 'เดือนที่ 7'],
-                datasets: [
-                    {
-                        label: 'ระดับความรุนแรง',
-                        backgroundColor: 'rgba(75,192,192,0.2)',
-                        borderColor: 'rgba(75,192,192,1)',
-                        data: [1, 4, 4, 3, 3, 2, 1],
-                        fill: true
-                    }
-                ]
+        labels: [
+          "เดือนที่ 1",
+          "เดือนที่ 2",
+          "เดือนที่ 3",
+          "เดือนที่ 4",
+          "เดือนที่ 5",
+          "เดือนที่ 6",
+          "เดือนที่ 7",
+        ],
+        datasets: [
+          {
+            label: "ระดับความรุนแรง",
+            backgroundColor: "rgba(75,192,192,0.2)",
+            borderColor: "rgba(75,192,192,1)",
+            data: [1, 4, 4, 3, 3, 2, 1],
+            fill: true,
+          },
+        ],
       },
       datacharteffect: {
-        labels: ['สัปดาห์ที่ 1', 'สัปดาห์ที่ 2', 'สัปดาห์ที่ 3', 'สัปดาห์ที่ 4', 'สัปดาห์ที่ 5', 'สัปดาห์ที่ 6', 'สัปดาห์ที่ 7', 'สัปดาห์ที่ 8', 'สัปดาห์ที่ 9', 'สัปดาห์ที่ 10'],
-                datasets: [
-                    {
-                        label: 'ผลข้างเคียง1',
-                        backgroundColor: 'rgba(255,255,255,0.1)',
-                        borderColor: 'rgba(75,192,192,1)',
-                        data: [1,0,0,0,1,1,1,0,0,0],
-                        fill: true
-                    },
-                ]
+        labels: [
+          "สัปดาห์ที่ 1",
+          "สัปดาห์ที่ 2",
+          "สัปดาห์ที่ 3",
+          "สัปดาห์ที่ 4",
+          "สัปดาห์ที่ 5",
+          "สัปดาห์ที่ 6",
+          "สัปดาห์ที่ 7",
+          "สัปดาห์ที่ 8",
+          "สัปดาห์ที่ 9",
+          "สัปดาห์ที่ 10",
+        ],
+        datasets: [
+          {
+            label: "ผลข้างเคียง1",
+            backgroundColor: "rgba(255,255,255,0.1)",
+            borderColor: "rgba(75,192,192,1)",
+            data: [1, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+            fill: true,
+          },
+        ],
       },
       optionchartweight: {
         responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                    },
-                    title: {
-                        display: true,
-                        text: 'กราฟเส้นแสดงแนวโน้มน้ำหนักของผู้ป่วย'
-                    }
-                }
+        plugins: {
+          legend: {
+            position: "bottom",
+          },
+          title: {
+            display: true,
+            text: "กราฟเส้นแสดงแนวโน้มน้ำหนักของผู้ป่วย",
+          },
+        },
       },
       optioncharteffect: {
         responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                    },
-                    title: {
-                        display: true,
-                        text: 'กราฟเส้นแสดงระดับความรุนแรงของผลข้างเคียง'
-                    }
-                }
+        plugins: {
+          legend: {
+            position: "bottom",
+          },
+          title: {
+            display: true,
+            text: "กราฟเส้นแสดงระดับความรุนแรงของผลข้างเคียง",
+          },
+        },
       },
     };
   },
   async mounted() {
     let userId = this.$route.params.userId;
     axios
-      .get(`http://localhost:8080/user/${userId}`)
+      .get(`https://cancer-api.gadoz.dev/user/${userId}`)
       .then((response) => {
         this.user = response.data[0];
       })
@@ -932,9 +1024,9 @@ export default {
     const HN = this.$route.params.HN;
     const treatmentId = this.$route.params.treatmentId;
     // const IDcard = this.$route.params.IDcard;
-    
+
     await axios
-      .get(`http://localhost:8080/patient/${HN}/${treatmentId}`)
+      .get(`https://cancer-api.gadoz.dev/patient/${HN}/${treatmentId}`)
       .then((response) => {
         for (let i = 0; i < response.data.length; i++) {
           if (response.data[i].treatmentId == treatmentId) {
@@ -945,7 +1037,7 @@ export default {
           moment().format("YYYY") - this.patient.birthDate.split("-")[0];
         this.patient["age"] = page;
         axios
-          .get(`http://localhost:8080/appointment/${HN}`)
+          .get(`https://cancer-api.gadoz.dev/appointment/${HN}`)
           .then((response) => {
             this.patient["doctorName"] = response.data;
           })
@@ -957,22 +1049,26 @@ export default {
         console.log(error);
       });
     axios
-      .get(`http://localhost:8080/myformula/${HN}/${treatmentId}`)
+      .get(`https://cancer-api.gadoz.dev/myformula/${HN}/${treatmentId}`)
       .then((response) => {
         this.patient["formulaName"] = response.data[0].formulaName;
       })
       .catch((error) => {
         console.log(error);
       });
-    axios.get(`http://localhost:8080/getDiseases/${HN}`).then((response) => {
-      if (response.data.length == 0) {
-        this.patientDisease = [];
-      } else {
-        this.patientDisease = response.data[0];
-      }
-    });
     axios
-      .get(`http://localhost:8080/AlltreatmentHistory/${HN}/${treatmentId}`)
+      .get(`https://cancer-api.gadoz.dev/getDiseases/${HN}`)
+      .then((response) => {
+        if (response.data.length == 0) {
+          this.patientDisease = [];
+        } else {
+          this.patientDisease = response.data[0];
+        }
+      });
+    axios
+      .get(
+        `https://cancer-api.gadoz.dev/AlltreatmentHistory/${HN}/${treatmentId}`
+      )
       .then((response) => {
         this.appointment = response.data;
         for (let i = 0; i < this.appointment.length; i++) {
@@ -980,7 +1076,7 @@ export default {
             this.appointment[i].appointDate
           );
           /*axios
-            .get(`http://localhost:8080/myformula/${this.appointment[i].HN}/${this.appointment[i].treatmentId}`)
+            .get(`https://cancer-api.gadoz.dev/myformula/${this.appointment[i].HN}/${this.appointment[i].treatmentId}`)
             .then((response) => {
               this.appointment[i].formulaName = response.data[0].formulaName;
             })
@@ -993,55 +1089,59 @@ export default {
         console.log(error);
       });
     axios
-      .get(`http://localhost:8080/giveMed/${HN}`)
+      .get(`https://cancer-api.gadoz.dev/giveMed/${HN}`)
       .then((response) => {
         this.giveMed = response.data;
       })
       .catch((error) => {
         console.log(error);
       });
-    
-      axios
-  .get(`http://localhost:8080/usersfeedback-summary?userName=${this.patient.IDcard}`)
-  .then((response) => {
-    const labelsArray = Object.keys(response.data);
-    const valuesArray = Object.values(response.data);
-    const colors = [
-      "rgba(65,184,131,0.8)",
-      "rgba(228,102,81,0.8)",
-      "rgba(0,216,255,0.8)",
-      "rgba(221,27,22,0.8)",
-      "rgba(255,167,38,0.8)",
-      "rgba(142,68,173,0.8)",
-      "rgba(44,62,80,0.8)",
-    ];
-
-    // กำหนดสีที่ใช้ให้กับแต่ละข้อมูลใน Pie chart
-    const backgroundColors = valuesArray.map((_, index) => colors[index % colors.length]);
-
-    this.dataPie = {
-      labels: labelsArray,
-      datasets: [
-        {
-          backgroundColor: backgroundColors,
-          data: valuesArray,
-        },
-      ],
-    };
-    console.log("this.dataPie", this.dataPie);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
 
     axios
-      .get(`http://localhost:8080/currentTreatment/${HN}/${treatmentId}`)
+      .get(
+        `https://cancer-api.gadoz.dev/usersfeedback-summary?userName=${this.patient.IDcard}`
+      )
+      .then((response) => {
+        const labelsArray = Object.keys(response.data);
+        const valuesArray = Object.values(response.data);
+        const colors = [
+          "rgba(65,184,131,0.8)",
+          "rgba(228,102,81,0.8)",
+          "rgba(0,216,255,0.8)",
+          "rgba(221,27,22,0.8)",
+          "rgba(255,167,38,0.8)",
+          "rgba(142,68,173,0.8)",
+          "rgba(44,62,80,0.8)",
+        ];
+
+        // กำหนดสีที่ใช้ให้กับแต่ละข้อมูลใน Pie chart
+        const backgroundColors = valuesArray.map(
+          (_, index) => colors[index % colors.length]
+        );
+
+        this.dataPie = {
+          labels: labelsArray,
+          datasets: [
+            {
+              backgroundColor: backgroundColors,
+              data: valuesArray,
+            },
+          ],
+        };
+        console.log("this.dataPie", this.dataPie);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios
+      .get(`https://cancer-api.gadoz.dev/currentTreatment/${HN}/${treatmentId}`)
       .then((response) => {
         this.treatment = response.data;
         for (let i = 0; i < this.treatment.length; i++) {
           axios
             .get(
-              `http://localhost:8080/treatmentDoctor/${this.treatment[i].doctorId}`
+              `https://cancer-api.gadoz.dev/treatmentDoctor/${this.treatment[i].doctorId}`
             )
             .then((response) => {
               this.treatment[i]["doctorName"] =
@@ -1056,7 +1156,7 @@ export default {
         console.log(error);
       });
     axios
-      .get(`http://localhost:8080/doctor`)
+      .get(`https://cancer-api.gadoz.dev/doctor`)
       .then((response) => {
         this.doctors = response.data;
       })
@@ -1064,7 +1164,7 @@ export default {
         console.log(error);
       });
     axios
-      .get(`http://localhost:8080/Allformula`)
+      .get(`https://cancer-api.gadoz.dev/Allformula`)
       .then((response) => {
         this.formulas = response.data;
       })
@@ -1072,7 +1172,9 @@ export default {
         console.log(error);
       });
     axios
-      .get(`http://localhost:8080/bloodresult/patient/${HN}/${treatmentId}`)
+      .get(
+        `https://cancer-api.gadoz.dev/bloodresult/patient/${HN}/${treatmentId}`
+      )
       .then((response) => {
         if (response.data == "not found") {
           this.bloodresult = [];
@@ -1084,7 +1186,9 @@ export default {
         }
         if (this.bloodresult[0].status == "อนุมัติผลเลือด") {
           axios
-            .get(`http://localhost:8080/treatment/giveMed/${treatmentId}`)
+            .get(
+              `https://cancer-api.gadoz.dev/treatment/giveMed/${treatmentId}`
+            )
             .then((response) => {
               console.log(response.data);
               for (let i = 0; i < response.data.length; i++) {
@@ -1102,49 +1206,49 @@ export default {
         console.log(error);
       });
     axios
-        .get(`http://localhost:8080/getWeight/${this.patient.IDcard}`)
-        .then((response) => {
-          const weightsArray = [];
-          response.data.rows.forEach((row) => {
-            weightsArray.push(row.numWeight);
-          });
-          this.weights = weightsArray;
-          this.weightsLength = weightsArray.length;
-          const labelsArray = [];
-          for (let i = 1; i <= this.weightsLength; i++) {
-            labelsArray.push(`ครั้งที่ ${i}`);
-          }
-          this.datachartweight = {
-            labels: labelsArray,
-            datasets: [
-              {
-                label: 'ระดับน้ำหนัก',
-                backgroundColor: 'rgba(75,192,192,0.2)',
-                borderColor: 'rgba(75,192,192,1)',
-                data: this.weights,
-                fill: true,
-              },
-            ],
-          };
-          console.log("this.datachartweight", this.datachartweight);
-        })
-        .catch((error) => {
-          console.log(error);
+      .get(`https://cancer-api.gadoz.dev/getWeight/${this.patient.IDcard}`)
+      .then((response) => {
+        const weightsArray = [];
+        response.data.rows.forEach((row) => {
+          weightsArray.push(row.numWeight);
+        });
+        this.weights = weightsArray;
+        this.weightsLength = weightsArray.length;
+        const labelsArray = [];
+        for (let i = 1; i <= this.weightsLength; i++) {
+          labelsArray.push(`ครั้งที่ ${i}`);
+        }
+        this.datachartweight = {
+          labels: labelsArray,
+          datasets: [
+            {
+              label: "ระดับน้ำหนัก",
+              backgroundColor: "rgba(75,192,192,0.2)",
+              borderColor: "rgba(75,192,192,1)",
+              data: this.weights,
+              fill: true,
+            },
+          ],
+        };
+        console.log("this.datachartweight", this.datachartweight);
+      })
+      .catch((error) => {
+        console.log(error);
       });
-
-  
-    },
+  },
   methods: {
     openIMG(blood) {
-      this.img = "http://localhost:8080/" + blood.picture;
-      axios.get(`http://localhost:8080/getBloodresult/${blood.brId}`).then((response) => {
-        this.selectedBloodresult = response.data;
-        this.status = this.selectedBloodresult.status;
-        this.suggestion = this.selectedBloodresult.suggestion;
-      });
+      this.img = "https://cancer-api.gadoz.dev/" + blood.picture;
+      axios
+        .get(`https://cancer-api.gadoz.dev/getBloodresult/${blood.brId}`)
+        .then((response) => {
+          this.selectedBloodresult = response.data;
+          this.status = this.selectedBloodresult.status;
+          this.suggestion = this.selectedBloodresult.suggestion;
+        });
       const formulaId = this.patient.formulaId;
       axios
-        .get(`http://localhost:8080/medicine/${formulaId}`)
+        .get(`https://cancer-api.gadoz.dev/medicine/${formulaId}`)
         .then((response) => {
           this.medicine = response.data;
         })
@@ -1161,7 +1265,7 @@ export default {
         this.doctor != ""
       ) {
         axios
-          .put(`http://localhost:8080/endTreatment/${treatmentId}`)
+          .put(`https://cancer-api.gadoz.dev/endTreatment/${treatmentId}`)
           .then((response) => {
             console.log(response.data);
             this.historyTreatment = response.data;
@@ -1178,7 +1282,7 @@ export default {
           doctor: this.doctor,
         };
         axios
-          .post(`http://localhost:8080/createTreatment`, data)
+          .post(`https://cancer-api.gadoz.dev/createTreatment`, data)
           .then((response) => {
             console.log(response.data);
           })
@@ -1198,7 +1302,7 @@ export default {
       let text = "คุณยืนยันที่จะจบแผนการรักษาหรือไม่";
       if (confirm(text) == true) {
         axios
-          .put(`http://localhost:8080/endTreatment/${treatmentId}`)
+          .put(`https://cancer-api.gadoz.dev/endTreatment/${treatmentId}`)
           .then((response) => {
             Swal.fire({
               title: "",
@@ -1295,45 +1399,45 @@ export default {
 }
 
 .line-chart-container {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 canvas {
-    max-width: 80%;
-    height: 700px !important;
-  }
+  max-width: 80%;
+  height: 700px !important;
+}
 
-.header-graph{
+.header-graph {
   margin-top: 80px;
 }
 
 .con-chart {
-    margin: auto;
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid #90EEB7;
-    border-radius: 15px;
-    width: 80%;
-    
-    height: 100%;
-  }
+  margin: auto;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #90eeb7;
+  border-radius: 15px;
+  width: 80%;
 
-  .con-chart h4 {
-    width: 100%;
-    background-color: #90EEB7;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #1C2939;
-    font-size: 18px;
-    font-weight: bold;
-    border-radius: 15px  15px 0px 0px;
+  height: 100%;
+}
+
+.con-chart h4 {
+  width: 100%;
+  background-color: #90eeb7;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #1c2939;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 15px 15px 0px 0px;
 }
 </style>

@@ -59,7 +59,7 @@ const Appointment = () => {
         {/* นัดหมายล่าสุด */}
         {latestAppointment && (
           <div className="pt-2">
-            <h2 className="pb-2">นัดหมายล่าสุด</h2>
+            <h1 className='text-center font-bold text-xl m-2 mt-4'>นัดหมายล่าสุด</h1>
             <Link to={`/Appointment/PostponeAppointment/${latestAppointment.appointId}`} className="box-sd gap-2">
               <div className="text-center text-black shadow-sm w-20">
                 <p className='text-sm w-20'>นัดหมายที่</p>
@@ -87,7 +87,7 @@ const Appointment = () => {
         {/* นัดหมายที่ผ่านมาแล้ว */}
         {pastAppointments.length > 0 && (
           <div className='pt-6'>
-            <h2>นัดหมายที่ผ่านมาแล้ว</h2>
+            <h1 className='text-center font-bold text-xl m-2'>นัดหมายที่ผ่านมาแล้ว</h1>
             {pastAppointments.map((appointment) => (
               <div key={appointment.appointId} className="pt-2">
                 <Link to={`/Appointment/PostponeAppointment/${appointment.appointId}`} className="box-sd gap-2">

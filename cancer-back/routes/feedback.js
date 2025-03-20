@@ -73,6 +73,25 @@ router.get("/selectedFeedback/:appointId", async function (req, res, next) {
   }
 });
 
+// Ing ADD query appointID
+router.get('/maxappointid/:hn', async(req, res) => {
+  const hn = req.params.hn;
+  try {
+    const [row] = await pool.query(
+      "SELECT MAX(appointId) AS appointId FROM appointment WHERE HN = ?",
+      [hn]
+    );
+  res.json(row[0].appointId);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
+
+
+
+
 // เรียกดู allSideEffects
 router.get('/allsideeffects/:side_effect_id', async(req, res) => {
   const side_effect_id = req.params.side_effect_id;

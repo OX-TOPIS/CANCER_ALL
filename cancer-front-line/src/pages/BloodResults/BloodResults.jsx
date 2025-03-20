@@ -75,7 +75,7 @@ const BloodResults = () => {
 
   return (
     <div className='p-4'>
-      {/* <h1>เลือกแผนการรักษา</h1> */}
+      <h1 className='text-center font-bold text-xl m-4'>แผนการรักษา</h1>
 
       <Link to={"/BloodResults/FillResults"}>
         <div className="flex items-center justify-center md:justify-center md:items-center">

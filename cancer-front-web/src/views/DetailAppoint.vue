@@ -5,10 +5,15 @@
         <div class="row">
           <div class="col-12">
             <ul class="nav nav-underline">
-              <li v-if="user.type == 'nurse'"
+              <li
+                v-if="user.type == 'nurse'"
                 class="nav-item"
                 @click="goToRegis()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
                 <a class="nav-link" href="#" style="color: #ffffff"
                   >ลงทะเบียนผู้ป่วย</a
@@ -17,14 +22,24 @@
               <li
                 class="nav-item"
                 @click="goTonewHome()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">การอนุมัติผลเลือด</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >การอนุมัติผลเลือด</a
+                >
               </li>
               <li
                 class="nav-item"
                 @click="goTonewAppoint()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
                 <a
                   class="nav-link active"
@@ -37,93 +52,105 @@
               <li
                 class="nav-item"
                 @click="goToPatient()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">ประวัติการรักษา</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >ประวัติการรักษา</a
+                >
               </li>
 
               <li
                 class="nav-item"
                 @click="goToMedFor()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">สูตรยาเคมีบำบัด</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >สูตรยาเคมีบำบัด</a
+                >
               </li>
               <li
                 class="nav-item"
                 @click="goToguideBook()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">คู่มือผู้ป่วย</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >คู่มือผู้ป่วย</a
+                >
               </li>
               <li
                 class="nav-item"
                 @click="goToExportimport()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">นำเข้าส่งออกข้อมูล</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >นำเข้าส่งออกข้อมูล</a
+                >
               </li>
               <li
                 class="nav-item"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="http://localhost:8081/dashboardview" target="_blank" style="color: #ffffff">ข้อมูลสถิติผู้ป่วย</a>
+                <a
+                  class="nav-link"
+                  href="http://localhost:8081/dashboardview"
+                  target="_blank"
+                  style="color: #ffffff"
+                  >ข้อมูลสถิติผู้ป่วย</a
+                >
               </li>
 
-
               <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <button
-                @click="logOut()"
-                class="btn btn-light me-md-2"
-                type="button"
-                style="margin-top: 15px; margin-bottom: 10px"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-box-arrow-in-right"
-                  viewBox="0 0 16 16"
+                <button
+                  @click="logOut()"
+                  class="btn btn-light me-md-2"
+                  type="button"
+                  style="margin-top: 15px; margin-bottom: 10px"
                 >
-                  <path
-                    fill-rule="evenodd"
-                    d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"
-                  />
-                  <path
-                    fill-rule="evenodd"
-                    d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
-                  />
-                </svg>
-                ออกจากระบบ
-              </button>
-            </div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-box-arrow-in-right"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
+                    />
+                  </svg>
+                  ออกจากระบบ
+                </button>
+              </div>
             </ul>
           </div>
-          
         </div>
       </div>
     </nav>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <div class="col-md-10 offset-md-1">
       <div class="bd-example-snippet bd-code-snippet" style="border: none">
@@ -152,21 +179,36 @@
             </button>
             <div class="container" style="margin-bottom: 20px">
               <div class="row g-0">
-                <div class="col-4"><b>HN</b> <div>{{ patient.HN }}</div></div>
                 <div class="col-4">
-                  <b>เลขบัตรประจำตัวประชาชน</b> <div>{{ patient.IDcard }}</div>
+                  <b>HN</b>
+                  <div>{{ patient.HN }}</div>
                 </div>
                 <div class="col-4">
-                  <b>ชื่อ-นามสกุล </b> <div>{{patient.prefix}}{{ patient.firstName }} {{ patient.lastName }}</div>
+                  <b>เลขบัตรประจำตัวประชาชน</b>
+                  <div>{{ patient.IDcard }}</div>
+                </div>
+                <div class="col-4">
+                  <b>ชื่อ-นามสกุล </b>
+                  <div>
+                    {{ patient.prefix }}{{ patient.firstName }}
+                    {{ patient.lastName }}
+                  </div>
                 </div>
               </div>
             </div>
             <div class="container" style="margin-bottom: 20px">
               <div class="row g-0">
-                <div class="col-4"><b>เพศ </b> <div>{{ patient.gender }}</div></div>
-                <div class="col-4"><b>อายุ </b> <div>{{ patient.age }} ปี</div></div>
                 <div class="col-4">
-                  <b>หมายเลขโทรศัพท์ </b><div>{{ patient.phoneNumber }}</div>
+                  <b>เพศ </b>
+                  <div>{{ patient.gender }}</div>
+                </div>
+                <div class="col-4">
+                  <b>อายุ </b>
+                  <div>{{ patient.age }} ปี</div>
+                </div>
+                <div class="col-4">
+                  <b>หมายเลขโทรศัพท์ </b>
+                  <div>{{ patient.phoneNumber }}</div>
                 </div>
               </div>
             </div>
@@ -177,11 +219,10 @@
                   <div v-for="i in patient.cancer" :key="i.cancerId">
                     {{ i.cancerType }} ระยะที่ {{ i.cancerState }}
                   </div>
-                  
-
                 </div>
                 <div class="col-4">
-                  <b>แพทย์ผู้ดูแล </b> <div>{{ doctor.firstName }} {{ doctor.lastName }}</div>
+                  <b>แพทย์ผู้ดูแล </b>
+                  <div>{{ doctor.firstName }} {{ doctor.lastName }}</div>
                 </div>
               </div>
             </div>
@@ -229,7 +270,11 @@
                     </td>
                     <td>{{ app.appoint_no }}</td>
                     <td>
-                      <div class="row" v-for="s in shouldDisplay" :key="s.appointId">
+                      <div
+                        class="row"
+                        v-for="s in shouldDisplay"
+                        :key="s.appointId"
+                      >
                         {{ s.medName }} {{ s.unit }} มก. <br />
                       </div>
                     </td>
@@ -242,7 +287,9 @@
                           </option>
                         </select>
                       </label>
-                      <label v-if="app.medGiver != null"> {{ app.medGiver }} </label>
+                      <label v-if="app.medGiver != null">
+                        {{ app.medGiver }}
+                      </label>
                     </td>
                     <td>
                       <label v-if="app.medGiver == null"
@@ -251,7 +298,9 @@
                       <label v-if="app.medGiver != null && app.note != ''"
                         >{{ app.note }}
                       </label>
-                      <label v-if="app.medGiver != null && app.note == null"> - </label>
+                      <label v-if="app.medGiver != null && app.note == null">
+                        -
+                      </label>
                     </td>
                     <td>
                       <button
@@ -272,7 +321,8 @@
             <div class="d-grid d-md-flex justify-content-md-end">
               <button
                 v-if="
-                  patient.numberOfRound != this.appointment.length && user.type == 'nurse'
+                  patient.numberOfRound != this.appointment.length &&
+                  user.type == 'nurse'
                 "
                 type="button"
                 class="btn btn-success"
@@ -323,7 +373,9 @@
                     </div>
                     <div class="modal-body">
                       <div class="mb-3 row">
-                        <label for="exampleFormControlInput1" class="col-sm-4 form-label"
+                        <label
+                          for="exampleFormControlInput1"
+                          class="col-sm-4 form-label"
                           >เลือกวันที่นัดหมาย</label
                         >
                         <div class="col-sm-8">
@@ -342,7 +394,9 @@
                         </div>
                       </div>
                       <div class="mb-3 row">
-                        <label for="exampleFormControlInput1" class="col-sm-4 form-label"
+                        <label
+                          for="exampleFormControlInput1"
+                          class="col-sm-4 form-label"
                           >เลือกเวลาที่นัดหมาย</label
                         >
 
@@ -428,17 +482,29 @@
                     ></button>
                   </div>
                   <div class="modal-body">
-                    <div class="mb-3 row" v-for="f in feedbacks" :key="f.feedbackId">
-                      <label for="exampleFormControlInput1" class="col-sm-10 form-label"
+                    <div
+                      class="mb-3 row"
+                      v-for="f in feedbacks"
+                      :key="f.feedbackId"
+                    >
+                      <label
+                        for="exampleFormControlInput1"
+                        class="col-sm-10 form-label"
                         ><b>ครั้งที่ {{ f.appoint_no }} </b>
-                        <p v-if="f.sideEfflevel != null">พยาบาลบันทึกผลข้างเคียงแล้ว</p>
+                        <p v-if="f.sideEfflevel != null">
+                          พยาบาลบันทึกผลข้างเคียงแล้ว
+                        </p>
                         <p v-else-if="f.patientSideEffect != null">
                           ผู้ป่วยบันทึกผลข้างเคียงแล้ว
                         </p>
-                        <p v-else-if="f.sendAt == null && f.sideEfflevel == null">
+                        <p
+                          v-else-if="f.sendAt == null && f.sideEfflevel == null"
+                        >
                           ไม่มีบันทึกผลข้างเคียง
                         </p>
-                        <p v-else-if="f.sendAt != null">(ส่งเมื่อ {{ f.sendAt }})</p>
+                        <p v-else-if="f.sendAt != null">
+                          (ส่งเมื่อ {{ f.sendAt }})
+                        </p>
                       </label>
                       <div class="col">
                         <button
@@ -457,7 +523,9 @@
                             class="bi bi-eye-fill"
                             viewBox="0 0 16 16"
                           >
-                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                            <path
+                              d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"
+                            />
                             <path
                               d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"
                             />
@@ -499,17 +567,22 @@
                           <div class="row">
                             <div class="col-6">
                               <div class="mb-3 row" style="text-align: left">
-                                <p class="fs-6 fw-bold text-decoration-underline">
+                                <p
+                                  class="fs-6 fw-bold text-decoration-underline"
+                                >
                                   บันทึกผลข้างเคียง(คนไข้)
                                 </p>
                               </div>
                               <div class="mb-3 row" style="text-align: left">
                                 <p class="fs-6 fw-bold">
-                                  วันที่รับยา {{ selectedFeedback.thaiAppointDate }}
+                                  วันที่รับยา
+                                  {{ selectedFeedback.thaiAppointDate }}
                                 </p>
                               </div>
                               <div class="mb-3 row" style="text-align: left">
-                                <label for="inputMedFor" class="col-sm-3 col-form-label"
+                                <label
+                                  for="inputMedFor"
+                                  class="col-sm-3 col-form-label"
                                   ><b>สูตรยา</b></label
                                 >
                                 <div class="col-sm-8">
@@ -521,7 +594,9 @@
                                 </div>
                               </div>
                               <div class="mb-3 row" style="text-align: left">
-                                <label for="inputMedFor" class="col-sm-3 col-form-label"
+                                <label
+                                  for="inputMedFor"
+                                  class="col-sm-3 col-form-label"
                                   ><b>ประกอบด้วย</b></label
                                 >
                                 <div class="col-sm-9">
@@ -530,21 +605,30 @@
                                     v-for="s in shouldDisplay"
                                     :key="s.medId"
                                   >
-                                    <div class="col-sm-7" style="text-align: left">
+                                    <div
+                                      class="col-sm-7"
+                                      style="text-align: left"
+                                    >
                                       <label
                                         for="inputMedFor"
                                         class="col-sm-12 col-form-label"
                                         >{{ s.medName }}</label
                                       >
                                     </div>
-                                    <div class="col-sm-2" style="text-align: left">
+                                    <div
+                                      class="col-sm-2"
+                                      style="text-align: left"
+                                    >
                                       <label
                                         for="inputMedFor"
                                         class="col-sm-12 col-form-label"
                                         >{{ s.unit }}
                                       </label>
                                     </div>
-                                    <div class="col-sm-2" style="text-align: left">
+                                    <div
+                                      class="col-sm-2"
+                                      style="text-align: left"
+                                    >
                                       <label
                                         for="inputMedFor"
                                         class="col-sm-12 col-form-label"
@@ -559,24 +643,35 @@
                                   <b>ผลข้างเคียง</b>
                                 </div>
                                 <div class="row">
-                                  <label v-if="selectedFeedback.patientSideEffect == null"
+                                  <label
+                                    v-if="
+                                      selectedFeedback.patientSideEffect == null
+                                    "
                                     >-</label
                                   >
                                   <label
-                                    v-if="selectedFeedback.patientSideEffect != null"
-                                    >{{ selectedFeedback.patientSideEffect }}</label
+                                    v-if="
+                                      selectedFeedback.patientSideEffect != null
+                                    "
+                                    >{{
+                                      selectedFeedback.patientSideEffect
+                                    }}</label
                                   >
                                 </div>
                               </div>
                             </div>
                             <div class="col-6">
                               <div class="mb-3 row" style="text-align: left">
-                                <p class="fs-6 fw-bold text-decoration-underline">
+                                <p
+                                  class="fs-6 fw-bold text-decoration-underline"
+                                >
                                   บันทึกผลข้างเคียง(พยาบาล)
                                 </p>
                               </div>
                               <div class="mb-3 row" style="text-align: left">
-                                <label for="inputMedFor" class="col-sm-4 col-form-label"
+                                <label
+                                  for="inputMedFor"
+                                  class="col-sm-4 col-form-label"
                                   ><b>ระดับผลข้างเคียง</b></label
                                 >
                                 <div class="col-sm-6">
@@ -592,7 +687,9 @@
                                   />
                                   <p
                                     style="margin-top: 10px"
-                                    v-else-if="selectedFeedback.sideEfflevel != null"
+                                    v-else-if="
+                                      selectedFeedback.sideEfflevel != null
+                                    "
                                   >
                                     {{ selectedFeedback.sideEfflevel }}
                                   </p>
@@ -609,7 +706,10 @@
                                   v-if="selectedFeedback.sideEfflevel != null"
                                 >
                                   <button
-                                    v-if="user.type == 'nurse' || user.type == 'doctor'"
+                                    v-if="
+                                      user.type == 'nurse' ||
+                                      user.type == 'doctor'
+                                    "
                                     type="button"
                                     class="btn btn-warning"
                                     @click="this.edit = true"
@@ -636,7 +736,8 @@
                             </div>
                             <div
                               v-if="
-                                (selectedFeedback.sideEfflevel == null || edit == true) &&
+                                (selectedFeedback.sideEfflevel == null ||
+                                  edit == true) &&
                                 user.type == 'nurse'
                               "
                               class="d-grid gap-2 d-md-flex"
@@ -709,7 +810,7 @@ export default {
     const HN = this.$route.params.HN;
     const treatmentId = this.$route.params.treatmentId;
     axios
-      .get(`http://localhost:8080/user/${this.$route.params.userId}`)
+      .get(`https://cancer-api.gadoz.dev/user/${this.$route.params.userId}`)
       .then((response) => {
         this.user = response.data[0];
       })
@@ -717,7 +818,7 @@ export default {
         console.log(error);
       });
     axios
-      .get(`http://localhost:8080/thisappointment/${HN}/${treatmentId}`)
+      .get(`https://cancer-api.gadoz.dev/thisappointment/${HN}/${treatmentId}`)
       .then((response) => {
         this.appointment = response.data;
         for (let i = 0; i < this.appointment.length; i++) {
@@ -726,7 +827,7 @@ export default {
           );
           axios
             .get(
-              `http://localhost:8080/myformula/${
+              `https://cancer-api.gadoz.dev/myformula/${
                 this.appointment[i].HN / this.appointment[i].treatmentId
               }`
             )
@@ -742,7 +843,7 @@ export default {
         console.log(error);
       });
     axios
-      .get(`http://localhost:8080/giveMed/${treatmentId}`)
+      .get(`https://cancer-api.gadoz.dev/giveMed/${treatmentId}`)
       .then((response) => {
         this.giveMed = response.data;
       })
@@ -750,17 +851,18 @@ export default {
         console.log(error);
       });
     axios
-      .get(`http://localhost:8080/patient/${HN}/${treatmentId}`)
+      .get(`https://cancer-api.gadoz.dev/patient/${HN}/${treatmentId}`)
       .then((response) => {
         this.patient = response.data[0];
-        let page = moment().format("YYYY") - this.patient.birthDate.split("-")[0];
+        let page =
+          moment().format("YYYY") - this.patient.birthDate.split("-")[0];
         this.patient["age"] = page;
       })
       .catch((error) => {
         console.log(error);
       });
     axios
-      .get(`http://localhost:8080/doctor/${HN}`)
+      .get(`https://cancer-api.gadoz.dev/doctor/${HN}`)
       .then((response) => {
         this.doctor = response.data[0];
       })
@@ -768,13 +870,15 @@ export default {
         console.log(error);
       });
     axios
-      .get(`http://localhost:8080/currentTreatment/${HN}/${treatmentId}`)
+      .get(`https://cancer-api.gadoz.dev/currentTreatment/${HN}/${treatmentId}`)
       .then((response) => {
         this.treatment = response.data;
         this.patient["numberOfRound"] = response.data[0].numberOfRound;
         for (let i = 0; i < this.treatment.length; i++) {
           axios
-            .get(`http://localhost:8080/treatmentDoctor/${this.treatment[i].doctorId}`)
+            .get(
+              `https://cancer-api.gadoz.dev/treatmentDoctor/${this.treatment[i].doctorId}`
+            )
             .then((response) => {
               this.treatment[i]["doctor"] =
                 response.data[0].firstName + " " + response.data[0].lastName;
@@ -788,7 +892,7 @@ export default {
         console.log(error);
       });
     axios
-      .get(`http://localhost:8080/chemist`)
+      .get(`https://cancer-api.gadoz.dev/chemist`)
       .then((response) => {
         this.chemist = response.data;
       })
@@ -796,7 +900,7 @@ export default {
         console.log(error);
       });
     axios
-      .get(`http://localhost:8080/treatmentFeedback/${treatmentId}`)
+      .get(`https://cancer-api.gadoz.dev/treatmentFeedback/${treatmentId}`)
       .then((response) => {
         this.feedbacks = response.data;
         for (let i = 0; i < this.feedbacks.length; i++) {
@@ -805,7 +909,7 @@ export default {
           );
           axios
             .get(
-              `http://localhost:8080/myformula/${this.feedbacks[i].HN}/${this.feedbacks[i].treatmentId}`
+              `https://cancer-api.gadoz.dev/myformula/${this.feedbacks[i].HN}/${this.feedbacks[i].treatmentId}`
             )
             .then((response) => {
               this.feedbacks[i].formulaName = response.data[0].formulaName;
@@ -832,7 +936,7 @@ export default {
           HN: this.$route.params.HN,
         };
         axios
-          .post(`http://localhost:8080/saveGiveMed`, data)
+          .post(`https://cancer-api.gadoz.dev/saveGiveMed`, data)
           .then((response) => {
             this.appointment = response.data;
             for (let i = 0; i < this.appointment.length; i++) {
@@ -858,7 +962,7 @@ export default {
         treatmentId: appoint.treatmentId,
       };
       axios
-        .post(`http://localhost:8080/appointment/giveMed`, data)
+        .post(`https://cancer-api.gadoz.dev/appointment/giveMed`, data)
         .then((response) => {
           this.selectGiveMed = response.data;
         })
@@ -873,7 +977,7 @@ export default {
         appointId: this.selectAppoint.appointId,
       };
       axios
-        .post(`http://localhost:8080/completeAppoint`, data)
+        .post(`https://cancer-api.gadoz.dev/completeAppoint`, data)
         .then((response) => {
           this.appointment = response.data;
           for (let i = 0; i < this.appointment.length; i++) {
@@ -899,7 +1003,7 @@ export default {
           treatmentId: this.$route.params.treatmentId,
         };
         axios
-          .post(`http://localhost:8080/completeFeedback`, data)
+          .post(`https://cancer-api.gadoz.dev/completeFeedback`, data)
           .then((response) => {
             this.feedbacks = response.data;
             for (let i = 0; i < this.feedbacks.length; i++) {
@@ -908,7 +1012,7 @@ export default {
               );
               axios
                 .get(
-                  `http://localhost:8080/myformula/${this.feedbacks[i].HN}/${this.feedbacks.treatmentId}`
+                  `https://cancer-api.gadoz.dev/myformula/${this.feedbacks[i].HN}/${this.feedbacks.treatmentId}`
                 )
                 .then((response) => {
                   this.feedbacks[i].formulaName = response.data[0].formulaName;
@@ -957,63 +1061,72 @@ export default {
       return result;
     },
     addAppoint() {
-  // ปิด Swal ถ้ามีการแสดงผลก่อนหน้านี้
-    Swal.close();
-    
-    // ตรวจสอบว่ามีการกำหนดข้อมูลที่จำเป็นครบถ้วนหรือไม่
-    if (!this.date || !this.time || !this.time.hours || !this.time.minutes) {
-      Swal.fire({
-        title: "",
-        text: "ข้อมูลไม่ครบถ้วน กรุณาตรวจสอบ",
-        icon: "warning",
-      });
-      return;
-    }
+      // ปิด Swal ถ้ามีการแสดงผลก่อนหน้านี้
+      Swal.close();
 
-    const data = {
-      date:
-        moment(this.date).format("YYYY-MM-DD") +
-        " " +
-        this.time.hours +
-        ":" +
-        this.time.minutes +
-        ":00",
-      HN: this.$route.params.HN,
-      treatmentId: this.$route.params.treatmentId,
-    };
-
-    // ใช้สถานะเพื่อไม่ให้มีการเรียกใช้งานซ้ำ
-    if (this.isProcessing) {
-      return; // หากกำลังทำงานอยู่จะไม่ทำอะไร
-    }
-    
-    this.isProcessing = true; // กำหนดสถานะกำลังทำงาน
-
-    // ส่งคำขอ axios
-    axios
-      .post(`http://localhost:8080/appointDate/${this.patient.UserIdLine}`, data)
-      .then((response) => {
-        this.appointment = response.data;
-        for (let i = 0; i < this.appointment.length; i++) {
-          this.appointment[i].thaiAppointDate = this.convertToThaiDate(
-            this.appointment[i].appointDate
-          );
-        }
-        
-        // แสดง Swal เมื่อเพิ่มนัดหมายสำเร็จ
+      // ตรวจสอบว่ามีการกำหนดข้อมูลที่จำเป็นครบถ้วนหรือไม่
+      if (!this.date || !this.time || !this.time.hours || !this.time.minutes) {
         Swal.fire({
           title: "",
-          text: response.data.message,
-          icon: response.data.message === 'เพิ่มนัดหมายสำเร็จ' ? 'success' : (response.data.message === 'ไม่สามารถนัดหมายกรุณาเลือกวันนัดหมายใหม่' ? 'warning' : 'info'),
+          text: "ข้อมูลไม่ครบถ้วน กรุณาตรวจสอบ",
+          icon: "warning",
         });
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        this.isProcessing = false; // รีเซ็ตสถานะหลังจากการทำงานเสร็จ
-      });
-      },
+        return;
+      }
+
+      const data = {
+        date:
+          moment(this.date).format("YYYY-MM-DD") +
+          " " +
+          this.time.hours +
+          ":" +
+          this.time.minutes +
+          ":00",
+        HN: this.$route.params.HN,
+        treatmentId: this.$route.params.treatmentId,
+      };
+
+      // ใช้สถานะเพื่อไม่ให้มีการเรียกใช้งานซ้ำ
+      if (this.isProcessing) {
+        return; // หากกำลังทำงานอยู่จะไม่ทำอะไร
+      }
+
+      this.isProcessing = true; // กำหนดสถานะกำลังทำงาน
+
+      // ส่งคำขอ axios
+      axios
+        .post(
+          `https://cancer-api.gadoz.dev/appointDate/${this.patient.UserIdLine}`,
+          data
+        )
+        .then((response) => {
+          this.appointment = response.data;
+          for (let i = 0; i < this.appointment.length; i++) {
+            this.appointment[i].thaiAppointDate = this.convertToThaiDate(
+              this.appointment[i].appointDate
+            );
+          }
+
+          // แสดง Swal เมื่อเพิ่มนัดหมายสำเร็จ
+          Swal.fire({
+            title: "",
+            text: response.data.message,
+            icon:
+              response.data.message === "เพิ่มนัดหมายสำเร็จ"
+                ? "success"
+                : response.data.message ===
+                  "ไม่สามารถนัดหมายกรุณาเลือกวันนัดหมายใหม่"
+                ? "warning"
+                : "info",
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          this.isProcessing = false; // รีเซ็ตสถานะหลังจากการทำงานเสร็จ
+        });
+    },
     logOut() {
       this.$router.replace("/");
     },

@@ -22,6 +22,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [profile, setProfile] = useState(null);
   const [userId, setUserId] = useState("");
+  const isInvalid = userName.length > 0 && userName.length !== 13;
 
   const userData = {
     userName: userName,
@@ -67,7 +68,7 @@ const Login = () => {
         Cookies.set('userName', userName, { expires: 7 });
         Cookies.set('HN', response.data.HN, { expires: 7 });
         Cookies.set('userId',userId, { expires: 7 });
-        alert("login success");
+        alert("เข้าสู่ระบบสำเร็จ");
         navigate('/menu');
       }
     } catch (error) {
@@ -107,6 +108,7 @@ const Login = () => {
                 size="large"
                 placeholder="เลขประจำตัวประชาชน 13 หลัก"
                 prefix={<UserOutlined />}
+                className={`border-2 ${isInvalid ? "border-red-500" : "border-gray-300"} rounded-lg`}
                 onChange={e => setUserName(e.target.value)}
               />
             </Form.Item>
@@ -119,6 +121,7 @@ const Login = () => {
                 size="large"
                 placeholder="รหัสผ่าน"
                 prefix={<KeyOutlined />}
+                
                 onChange={e => setPassword(e.target.value)}
               />
             </Form.Item>

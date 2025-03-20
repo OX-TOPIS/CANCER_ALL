@@ -9,7 +9,11 @@
                 v-if="user.type == 'nurse'"
                 class="nav-item"
                 @click="goToRegis()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
                 <a
                   class="nav-link active"
@@ -22,14 +26,24 @@
               <li
                 class="nav-item"
                 @click="goTonewHome()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">การอนุมัติผลเลือด</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >การอนุมัติผลเลือด</a
+                >
               </li>
               <li
                 class="nav-item"
                 @click="goTonewAppoint()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
                 <a class="nav-link" href="#" style="color: #ffffff">นัดหมาย</a>
               </li>
@@ -37,72 +51,101 @@
               <li
                 class="nav-item"
                 @click="goToPatient()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">ประวัติการรักษา</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >ประวัติการรักษา</a
+                >
               </li>
               <li
                 class="nav-item"
                 @click="goToMedFor()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">สูตรยาเคมีบำบัด</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >สูตรยาเคมีบำบัด</a
+                >
               </li>
               <li
                 class="nav-item"
                 @click="goToguideBook()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">คู่มือผู้ป่วย</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >คู่มือผู้ป่วย</a
+                >
               </li>
               <li
                 class="nav-item"
                 @click="goToExportimport()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">นำเข้าส่งออกข้อมูล</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >นำเข้าส่งออกข้อมูล</a
+                >
               </li>
               <li
                 class="nav-item"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="http://localhost:8081/dashboardview" target="_blank" style="color: #ffffff">ข้อมูลสถิติผู้ป่วย</a>
+                <a
+                  class="nav-link"
+                  href="http://localhost:8081/dashboardview"
+                  target="_blank"
+                  style="color: #ffffff"
+                  >ข้อมูลสถิติผู้ป่วย</a
+                >
               </li>
 
-
               <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <button
-                @click="logOut()"
-                class="btn btn-light me-md-2"
-                type="button"
-                style="margin-top: 15px; margin-bottom: 10px"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-box-arrow-in-right"
-                  viewBox="0 0 16 16"
+                <button
+                  @click="logOut()"
+                  class="btn btn-light me-md-2"
+                  type="button"
+                  style="margin-top: 15px; margin-bottom: 10px"
                 >
-                  <path
-                    fill-rule="evenodd"
-                    d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"
-                  />
-                  <path
-                    fill-rule="evenodd"
-                    d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
-                  />
-                </svg>
-                ออกจากระบบ
-              </button>
-            </div>
-
-
-
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-box-arrow-in-right"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
+                    />
+                  </svg>
+                  ออกจากระบบ
+                </button>
+              </div>
             </ul>
           </div>
-          
         </div>
       </div>
     </nav>
@@ -111,7 +154,7 @@
         <div class="card" style="margin: 20px">
           <div class="card-body" style="text-align: left; padding: 30px">
             <div>
-              <h5 style="width: 200px;"><b>ระบุข้อมูลส่วนบุคคล</b></h5>
+              <h5 style="width: 200px"><b>ระบุข้อมูลส่วนบุคคล</b></h5>
               <!-- <div class="d-flex justify-content-end" style="margin-left: 50px; height: 50px;">
                 
                 
@@ -129,9 +172,12 @@
                 <button class="btn btn-success text-white" type="button" style="margin-right: 10px;" @click="submitFile">นำเข้าข้อมูลผู้ป่วย</button>
                 <button class="btn btn-success text-white" type="button" @click="exportCSV">ส่งออกข้อมูลผู้ป่วย</button>
               </div> -->
-              
+
               <hr />
-              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <div
+                class="alert alert-warning alert-dismissible fade show"
+                role="alert"
+              >
                 <strong>บันทึกข้อความ: </strong> กรุณากรอกข้อมูลตามความเป็นจริง
                 เพื่อประโยชน์แก่ตัวท่านเอง
                 <button
@@ -160,7 +206,9 @@
                 <div class="col-6">
                   <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label"
-                      ><b>เลขบัตรประชาชน:<span style="color: red">*</span></b></label
+                      ><b
+                        >เลขบัตรประชาชน:<span style="color: red">*</span></b
+                      ></label
                     >
                     <input
                       @change="validationIDcard"
@@ -192,7 +240,9 @@
                         <option>เด็กชาย</option>
                         <option>เด็กหญิง</option>
                       </select>
-                      <label style="color: red">{{ errorMessage.prefix }}</label>
+                      <label style="color: red">{{
+                        errorMessage.prefix
+                      }}</label>
                     </div>
                   </div>
                 </div>
@@ -208,7 +258,9 @@
                       id="exampleFormControlInput1"
                       v-model="firstName"
                     />
-                    <label style="color: red">{{ errorMessage.firstName }}</label>
+                    <label style="color: red">{{
+                      errorMessage.firstName
+                    }}</label>
                   </div>
                 </div>
                 <div class="col-4">
@@ -223,7 +275,9 @@
                       id="exampleFormControlInput1"
                       v-model="lastName"
                     />
-                    <label style="color: red">{{ errorMessage.lastName }}</label>
+                    <label style="color: red">{{
+                      errorMessage.lastName
+                    }}</label>
                   </div>
                 </div>
               </div>
@@ -249,7 +303,9 @@
                   for="exampleFormControlInput1"
                   class="form-label"
                   style="margin-bottom: -10px"
-                  ><b>วัน เดือน ปีเกิด:<span style="color: red">*</span></b></label
+                  ><b
+                    >วัน เดือน ปีเกิด:<span style="color: red">*</span></b
+                  ></label
                 >
                 <div class="col-4">
                   <div class="mb-3">
@@ -264,9 +320,11 @@
                           {{ date }}
                         </option>
                       </select>
-                      <label v-if="errorMessage.birthDate != ''" style="color: red">{{
-                        errorMessage.birthDate
-                      }}</label>
+                      <label
+                        v-if="errorMessage.birthDate != ''"
+                        style="color: red"
+                        >{{ errorMessage.birthDate }}</label
+                      >
                     </div>
                   </div>
                 </div>
@@ -324,9 +382,11 @@
                         <option>จีน</option>
                       </datalist>
                     </div>
-                    <label v-if="errorMessage.nationality != ''" style="color: red">{{
-                      errorMessage.nationality
-                    }}</label>
+                    <label
+                      v-if="errorMessage.nationality != ''"
+                      style="color: red"
+                      >{{ errorMessage.nationality }}</label
+                    >
                   </div>
                 </div>
                 <div class="col-4">
@@ -350,15 +410,19 @@
                         <option>ไม่มีศาสนา</option>
                       </datalist>
                     </div>
-                    <label v-if="errorMessage.religious != ''" style="color: red">{{
-                      errorMessage.religious
-                    }}</label>
+                    <label
+                      v-if="errorMessage.religious != ''"
+                      style="color: red"
+                      >{{ errorMessage.religious }}</label
+                    >
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label"
-                      ><b>สถานภาพสมรส:<span style="color: red">*</span></b></label
+                      ><b
+                        >สถานภาพสมรส:<span style="color: red">*</span></b
+                      ></label
                     >
                     <div class="col-auto">
                       <select
@@ -386,7 +450,9 @@
                 <div class="col-4">
                   <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label"
-                      ><b>การศึกษาสูงสุด:<span style="color: red">*</span></b></label
+                      ><b
+                        >การศึกษาสูงสุด:<span style="color: red">*</span></b
+                      ></label
                     >
                     <div class="col-auto">
                       <select
@@ -406,16 +472,20 @@
                         <option>ปริญญาโท</option>
                         <option>ปริญญาเอก</option>
                       </select>
-                      <label v-if="errorMessage.education != ''" style="color: red">{{
-                        errorMessage.education
-                      }}</label>
+                      <label
+                        v-if="errorMessage.education != ''"
+                        style="color: red"
+                        >{{ errorMessage.education }}</label
+                      >
                     </div>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label"
-                      ><b>อาชีพปัจจุบัน:<span style="color: red">*</span></b></label
+                      ><b
+                        >อาชีพปัจจุบัน:<span style="color: red">*</span></b
+                      ></label
                     >
                     <input
                       @change="validationOccpation"
@@ -424,9 +494,11 @@
                       id="exampleFormControlInput1"
                       v-model="occupation"
                     />
-                    <label v-if="errorMessage.occupation != ''" style="color: red">{{
-                      errorMessage.occupation
-                    }}</label>
+                    <label
+                      v-if="errorMessage.occupation != ''"
+                      style="color: red"
+                      >{{ errorMessage.occupation }}</label
+                    >
                   </div>
                 </div>
                 <div class="col-4">
@@ -446,9 +518,11 @@
                         <option>B (บี)</option>
                         <option>O (โอ)</option>
                       </select>
-                      <label v-if="errorMessage.bloodGroup != ''" style="color: red">{{
-                        errorMessage.bloodGroup
-                      }}</label>
+                      <label
+                        v-if="errorMessage.bloodGroup != ''"
+                        style="color: red"
+                        >{{ errorMessage.bloodGroup }}</label
+                      >
                     </div>
                   </div>
                 </div>
@@ -458,13 +532,18 @@
                   <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label"
                       ><b
-                        >เบอร์โทรศัพท์ที่สามารถติดต่อได้:<span style="color: red"
+                        >เบอร์โทรศัพท์ที่สามารถติดต่อได้:<span
+                          style="color: red"
                           >*</span
                         ></b
                       ></label
                     >
                     <div class="col-auto">
-                      <input type="text" class="form-control" v-model="phoneNumber" />
+                      <input
+                        type="text"
+                        class="form-control"
+                        v-model="phoneNumber"
+                      />
                     </div>
                   </div>
                 </div>
@@ -576,7 +655,9 @@
             </div>
             <div class="row g-3 align-items-center">
               <label><b>ที่อยู่ปัจจุบัน</b></label>
-              <label style="color: red">{{ errorMessage.currentAddress }}</label>
+              <label style="color: red">{{
+                errorMessage.currentAddress
+              }}</label>
               <div class="col-4">
                 <div class="mb-3">
                   <label>บ้านเลขที่<span style="color: red">*</span></label>
@@ -687,7 +768,9 @@
                     id="exampleFormControlInput1"
                     v-model="fatherName"
                   />
-                  <label style="color: red">{{ errorMessage.fatherName }}</label>
+                  <label style="color: red">{{
+                    errorMessage.fatherName
+                  }}</label>
                 </div>
               </div>
               <div class="col-6">
@@ -702,7 +785,9 @@
                     id="exampleFormControlInput1"
                     v-model="motherName"
                   />
-                  <label style="color: red">{{ errorMessage.motherName }}</label>
+                  <label style="color: red">{{
+                    errorMessage.motherName
+                  }}</label>
                 </div>
               </div>
             </div>
@@ -719,14 +804,18 @@
                     id="exampleFormControlInput1"
                     v-model="spouseName"
                   />
-                  <label style="color: red">{{ errorMessage.spouseName }}</label>
+                  <label style="color: red">{{
+                    errorMessage.spouseName
+                  }}</label>
                 </div>
               </div>
               <div class="col-4">
                 <div class="mb-3">
                   <label for="exampleFormControlInput1" class="form-label"
                     ><b
-                      >ชื่อ-นามสกุล ญาติที่ติดต่อได้:<span style="color: red">*</span></b
+                      >ชื่อ-นามสกุล ญาติที่ติดต่อได้:<span style="color: red"
+                        >*</span
+                      ></b
                     ></label
                   >
                   <input
@@ -736,13 +825,17 @@
                     id="exampleFormControlInput1"
                     v-model="contactPerson"
                   />
-                  <label style="color: red">{{ errorMessage.contactPerson }}</label>
+                  <label style="color: red">{{
+                    errorMessage.contactPerson
+                  }}</label>
                 </div>
               </div>
               <div class="col-4">
                 <div class="mb-3">
                   <label for="exampleFormControlInput1" class="form-label"
-                    ><b>เกี่ยวข้องเป็น:<span style="color: red">*</span></b></label
+                    ><b
+                      >เกี่ยวข้องเป็น:<span style="color: red">*</span></b
+                    ></label
                   >
                   <input
                     @change="validationContactPerson"
@@ -757,7 +850,9 @@
             </div>
             <div class="row g-3 align-items-center">
               <label><b>ที่อยู่ที่ติดต่อได้</b></label>
-              <label style="color: red">{{ errorMessage.contactAddress }}</label>
+              <label style="color: red">{{
+                errorMessage.contactAddress
+              }}</label>
               <div class="col-4">
                 <div class="mb-3">
                   <label>บ้านเลขที่<span style="color: red">*</span></label>
@@ -975,7 +1070,10 @@
                   >
                     <div class="modal-dialog modal-lg">
                       <div class="modal-content">
-                        <div class="modal-header" style="background-color: #90eeb7">
+                        <div
+                          class="modal-header"
+                          style="background-color: #90eeb7"
+                        >
                           <h1
                             class="modal-title fs-5"
                             id="exampleModalLabel"
@@ -1020,7 +1118,9 @@
               <div class="col-2">
                 <div class="mb-3">
                   <label for="exampleFormControlInput1" class="form-label"
-                    ><b>ประวัติการสูบบุหรี่<span style="color: red">*</span></b></label
+                    ><b
+                      >ประวัติการสูบบุหรี่<span style="color: red">*</span></b
+                    ></label
                   >
                 </div>
               </div>
@@ -1051,7 +1151,9 @@
                     class="form-control"
                     v-model="smokingPeriod"
                   />
-                  <label style="color: red">{{ errorMessage.smokingPeriod }}</label>
+                  <label style="color: red">{{
+                    errorMessage.smokingPeriod
+                  }}</label>
                 </div>
               </div>
               <div class="col-1" v-if="smoking == 'สูบ' || smoking == 'เคยสูบ'">
@@ -1072,7 +1174,9 @@
                     class="form-control"
                     v-model="cigaretteNumber"
                   />
-                  <label style="color: red">{{ errorMessage.cigaretteNumber }}</label>
+                  <label style="color: red">{{
+                    errorMessage.cigaretteNumber
+                  }}</label>
                 </div>
               </div>
               <div class="col-1" v-if="smoking == 'สูบ' || smoking == 'เคยสูบ'">
@@ -1104,7 +1208,9 @@
                     <option>มีก้นกรอง</option>
                     <option>ไม่มีก้นกรอง</option>
                   </select>
-                  <label style="color: red">{{ errorMessage.cigaretteButt }}</label>
+                  <label style="color: red">{{
+                    errorMessage.cigaretteButt
+                  }}</label>
                 </div>
               </div>
             </div>
@@ -1113,7 +1219,9 @@
                 <div class="mb-3">
                   <label
                     ><b
-                      >ประวัติการดื่มแอลกอฮอล์<span style="color: red">*</span></b
+                      >ประวัติการดื่มแอลกอฮอล์<span style="color: red"
+                        >*</span
+                      ></b
                     ></label
                   >
                 </div>
@@ -1142,7 +1250,9 @@
                     class="form-control"
                     v-model="typeAlcohol"
                   />
-                  <label style="color: red">{{ errorMessage.typeAlcohol }}</label>
+                  <label style="color: red">{{
+                    errorMessage.typeAlcohol
+                  }}</label>
                 </div>
               </div>
             </div>
@@ -1163,7 +1273,9 @@
                     class="form-control"
                     v-model="alcoholPeriod"
                   />
-                  <label style="color: red">{{ errorMessage.alcoholPeriod }}</label>
+                  <label style="color: red">{{
+                    errorMessage.alcoholPeriod
+                  }}</label>
                 </div>
               </div>
               <div class="col-1">
@@ -1184,7 +1296,9 @@
                     class="form-control"
                     v-model="alcoholGlass"
                   />
-                  <label style="color: red">{{ errorMessage.alcoholGlass }}</label>
+                  <label style="color: red">{{
+                    errorMessage.alcoholGlass
+                  }}</label>
                 </div>
               </div>
               <div class="col-1">
@@ -1197,13 +1311,19 @@
               <div class="col-2">
                 <div class="mb-3">
                   <label
-                    ><b>ประวัติการกินหมาก<span style="color: red">*</span></b></label
+                    ><b
+                      >ประวัติการกินหมาก<span style="color: red">*</span></b
+                    ></label
                   >
                 </div>
               </div>
               <div class="col-2">
                 <div class="mb-3">
-                  <select @change="validationNut" class="form-select" v-model="nut">
+                  <select
+                    @change="validationNut"
+                    class="form-select"
+                    v-model="nut"
+                  >
                     <option value="" disabled>กรุณาเลือก</option>
                     <option>ไม่เคย</option>
                     <option>เคย</option>
@@ -1276,8 +1396,12 @@
               </div>
             </div>
             <!--ปุ่มลงทะเบียน-->
-            <div class="d-grid gap-2 col-6 mx-auto " style="margin-top: 30px">
-              <button class="btn btn-success text-white" type="button" @click="registerPatient()">
+            <div class="d-grid gap-2 col-6 mx-auto" style="margin-top: 30px">
+              <button
+                class="btn btn-success text-white"
+                type="button"
+                @click="registerPatient()"
+              >
                 ลงทะเบียน
               </button>
             </div>
@@ -1721,7 +1845,7 @@ export default {
   mounted() {
     let userId = this.$route.params.userId;
     axios
-      .get(`http://localhost:8080/user/${userId}`)
+      .get(`https://cancer-api.gadoz.dev/user/${userId}`)
       .then((response) => {
         this.user = response.data[0];
       })
@@ -1729,7 +1853,7 @@ export default {
         console.log(error);
       });
     axios
-      .get(`http://localhost:8080/doctor`)
+      .get(`https://cancer-api.gadoz.dev/doctor`)
       .then((response) => {
         this.doctors = response.data;
       })
@@ -1737,7 +1861,7 @@ export default {
         console.log(error);
       });
     axios
-      .get(`http://localhost:8080/Allformula`)
+      .get(`https://cancer-api.gadoz.dev/Allformula`)
       .then((response) => {
         this.formulas = response.data;
         console.log(response.data);
@@ -1762,11 +1886,15 @@ export default {
       formData.append("file", this.file);
 
       try {
-        const response = await axios.post("http://localhost:8080/import-csv", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        const response = await axios.post(
+          "https://cancer-api.gadoz.dev/import-csv",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
         alert(response.data.message);
         this.fileCount = 0;
       } catch (error) {
@@ -1775,7 +1903,7 @@ export default {
       }
     },
     exportCSV() {
-      window.location.href = "http://localhost:8080/export/csv";
+      window.location.href = "https://cancer-api.gadoz.dev/export/csv";
     },
     logOut() {
       this.$router.replace("/");
@@ -1854,7 +1982,11 @@ export default {
       let m = Number(this.infoMonth.indexOf(this.month)) + 1;
       let d = this.day;
       this.birthDate =
-        y + "-" + this.padWithLeadingZeros(m, 2) + "-" + this.padWithLeadingZeros(d, 2);
+        y +
+        "-" +
+        this.padWithLeadingZeros(m, 2) +
+        "-" +
+        this.padWithLeadingZeros(d, 2);
       const data = {
         //patient
         HN: this.HN,
@@ -1906,7 +2038,7 @@ export default {
       let check = this.validateData(data);
       if (check == "ok") {
         axios
-          .post(`http://localhost:8080/newPatient`, data)
+          .post(`https://cancer-api.gadoz.dev/newPatient`, data)
           .then((response) => {
             if (response.data == "success") {
               Swal.fire({
@@ -2115,7 +2247,7 @@ export default {
       }
 
       // เรียก API เพื่อตรวจสอบ HN กับ backend
-      fetch(`http://localhost:8080/check-hn/${this.HN}`)
+      fetch(`https://cancer-api.gadoz.dev/check-hn/${this.HN}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Server error");
@@ -2132,8 +2264,7 @@ export default {
         .catch((error) => {
           console.error("Error validating HN:", error);
           this.errorMessage.HN = "เกิดข้อผิดพลาดในการตรวจสอบ";
-        }
-      );
+        });
     },
     validationIDcard() {
       if (this.IDcard.length != 13) {
@@ -2158,7 +2289,8 @@ export default {
     },
     validationLastName() {
       if (this.lastName == "") {
-        this.errorMessage.lastName = "กรุณากรอกนามสกุลผู้ป่วย ถ้าไม่มีนามสกุล กรุณาใส่ -";
+        this.errorMessage.lastName =
+          "กรุณากรอกนามสกุลผู้ป่วย ถ้าไม่มีนามสกุล กรุณาใส่ -";
       } else if (this.lastName != "") {
         this.errorMessage.lastName = "";
       }
@@ -2229,7 +2361,10 @@ export default {
         this.errorMessage.spouseName = "";
       } else if (this.spouseName != "") {
         this.errorMessage.spouseName = "";
-      } else if (this.marriageStatus == "สมรส" || this.marriageStatus == "แยก") {
+      } else if (
+        this.marriageStatus == "สมรส" ||
+        this.marriageStatus == "แยก"
+      ) {
         this.errorMessage.spouseName = "กรุณาระบุชื่อ-นามสกุลคู่สมรส";
       }
     },
@@ -2309,7 +2444,8 @@ export default {
     },
     validationContactPerson() {
       if (this.contactPerson == "") {
-        this.errorMessage.contactPerson = "กรุณาระบุชื่อ-นามสกุลญาติที่สามารถติดต่อได้";
+        this.errorMessage.contactPerson =
+          "กรุณาระบุชื่อ-นามสกุลญาติที่สามารถติดต่อได้";
       } else if (this.contactPerson != "") {
         this.errorMessage.contactPerson = "";
       }

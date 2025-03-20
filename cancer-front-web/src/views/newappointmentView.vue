@@ -5,10 +5,15 @@
         <div class="row">
           <div class="col-12">
             <ul class="nav nav-underline">
-              <li v-if="user.type == 'nurse'"
+              <li
+                v-if="user.type == 'nurse'"
                 class="nav-item"
                 @click="goToRegis()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
                 <a class="nav-link" href="#" style="color: #ffffff"
                   >ลงทะเบียนผู้ป่วย</a
@@ -17,14 +22,24 @@
               <li
                 class="nav-item"
                 @click="goTonewHome()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">การอนุมัติผลเลือด</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >การอนุมัติผลเลือด</a
+                >
               </li>
               <li
                 class="nav-item"
                 @click="goTonewAppoint()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
                 <a
                   class="nav-link active"
@@ -37,70 +52,102 @@
               <li
                 class="nav-item"
                 @click="goToPatient()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">ประวัติการรักษา</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >ประวัติการรักษา</a
+                >
               </li>
 
               <li
                 class="nav-item"
                 @click="goToMedFor()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">สูตรยาเคมีบำบัด</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >สูตรยาเคมีบำบัด</a
+                >
               </li>
               <li
                 class="nav-item"
                 @click="goToguideBook()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">คู่มือผู้ป่วย</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >คู่มือผู้ป่วย</a
+                >
               </li>
               <li
                 class="nav-item"
                 @click="goToExportimport()"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="#" style="color: #ffffff">นำเข้าส่งออกข้อมูล</a>
+                <a class="nav-link" href="#" style="color: #ffffff"
+                  >นำเข้าส่งออกข้อมูล</a
+                >
               </li>
               <li
                 class="nav-item"
-                style="margin-top: 10px; margin-bottom: 10px; padding-right: 20px"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  padding-right: 20px;
+                "
               >
-                <a class="nav-link" href="http://localhost:8081/dashboardview" target="_blank" style="color: #ffffff">ข้อมูลสถิติผู้ป่วย</a>
+                <a
+                  class="nav-link"
+                  href="http://localhost:8081/dashboardview"
+                  target="_blank"
+                  style="color: #ffffff"
+                  >ข้อมูลสถิติผู้ป่วย</a
+                >
               </li>
 
-
               <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <button
-                @click="logOut()"
-                class="btn btn-light me-md-2"
-                type="button"
-                style="margin-top: 15px; margin-bottom: 10px"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-box-arrow-in-right"
-                  viewBox="0 0 16 16"
+                <button
+                  @click="logOut()"
+                  class="btn btn-light me-md-2"
+                  type="button"
+                  style="margin-top: 15px; margin-bottom: 10px"
                 >
-                  <path
-                    fill-rule="evenodd"
-                    d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"
-                  />
-                  <path
-                    fill-rule="evenodd"
-                    d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
-                  />
-                </svg>
-                ออกจากระบบ
-              </button>
-            </div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-box-arrow-in-right"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
+                    />
+                  </svg>
+                  ออกจากระบบ
+                </button>
+              </div>
             </ul>
           </div>
-          
         </div>
       </div>
     </nav>
@@ -109,9 +156,23 @@
         <div class="card" style="margin: 20px">
           <div class="card-body" style="text-align: left; padding: 30px">
             <div class="container">
-              <div class="row" v-if="user.type=='nurse'">
-                <a class="nav-link" href="http://localhost:8081/calendarappointment" target="_blank" 
-                  style="display: inline-block; margin-left: auto; text-align: right;  padding: 10px 20px; text-decoration: none; border-radius: 5px; width: auto; background-color: #0A6B3A; color: white;">
+              <div class="row" v-if="user.type == 'nurse'">
+                <a
+                  class="nav-link"
+                  href="http://localhost:8081/calendarappointment"
+                  target="_blank"
+                  style="
+                    display: inline-block;
+                    margin-left: auto;
+                    text-align: right;
+                    padding: 10px 20px;
+                    text-decoration: none;
+                    border-radius: 5px;
+                    width: auto;
+                    background-color: #0a6b3a;
+                    color: white;
+                  "
+                >
                   ดูตารางการนัดหมาย
                 </a>
 
@@ -131,7 +192,11 @@
                     <!--<p>ไม่มีรายการ</p>-->
                     <div
                       class="row g-0 bg-body-secondary position-relative"
-                      style="padding: 20px; border-radius: 10px; margin-bottom: 20px"
+                      style="
+                        padding: 20px;
+                        border-radius: 10px;
+                        margin-bottom: 20px;
+                      "
                       v-for="req in request"
                       :key="req.requestId"
                     >
@@ -176,7 +241,10 @@
                         >
                           <div class="modal-dialog modal-lg">
                             <div class="modal-content">
-                              <div class="modal-header" style="background-color: #90eeb7">
+                              <div
+                                class="modal-header"
+                                style="background-color: #90eeb7"
+                              >
                                 <h1
                                   class="modal-title fs-5"
                                   id="exampleModalLabel"
@@ -202,7 +270,9 @@
                                     <label
                                       for="inputFirstname"
                                       class="col-sm-6 col-form-label"
-                                      >{{ selectedRequest.thaiNewappointDate }}</label
+                                      >{{
+                                        selectedRequest.thaiNewappointDate
+                                      }}</label
                                     >
                                   </div>
                                 </div>
@@ -266,7 +336,8 @@
                                 </div>
                               </div>
                               <div class="modal-footer">
-                                <button @click="cantPostpone(selectedRequest)"
+                                <button
+                                  @click="cantPostpone(selectedRequest)"
                                   type="button"
                                   class="btn btn-danger"
                                   data-bs-dismiss="modal"
@@ -401,8 +472,12 @@
                             v-model="sortAppoint"
                             @change="sortPosts($event)"
                           >
-                            <option disabled>เรียงลำดับตามการนัดหมายล่าสุด</option>
-                            <option value="1">เรียงลำดับตามการนัดหมายล่าสุด</option>
+                            <option disabled>
+                              เรียงลำดับตามการนัดหมายล่าสุด
+                            </option>
+                            <option value="1">
+                              เรียงลำดับตามการนัดหมายล่าสุด
+                            </option>
                             <option value="2">ชื่อ-นามสกุล จาก ก ถึง ฮ</option>
                             <option value="3">ชื่อ-นามสกุล จาก ฮ ถึง ก</option>
                             <option value="4">เรียงลำดับตาม HN</option>
@@ -413,7 +488,11 @@
                   </div>
                   <div
                     class="card-body"
-                    style="text-align: left; padding: 30px; background-color: #f7f6f6"
+                    style="
+                      text-align: left;
+                      padding: 30px;
+                      background-color: #f7f6f6;
+                    "
                   >
                     <div
                       class="row g-0 position-relative"
@@ -421,11 +500,7 @@
                       v-for="(appoint, index) in posts"
                       :key="index"
                     >
-
-
-
                       <div
-                        
                         class="col-md-12 p-3 ps-md-4 bd-callout bd-callout-success"
                         style="
                           background-color: white;
@@ -434,16 +509,27 @@
                         "
                       >
                         <div class="col-md-12">
-                          <div class="row" style="display: flex; justify-content: center;  text-align: center; align-items: center;">
+                          <div
+                            class="row"
+                            style="
+                              display: flex;
+                              justify-content: center;
+                              text-align: center;
+                              align-items: center;
+                            "
+                          >
                             <p class="col-md-3">
-                              {{ appoint.thaiAppointDate }} {{ appoint.thaiTime }} 
+                              {{ appoint.thaiAppointDate }}
+                              {{ appoint.thaiTime }}
                             </p>
                             <p class="col-md-2">HN {{ appoint.HN }}</p>
                             <p class="col-md-3">
-                              {{ appoint.firstName }} {{ appoint.lastName }} 
+                              {{ appoint.firstName }} {{ appoint.lastName }}
                             </p>
-                            
-                            <p class="col-md-2">สูตรยา {{ appoint.formulaName }}</p>
+
+                            <p class="col-md-2">
+                              สูตรยา {{ appoint.formulaName }}
+                            </p>
                             <button
                               type="button"
                               class="btn"
@@ -473,11 +559,6 @@
                           </div>
                         </div>
                       </div>
-
-
-
-
-                      
                     </div>
 
                     <nav aria-label="Page navigation example">
@@ -497,7 +578,10 @@
                             class="page-link"
                             href="#"
                             style="color: #0a6b3a; display: inline-block"
-                            v-for="(pageNumber, index) in pages.slice(page - 1, page + 5)"
+                            v-for="(pageNumber, index) in pages.slice(
+                              page - 1,
+                              page + 5
+                            )"
                             :key="index"
                             @click="page = pageNumber"
                             >{{ pageNumber }}</a
@@ -513,8 +597,6 @@
                             >Next</a
                           >
                         </li>
-
-                        
                       </ul>
                     </nav>
                   </div>
@@ -525,18 +607,8 @@
         </div>
       </div>
     </div>
-
-
-
-
-
-    
-
-
   </div>
 </template>
-
-
 
 <script>
 import axios from "axios";
@@ -593,14 +665,17 @@ export default {
     };
   },
   mounted() {
-    let userId = this.$route.params.userId
-    axios.get(`http://localhost:8080/user/${userId}`).then((response) => {
-      this.user = response.data[0]
-    }).catch((error) => {
-      console.log(error)
-    })
+    let userId = this.$route.params.userId;
     axios
-      .get(`http://localhost:8080/allFeedback`)
+      .get(`https://cancer-api.gadoz.dev/user/${userId}`)
+      .then((response) => {
+        this.user = response.data[0];
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    axios
+      .get(`https://cancer-api.gadoz.dev/allFeedback`)
       .then((response) => {
         this.chemposts = response.data;
         for (let i = 0; i < this.chemposts.length; i++) {
@@ -609,7 +684,9 @@ export default {
             this.chemposts[i].appointDate
           );
           axios
-            .get(`http://localhost:8080/myformula/${this.chemposts[i].HN}/${this.chemposts[i].treatmentId}`)
+            .get(
+              `https://cancer-api.gadoz.dev/myformula/${this.chemposts[i].HN}/${this.chemposts[i].treatmentId}`
+            )
             .then((response) => {
               this.chemposts[i].formulaName = response.data[0].formulaName;
             })
@@ -622,7 +699,7 @@ export default {
         console.log(error);
       });
     axios
-      .get(`http://localhost:8080/appoint/appointment`)
+      .get(`https://cancer-api.gadoz.dev/appoint/appointment`)
       .then((response) => {
         this.appointAppointment = response.data;
       })
@@ -630,7 +707,7 @@ export default {
         console.log(error);
       });
     axios
-      .get(`http://localhost:8080/Allformula`)
+      .get(`https://cancer-api.gadoz.dev/Allformula`)
       .then((response) => {
         this.checkFormula = response.data;
       })
@@ -638,7 +715,7 @@ export default {
         console.log(error);
       });
     axios
-      .get(`http://localhost:8080/AllAppointment`)
+      .get(`https://cancer-api.gadoz.dev/AllAppointment`)
       .then((response) => {
         this.posts = response.data;
         for (let i = 0; i < this.posts.length; i++) {
@@ -657,13 +734,17 @@ export default {
             this.posts[i].thaiAppointDate = "ยังไม่ได้นัดหมาย";
           } else if (this.posts[i].medGiver == null) {
             this.posts[i].time = this.posts[i].appointDate.split(" ")[1];
-            this.posts[i].thaiTime = this.convertToThaiTime(this.posts[i].appointDate);
+            this.posts[i].thaiTime = this.convertToThaiTime(
+              this.posts[i].appointDate
+            );
             this.posts[i].thaiAppointDate = this.convertToThaiDate(
               this.posts[i].appointDate
             );
           }
           axios
-            .get(`http://localhost:8080/formulaName/${this.posts[i].formulaId}`)
+            .get(
+              `https://cancer-api.gadoz.dev/formulaName/${this.posts[i].formulaId}`
+            )
             .then((response) => {
               this.posts[i].formulaName = response.data;
             })
@@ -676,7 +757,7 @@ export default {
         console.log(error);
       });
     axios
-      .get(`http://localhost:8080/formula`)
+      .get(`https://cancer-api.gadoz.dev/formula`)
       .then((response) => {
         this.Allformula = response.data;
       })
@@ -684,7 +765,7 @@ export default {
         console.log(error);
       });
     axios
-      .get(`http://localhost:8080/formula/medicine`)
+      .get(`https://cancer-api.gadoz.dev/formula/medicine`)
       .then((response) => {
         this.medicine = response.data;
       })
@@ -692,7 +773,7 @@ export default {
         console.log(error);
       });
     axios
-      .get(`http://localhost:8080/request`)
+      .get(`https://cancer-api.gadoz.dev/request`)
       .then((response) => {
         this.request = response.data;
         for (let i = 0; i < this.request.length; i++) {
@@ -700,7 +781,7 @@ export default {
             this.request[i].appointDate
           );
           axios
-            .get(`http://localhost:8080/doctor/${response.data[i].HN}`)
+            .get(`https://cancer-api.gadoz.dev/doctor/${response.data[i].HN}`)
             .then((response) => {
               this.request[i].doctorName =
                 response.data[0].firstName + " " + response.data[0].lastName;
@@ -721,15 +802,21 @@ export default {
       // จัดเรียงข้อมูลใน this.posts ตามประเภทที่เลือก
       switch (sortType) {
         case "1": // การนัดหมายล่าสุด
-          this.posts.sort((a, b) => new Date(b.appointDate) - new Date(a.appointDate));
+          this.posts.sort(
+            (a, b) => new Date(b.appointDate) - new Date(a.appointDate)
+          );
           break;
 
         case "2": // ชื่อ-นามสกุล จาก ก ถึง ฮ
-          this.posts.sort((a, b) => a.firstName.localeCompare(b.firstName, 'th'));
+          this.posts.sort((a, b) =>
+            a.firstName.localeCompare(b.firstName, "th")
+          );
           break;
 
         case "3": // ชื่อ-นามสกุล จาก ฮ ถึง ก
-          this.posts.sort((a, b) => b.firstName.localeCompare(a.firstName, 'th'));
+          this.posts.sort((a, b) =>
+            b.firstName.localeCompare(a.firstName, "th")
+          );
           break;
 
         case "4": // เรียงตาม HN
@@ -746,7 +833,7 @@ export default {
           sortAppoint: this.sortAppoint,
         };
         axios
-          .post(`http://localhost:8080/sortAppointInfo`, data)
+          .post(`https://cancer-api.gadoz.dev/sortAppointInfo`, data)
           .then((response) => {
             this.posts = response.data;
             for (let i = 0; i < this.posts.length; i++) {
@@ -773,7 +860,9 @@ export default {
                 );
               }
               axios
-                .get(`http://localhost:8080/formulaName/${this.posts[i].formulaId}`)
+                .get(
+                  `https://cancer-api.gadoz.dev/formulaName/${this.posts[i].formulaId}`
+                )
                 .then((response) => {
                   this.posts[i].formulaName = response.data;
                 })
@@ -794,7 +883,7 @@ export default {
         appointId: this.selectAppoint.appointId,
       };
       axios
-        .post(`http://localhost:8080/completeAppoint`, data)
+        .post(`https://cancer-api.gadoz.dev/completeAppoint`, data)
         .then((response) => {
           console.log(response);
         })
@@ -803,68 +892,75 @@ export default {
         });
     },*/
     selectedAppointedPatient() {
-        const data = {
-          selectAppointPatient: this.selectAppointPatient,
-        };
-        axios
-          .post(`http://localhost:8080/selectedAppointPatient`, data)
-          .then((response) => {
-            this.posts = response.data;
-            for (let i = 0; i < this.posts.length; i++) {
-              let formula = this.checkFormula.filter((r) => {
-                return r.formulaId == this.posts[i].formulaId;
+      const data = {
+        selectAppointPatient: this.selectAppointPatient,
+      };
+      axios
+        .post(`https://cancer-api.gadoz.dev/selectedAppointPatient`, data)
+        .then((response) => {
+          this.posts = response.data;
+          for (let i = 0; i < this.posts.length; i++) {
+            let formula = this.checkFormula.filter((r) => {
+              return r.formulaId == this.posts[i].formulaId;
+            });
+            if (
+              this.posts[i].appoint_no == formula[0].numberOfRound &&
+              this.posts[i].medGiver != null
+            ) {
+              this.posts[i].thaiAppointDate = "ครบรอบการรับยาแล้ว";
+            } else if (
+              this.posts[i].appointDate == null ||
+              this.posts[i].medGiver != null
+            ) {
+              this.posts[i].thaiAppointDate = "ยังไม่ได้นัดหมาย";
+            } else if (this.posts[i].medGiver == null) {
+              this.posts[i].time = this.posts[i].appointDate.split(" ")[1];
+              this.posts[i].thaiTime = this.convertToThaiTime(
+                this.posts[i].appointDate
+              );
+              this.posts[i].thaiAppointDate = this.convertToThaiDate(
+                this.posts[i].appointDate
+              );
+            }
+            axios
+              .get(
+                `https://cancer-api.gadoz.dev/formulaName/${this.posts[i].formulaId}`
+              )
+              .then((response) => {
+                this.posts[i].formulaName = response.data;
+              })
+              .catch((error) => {
+                console.log(error);
               });
-              if (
-                this.posts[i].appoint_no == formula[0].numberOfRound &&
-                this.posts[i].medGiver != null
-              ) {
-                this.posts[i].thaiAppointDate = "ครบรอบการรับยาแล้ว";
-              } else if (
-                this.posts[i].appointDate == null ||
-                this.posts[i].medGiver != null
-              ) {
-                this.posts[i].thaiAppointDate = "ยังไม่ได้นัดหมาย";
-              } else if (this.posts[i].medGiver == null) {
-                this.posts[i].time = this.posts[i].appointDate.split(" ")[1];
-                this.posts[i].thaiTime = this.convertToThaiTime(
-                  this.posts[i].appointDate
-                );
-                this.posts[i].thaiAppointDate = this.convertToThaiDate(
-                  this.posts[i].appointDate
-                );
-              }
-              axios
-                .get(`http://localhost:8080/formulaName/${this.posts[i].formulaId}`)
-                .then((response) => {
-                  this.posts[i].formulaName = response.data;
-                })
-                .catch((error) => {
-                  console.log(error);
-                });
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
-    cantPostpone(request){
-      const requestId = request.requestId
-      axios.post(`http://localhost:8080/cantPostpone/${requestId}/${this.selectedRequest.UserIdLine}`).then((response)=>{
-        if (response.data == 'success'){
-          Swal.fire({
-            title: "สำเร็จ",
-            text: "",
-            icon: "success",
-            confirmButtonText: "ตกลง"
-          }).then((result)=>{
-            if (result.isConfirmed){
-              this.$router.go(this.$router.currentRoute);
-            }
-          })
-        }
-      }).catch((error)=>{
-        console.log(error)
-      })
+    cantPostpone(request) {
+      const requestId = request.requestId;
+      axios
+        .post(
+          `https://cancer-api.gadoz.dev/cantPostpone/${requestId}/${this.selectedRequest.UserIdLine}`
+        )
+        .then((response) => {
+          if (response.data == "success") {
+            Swal.fire({
+              title: "สำเร็จ",
+              text: "",
+              icon: "success",
+              confirmButtonText: "ตกลง",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.$router.go(this.$router.currentRoute);
+              }
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     postponeAppoint(request) {
       const requestId = request.requestId;
@@ -875,14 +971,17 @@ export default {
       };
 
       axios
-        .post(`http://localhost:8080/postponeAppoint/${requestId}/${this.selectedRequest.UserIdLine}`, data)
+        .post(
+          `https://cancer-api.gadoz.dev/postponeAppoint/${requestId}/${this.selectedRequest.UserIdLine}`,
+          data
+        )
         .then((response) => {
-          if (response.data == 'success'){
+          if (response.data == "success") {
             Swal.fire({
               title: "สำเร็จ",
               text: "เลื่อนนัดหมายสำเร็จ",
-              icon: "success"
-            })
+              icon: "success",
+            });
           }
           this.$router.go(this.$router.currentRoute);
         })
@@ -948,8 +1047,8 @@ export default {
         `/DetailAppoint/${this.$route.params.userId}/${HN}/${treatmentId}`
       );
     },
-    logOut(){
-      this.$router.replace('/');
+    logOut() {
+      this.$router.replace("/");
     },
     goTonewHome() {
       this.$router.push(`/HomePage/${this.$route.params.userId}`);
@@ -988,13 +1087,13 @@ export default {
       this.showOverlay = !this.showOverlay;
     },
     goToExportimport() {
-            this.$router.push(`/ExportImport/${this.$route.params.userId}`);
+      this.$router.push(`/ExportImport/${this.$route.params.userId}`);
     },
     selectMed(formula) {
       if (this.formula != "") {
         console.log(formula);
         axios
-          .get(`http://localhost:8080/Formulamedicine/${formula}`)
+          .get(`https://cancer-api.gadoz.dev/Formulamedicine/${formula}`)
           .then((response) => {
             this.formulasmedicine = response.data;
           })
@@ -1088,4 +1187,3 @@ export default {
   background-color: white;
 }
 </style>
-

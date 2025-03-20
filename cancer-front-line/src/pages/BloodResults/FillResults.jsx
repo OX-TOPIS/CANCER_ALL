@@ -61,7 +61,7 @@ const FillResults = () => {
   return (
     // <div className="flex items-center justify-center min-h-[calc(100vh-64px)]">
     <div className="">
-      {/* <h1>{username}</h1> */}
+      <h1 className='text-center font-bold text-xl m-4'>ส่งผลเลือด</h1>
       <div className="flex items-center justify-center m-4">
         <label for="file-upload" class="custom-file-upload">
           เลือกรูปผลเลือด
