@@ -128,7 +128,7 @@
           </div>
         </div>
         <!-- CANCER STATE -->
-        <div>
+        <!-- <div>
           <label for="" class="d-flex"> ระยะของมะเร็ง</label>
           <div class="dropdown">
             <button
@@ -163,11 +163,8 @@
                 </label>
               </li>
             </ul>
-            <!-- <div class="mt-3">
-      <strong>ช่วงอายุที่เลือก:</strong> {{ selectedCancerstates }}
-    </div> -->
           </div>
-        </div>
+        </div> -->
         <!-- FEEDBACK -->
         <div>
           <label for="" class="d-flex"> ผลข้างเคียง</label>

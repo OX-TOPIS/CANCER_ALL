@@ -80,17 +80,17 @@ const BloodResults = () => {
       <Link to={"/BloodResults/FillResults"}>
         <div className="flex items-center justify-center md:justify-center md:items-center">
           <div className="w-72 bg-blue100 drop-shadow-md shadow-gray-200 px-4 py-2 rounded-lg flex items-center justify-center sm:px-14 ">
-            <div className="flex flex-row items-center mr-4">
+            {/* <div className="flex flex-row items-center mr-4">
               <img src="ing/plan.png" alt="Plan Icon" />
-            </div>
+            </div> */}
             <div>
               {cancerTypes.map((cancer, index) => (
                 <p key={index}>{cancer.cancerType}</p>
               ))}
               <div className="flex gap-2 pt-2">
-                <div>
+                {/* <div>
                   <img src="ing/medicine.png" alt="Medicine Icon" />
-                </div>
+                </div> */}
                 <p >{formula}</p>
               </div>
             </div>

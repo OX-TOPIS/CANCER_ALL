@@ -74,12 +74,12 @@ router.get("/selectedFeedback/:appointId", async function (req, res, next) {
 });
 
 // Ing ADD query appointID
-router.get('/maxappointid/:hn', async(req, res) => {
-  const hn = req.params.hn;
+router.get('/maxappointid/:hn', async function (req, res)  {
+  let hn = req.params.hn;
   try {
-    const [row] = await pool.query(
+    const [row, _] = await pool.query(
       "SELECT MAX(appointId) AS appointId FROM appointment WHERE HN = ?",
-      [hn]
+      hn
     );
   res.json(row[0].appointId);
   } catch (error) {

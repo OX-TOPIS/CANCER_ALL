@@ -17,7 +17,7 @@ const useCheckUser = () => {
                 });
             } catch (error) {
                 console.error("User not registered:", error);
-                navigate("/Login");
+                navigate("/Register");
             }
         };
 
